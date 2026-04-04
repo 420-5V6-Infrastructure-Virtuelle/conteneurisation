@@ -30,9 +30,38 @@ weight: 2050
 | Source | Fréquence | Focus |
 |--------|-----------|-------|
 | **Hacker News** | Quotidien | Technique, discussions |
+| **Lobste.rs** | Quotidien | Technique, moins de bruit |
 | **The AI Epoch** | Hebdo | Agrégateur |
 | **Decoder** | Quotidien | News IA |
 | **Alpha Signal** | Hebdo | ML/Research |
+
+### Hacker News - Tags LLM
+
+**Pour une veille légère :** Utilisez le tag `llm` sur HN :
+- https://news.ycombinator.com/llm (nouveau format 2026)
+- Filtré automatiquement sur les sujets LLM
+- Commentaires techniques de qualité
+
+### Lobste.rs - Communauté technique
+
+- Signal/bruit meilleur que HN
+- Communauté plus restreinte, plus technique
+- Tags : `llm`, `machine-learning`, `ai`
+
+---
+
+## Pour une veille avancée : LocalLLM
+
+**r/LocalLLA** (Reddit) - La référence pour les modèles locaux :
+- Benchmarks en temps réel
+- Quantisation, fine-tuning, local inference
+- Nouveaux modèles open source (Llama, Mistral, Qwen, etc.)
+- Hardware optimisation
+
+**Quand l'utiliser :**
+- Vous voulez self-host vos modèles
+- Intérêt pour les détails techniques (GGUF, quantisation)
+- Tests de performance avant déploiement
 
 ## Comptes à suivre
 
@@ -139,6 +168,44 @@ weight: 2050
 - [MCP Registry](https://github.com/modelcontextprotocol/registry)
 - Awesome MCP lists
 - Communautés Discord/Slack
+
+---
+
+## DeepWiki : Documentation structurée
+
+**DeepWiki** transforme n'importe quel repo GitHub en documentation navigable :
+
+```
+Repo GitHub → DeepWiki → Markdown structuré
+```
+
+**Usage :**
+- Comprendre un projet open source rapidement
+- Chercher des patterns dans une codebase
+- Ancrer un agent dans la documentation d'un projet
+
+**Exemple :**
+```bash
+# DeepWiki pour Next.js
+deepwiki fetch "vercel/next.js"
+# Retourne un markdown structuré avec:
+# - Architecture
+# - API publique
+# - Patterns utilisés
+```
+
+**Dans le workflow IA :**
+```yaml
+# L'agent utilise DeepWiki pour:
+deepwiki_fetch:
+  url: "betagouv/comparia"  # ComparIA repo
+  # L'agent comprend le projet sans lire tout le code
+```
+
+**Quand l'utiliser :**
+- Découvrir un projet open source
+- Préparer un TP sur une techno inconnue (Rust, Elixir, etc.)
+- Documenter les decisions d'architecture
 
 ---
 

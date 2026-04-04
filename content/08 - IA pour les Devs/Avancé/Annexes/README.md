@@ -1,88 +1,79 @@
-# Annexes - Templates et Checklists
+# Annexes - Exemples et Checklists
 
-> Templates et checklists pour l'utilisation de l'IA dans les projets
+> **Exemples concrets et checklists pour l'utilisation de l'IA dans les projets**
 
 ---
 
-## Liste des templates
+## Liste des fichiers
 
 | Fichier | Description | Usage |
 |---------|-------------|-------|
-| `AGENTS_template.md` | Template de base pour AGENTS.md | Copier et personnaliser pour chaque projet |
+| `AGENTS_example_api.md` | Exemple AGENTS.md pour API FastAPI | S'inspirer pour créer votre AGENTS.md |
+| `MAKEFILE_example_api.md` | Exemple Makefile avec cibles IA | S'inspirer pour votre Makefile |
+| `PR_example_api.md` | Exemple de PR avec code IA | S'inspirer pour vos PRs |
+| `REVIEW_checklist_ai.md` | Checklist de review pour code IA | Utiliser pendant les reviews |
 | `CONVENTION_IA_template.md` | Convention d'équipe pour l'usage IA | Adapter à votre équipe |
-| `PR_template_ai.md` | Template de PR pour code généré par IA | Utiliser pour toutes les PRs avec IA |
-| `REVIEW_checklist_ai.md` | Checklist de review pour code IA | Pour les reviewers de PRs |
-| `MAKEFILE_template.md` | Makefile avec cibles IA | Personnaliser selon le projet |
 
 ---
 
-## Comment utiliser ces templates
+## ⚠️ Les AGENTS.md seront générés par LLM
 
-### 1. AGENTS.md
+**Le fichier AGENTS.md sera créé par votre agent IA.** 
+
+Les exemples fournis (`AGENTS_example_api.md`) servent à :
+1. Comprendre la structure attendue
+2. Montrer le niveau de détail nécessaire
+3. Donner des idées de sections à inclure
+
+**Ne copiez pas l'exemple tel quel.** L'agent générera un AGENTS.md adapté à VOTRE projet.
+
+---
+
+## Comment utiliser ces exemples
+
+### 1. AGENTS.md (généré par LLM)
 
 ```bash
-# Copier le template
-cp Annexes/AGENTS_template.md AGENTS.md
+# LANCER l'agent
+opencode
 
-# Personnaliser
-# - Modifier la description et l'objectif
-# - Compléter la stack technique
-# - Adapter les conventions
-# - Définir le workflow IA
+# DEMANDER de créer l'AGENTS.md
+> Create an AGENTS.md file for this project.
+> Include: project context, stack, conventions, forbidden actions.
+> See Annexes/AGENTS_example_api.md for the expected format.
+
+# L'agent génère un AGENTS.md adapté à votre projet
+# REVIEW et personnalisez si nécessaire
 ```
 
-### 2. Convention d'équipe
+### 2. Makefile (personnaliser)
 
 ```bash
-# Créer le fichier
-cp Annexes/CONVENTION_IA_template.md docs/CONVENTIONS_IA.md
+# Copier l'exemple comme point de départ
+cp Annexes/MAKEFILE_example_api.md Makefile
 
-# Adapter à votre équipe
-# - Définir les règles acceptables/interdites
-# - Compléter les métriques
-# - Personnaliser le workflow
+# Adapter les variables
+# - SRC_DIR := votre-répertoire-src
+# - TEST_DIR := votre-répertoire-tests
+# - COV_THRESHOLD := votre-seuil
 
-# Partager avec l'équipe
-git add docs/CONVENTIONS_IA.md
-git commit -m "docs: add AI conventions template"
+# Personnaliser les cibles selon votre stack
+# Voir "Personnalisation par stack" ci-dessous
 ```
 
-### 3. PR Template
+### 3. PR Template (s'inspirer)
 
 ```bash
-# Ajouter au projet
-cp Annexes/PR_template_ai.md .github/PULL_REQUEST_TEMPLATE.md
+# Créer le template GitHub
+mkdir -p .github
 
-# Personnaliser
-# - Ajouter les checks spécifiques à votre projet
-# - Adapter les questions selon vos besoins
-```
+# Utiliser l'exemple comme référence
+# - Sections AI Usage
+# - Prompts utilisés
+# - Modifications humaines
+# - Coût IA
 
-### 4. Checklist Review
-
-```bash
-# Garder à portée de main
-# Pendant les reviews, utiliser la checklist
-
-# Ou intégrer dans votre outil de review
-# - GitHub: PR template
-# - GitLab: Merge request template
-# - Bitbucket: Pull request template
-```
-
-### 5. Makefile
-
-```bash
-# Copier le template
-cp Annexes/MAKEFILE_template.md Makefile
-
-# Personnaliser
-# - Adapter les chemins (SRC_DIR, TEST_DIR)
-# - Modifier les commandes selon votre stack
-# - Ajouter des cibles spécifiques
-
-# Utiliser
-make help
+# Personnaliser pour votre équipe
 ```
 
 ---
@@ -91,13 +82,14 @@ make help
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│            WORKFLOW AVEC TEMPLATES                          │
+│            WORKFLOW AVEC EXEMPLES                           │
 │                                                             │
 │  1. NOUVEAU PROJET                                          │
 │     │                                                       │
-│     ├─ Copier AGENTS_template.md → AGENTS.md                │
-│     ├─ Copier MAKEFILE_template.md → Makefile                │
-│     └─ Personnaliser selon le projet                         │
+│     ├─ Lancer opencode                                      │
+│     ├─ Demander création AGENTS.md                          │
+│     │  (avec référence à AGENTS_example_api.md)             │
+│     └─ L'agent génère le fichier adapté                     │
 │                                                             │
 │  2. DÉVELOPPEMENT                                           │
 │     │                                                       │
@@ -107,14 +99,15 @@ make help
 │                                                             │
 │  3. PR                                                      │
 │     │                                                       │
-│     ├─ Utiliser PR_template_ai.md                           │
+│     ├─ Créer PR avec sections AI Usage                      │
+│     │  (s'inspirer de PR_example_api.md)                    │
 │     ├─ Ajouter label ai-generated                           │
 │     └─ Reviewer utilise REVIEW_checklist_ai.md              │
 │                                                             │
 │  4. ÉQUIPE                                                   │
 │     │                                                       │
-│     └─ Partager CONVENTION_IA_template.md                   │
-│        et adapter à l'équipe                                 │
+│     └─ Adapter CONVENTION_IA_template.md                    │
+│        et partager avec l'équipe                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 

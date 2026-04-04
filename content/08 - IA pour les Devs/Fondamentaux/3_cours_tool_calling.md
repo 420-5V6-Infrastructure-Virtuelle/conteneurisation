@@ -106,6 +106,118 @@ Agent: "Pour ajouter l'auth, je dois d'abord comprendre
 
 ---
 
+# Pourquoi les agents IA codent si bien ?
+
+**Les agents modernes dépassent les LLM classiques grâce à 3 piliers :**
+
+## 1. Accès à l'information actuelle
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    AVANT vs APRÈS                            │
+├─────────────────────────────────────────────────────────────┤
+│ LLM classique (2023)     │ Agent avec tool calling          │
+│ "Je ne connais pas..."    │ "Laisse-moi chercher..."        │
+│ Connaissance figée        │ Documentation temps réel        │
+│ Hallucinations            │ Sources vérifiées               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Web Search MCP :**
+```yaml
+# L'agent peut chercher en temps réel
+tools:
+  - web_search: "React 19 best practices"    # Résultats 2025
+  - fetch_docs: "https://react.dev/learn"   # Doc officielle
+  - deepwiki: "vercel/next.js"                # Repo structuré
+```
+
+**Exemple concret :**
+```
+YOU: "Why is my Next.js app not hydrating correctly?"
+
+AGENT: Let me search for recent Next.js hydration issues...
+[web_search: "Next.js 15 hydration mismatch 2025"]
+AGENT: Found! In Next.js 15, async components have new restrictions...
+```
+
+## 2. Ancrage dans la documentation
+
+**DeepWiki et Context7 : deux approches pour ancrer le LLM.**
+
+| Outil | Méthode | Usage |
+|-------|---------|-------|
+| **DeepWiki** | Scrap un repo entier → Markdown structuré | "Comment utiliser l'API de ce projet ?" |
+| **Context7** | Query documentation up-to-date | "Quelle est la signature de fetch() dans Next.js 14 ?" |
+
+```yaml
+# DeepWiki example
+deepwiki_fetch:
+  url: "vercel/next.js"
+  # Retourne un markdown structuré du repo
+  # L'agent peut chercher dans ce contexte
+```
+
+**Pourquoi ça marche :**
+- Le LLM n'a pas à deviner
+- Les exemples de code sont réels
+- Les signatures sont exactes
+
+## 3. Boucles de feedback rapides
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    FEEDBACK LOOP                              │
+│                                                               │
+│   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌───────┐   │
+│   │ Générer  │───►│ Exécuter │───►│ Vérifier │───►│Corriger│  │
+│   └──────────┘    └──────────┘    └──────────┘    └───────┘   │
+│        │                │               │               │      │
+│        │                │               │               │      │
+│        ▼                ▼               ▼               ▼      │
+│   Code généré     Tests/Build      Erreurs?        Fix & retry│
+│                                                               │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Tools de vérification :**
+```yaml
+# L'agent peut:
+- run: "pytest tests/"           # Tests unitaires
+- run: "tsc --noEmit"            # Type checking
+- run: "eslint src/"             # Linting
+- browser_snapshot: page         # Vérifier UI (Playwright)
+```
+
+**Exemple :**
+```
+AGENT: I'll add the authentication middleware...
+[write_file: src/middleware/auth.ts]
+
+AGENT: Let me verify it works...
+[run: npm run build]
+ERROR: Cannot find name 'Request'
+
+AGENT: I need to import the Request type...
+[edit_file: src/middleware/auth.ts, add import]
+
+AGENT: Build passes. Now running tests...
+[run: npm test]
+SUCCESS: All tests pass
+```
+
+## Synthèse
+
+| Pilier | Sans agent | Avec agent |
+|--------|-----------|------------|
+| **Information** | Connaissance figée (date cutoff) | Web search, docs temps réel |
+| **Ancrage** | Hallucinations possibles | Sources vérifiées dans contexte |
+| **Feedback** | L'utilisateur teste manuellement | Auto-vérification (tests, build, types) |
+
+**Résultat :** Les agents peuvent produire du code qui compile et passe les tests sans intervention humaine.
+
+---
+
 # MCP populaires
 
 | MCP | Usage | Installation |

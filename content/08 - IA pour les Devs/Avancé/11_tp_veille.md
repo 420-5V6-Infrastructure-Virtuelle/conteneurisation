@@ -1,205 +1,225 @@
 ---
-title: "11 - TP Veille et Écosystème"
+title: "11 - TP Agent sur Unknown Tech"
 weight: 2051
 ---
 
-## _Structurer une veille efficace_
+## _Explorer une technologie inconnue avec un agent LLM_
 
 ---
 
 # Objectif
 
-Créer un système de veille IA personnel et/ou équipe.
+Utiliser un agent IA pour explorer une technologie que vous ne connaissez **pas** : ici **Rust** et le framework de jeux vidéo **Bevy**.
+
+**Ce n'est pas un TP sur la veille IA** - le cours (11_cours_veille.md) couvre déjà les sources (HN/Lobste.rs LLM tags, LocalLLM).  
+**C'est un TP sur le travail avec un agent** sur un domaine inconnu.
 
 ---
 
-# Partie 1 : Audit des sources
+# Le concept "Unknown Tech"
 
-##Étape 1 : Évaluer ses sources actuelles
+## Pourquoi explorer l'inconnu ?
 
-**Questions :**
+Un des grands pouvoirs des agents LLM : vous guider dans une technologie que vous ne maîtrisez pas.
 
-1. D'où vient votre info IA aujourd'hui ?
-2. Combien de temps par jour/semaine ?
-3. Quelle est la qualité (signal/bruit) ?
+**Scénario :** Vous êtes développeur Python/JS, vous n'avez jamais fait de Rust. Mais vous voulez créer un petit jeu.
+
+**L'agent peut :**
+- Expliquer la syntaxe Rust
+- Guider l'installation
+- Suggérer des patterns de code
+- Proposer des idées de démos simples
+- Débugger les erreurs du compilateur Rust
 
 ---
 
-##Étape 2 : Sélectionner les sources
+# Partie 1 : Setup Rust + Bevy
 
-**Créer un fichier `veille.md` :**
+## Étape 1 : Questionner l'agent
 
-```markdown
-# VEILLE_IA.md
+**Prompt initial :**
 
-## Sources quotidiennes (15 min max)
-- [ ] Hacker News - https://news.ycombinator.com/
-- [ ] Twitter list \"AI twitter\"
+```
+I want to build a simple game demo in Rust using the Bevy game engine.
+I have never used Rust or Bevy before.
 
-## Sources hebdomadaires (1h)
-- [ ] The AI Epoch newsletter
-- [ ] Simon Willison's blog
+1. What do I need to install?
+2. What's a simple first demo I could build in 2-3 hours?
+3. What are common gotchas for beginners?
 
-## Sources mensuelles
-- [ ] Papers With Code trending
-
-## Outils à tester ce mois
-- [ ] [Nouvel outil de la liste]
-
-## Notes
-- [DD/MM] Test de [outil] : [résultat]
+Give me 3 demo ideas ranked by difficulty.
 ```
 
+**L'agent va suggérer :**
+- Des idées de démos (Pong, snake, particle system, etc.)
+- Le setup nécessaire (rustup, cargo, bevy dependencies)
+- Les pièges classiques (borrow checker, ECS patterns)
+
 ---
 
-# Partie 2 : Automatiser
+## Étape 2 : Installation guidée
 
-## Option 1: Agréger avec RSS
+**Demander à l'agent de générer les commandes :**
+
+```
+Give me the exact commands to:
+1. Install Rust on my system (Linux/macOS)
+2. Create a new Bevy project
+3. Run a minimal window
+```
+
+**Notez chaque commande dans votre historique.**  
+**Gardez le Git workflow actif - voir section transversale.**
+
+---
+
+# Partie 2 : L'agent propose, vous codez
+
+## Sélectionner une démo
+
+**Exemple de réponse agent :**
+
+```markdown
+## Demo Ideas (ranked by difficulty)
+
+1. **Hello Window** (30 min)
+   - Just opens a window
+   - Teaches: Cargo, dependencies, Bevy App structure
+   
+2. **Moving Sprite** (2h)
+   - A sprite that moves with keyboard
+   - Teaches: Systems, Query, Components, Input handling
+   
+3. **Simple Pong** (3-4h)
+   - Two paddles, a ball, collision
+   - Teaches: ECS architecture, collision detection, game loops
+```
+
+**Choisir le niveau adapté à votre temps disponible.**
+
+---
+
+## Implémenter avec l'agent
+
+**Pattern de travail :**
+
+```markdown
+YOU: "I chose the moving sprite demo. Let's start."
+
+AGENT: Explains the structure, provides base code
+
+YOU: Copy-paste into your editor
+
+ERROR: Compiler error appears
+
+YOU: Paste error to agent
+
+AGENT: Explains the error, suggests fix
+
+YOU: Apply fix, test again
+
+[Loop until working]
+```
+
+**Important :** Vous ne copiez pas aveuglément. Vous **comprenez** chaque ligne.
+
+---
+
+# Partie 3 : Documenter le processus
+
+## Créer un fichier de suivi
+
+```markdown
+# RUST_BEVY_LEARNING.md
+
+## Date: DD/MM/YYYY
+
+## Why Rust + Bevy?
+[Ce qui vous a motivé]
+
+## Demo Chosen
+[Hello Window / Moving Sprite / Pong]
+
+## Installation Log
 
 ```bash
-# Utiliser un lecteur RSS (Feedly, Inoreader)
-# Ajouter les flux :
-- https://simonwillison.net/atom/everything/
-- https://www.anthropic.com/blog/rss.xml
-- https://openai.com/blog/rss.xml
+# Commandes exécutées
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo new my_bevy_game
+cd my_bevy_game
+# ... toutes les commandes ...
 ```
+
+## Errors Encountered
+
+### Error 1: [Titre]
+```
+[Error message exact]
+```
+**Cause:** [Explication agent]
+**Fix:** [Solution appliquée]
+
+### Error 2: ...
+```
+
+**Ce fichier devient votre mémoire de session.**  
+**Utile pour vous ET pour l'équipe.**
 
 ---
 
-## Option 2: Script de récupération
+# Partie 4 : Le check agent
+
+## Critiquer le résultat
+
+**Questions à poser à la fin :**
+
+```
+1. What are the limitations of the code we wrote?
+2. What would you improve if we had more time?
+3. What are the next learning steps for Rust/Bevy?
+4. What bad habits did I show that I should fix?
+```
+
+**L'agent peut vous surprendre :**
+- Code qui fonctionne mais pas idiomatique
+- Patterns simplistes qui passent à l'échelle
+- Dette technique invisible
+
+---
+
+# Git & Docker Workflow (Transversal)
+
+> **⚠️ Voir `00_workflow_transversal.md` pour le workflow complet.**
+
+**Rappels rapides pour ce TP :**
 
 ```bash
-#!/bin/bash
-# veille.sh
+# Git : Une branche par feature
+git checkout -b feature/bevy-demo
+git add src/main.rs && git commit -m "feat: add basic Bevy window"
 
-echo "=== Veille IA du $(date) ==="
-
-# Hacker News top stories
-curl -s "https://hacker-news.firebaseio.com/v0/topstories.json" | \
-  jq '.[0:5]' | \
-  jq -r '.[]' | \
-  while read id; do
-    curl -s "https://hacker-news.firebaseio.com/v0/item/$id.json" | \
-      jq -r '"- "+.title+" ("+.url+")"'
-  done
-
-echo ""
-echo "=== Fin veille ==="
+# Docker : Isolation optionnelle pour Rust/Bevy
+docker run -it -v $(pwd):/app rust:latest bash
+cargo new my_bevy_game
 ```
+
+**Pourquoi c'est important :** En unknown tech, Git est votre safety net. Si l'agent suggère du code qui casse tout, vous pouvez `git diff` ou `git revert`.
 
 ---
 
-# Partie 3 : Routage intelligent
+# Yolo Mode ⚠️
 
-## Créer des catégories
+> **⚠️ Voir `00_workflow_transversal.md` pour les détails complets sur Yolo Mode et Catastrophic Forgetting.**
 
+**Rappel rapide :** Le "yolo mode" (laisser l'agent faire tout seul) est risqué. En unknown tech, c'est encore plus dangereux car vous ne savez pas si le code généré est correct.
+
+**Pattern recommandé :**
 ```markdown
-# CATEGORIES
+BAD: "Just create the game for me."
 
-## À tester immédiatement
-- Nouveaux modèles
-- Nouveaux outils OpenCode
-
-## À surveiller
-- Papers majeurs
-- Nouvelles features
-
-## Pour plus tard
-- News business
-- Spéculation
-
-## Ignorer
-- Hype sans fondement
-- Marketing empty
-```
-
----
-
-## Filtres Twitter/X
-
-```
-# Créer une liste \"AI twitter\" avec :
-@karpathy
-@simonw
-@svpino
-@sama
-@gdb
-@anthropicai
-@mistral_ai
-
-# Utiliser la liste pour ne voir que ces comptes
-twitter.com/i/lists/XXXXX
-```
-
----
-
-# Partie 4 : Communautés
-
-## Discord/Slack essentiels
-
-| Communauté | Focus |
-|------------|-------|
-| OpenCode Discord | Agent discussions |
-| Anthropic Discord | Claude usage |
-| LocalLLaMa Reddit | Open source models |
-
----
-
-## Template de partage
-
-```markdown
-## Format de partage #veille-ia
-
-### Lien
-[URL]
-
-### TL;DR
-[1-2 phrases max]
-
-### Pourquoi ça compte
-[1-2 phrases max]
-
-### Action
-À tester / À discuter / Juste pour info
-```
-
----
-
-# Partie 5 : Test d'un nouvel outil
-
-## Process de test
-
-```markdown
-# TEST_OUTIL.md
-
-## Outil
-[Nom de l'outil]
-
-## Date
-[DD/MM/YYYY]
-
-## Installation
-[Résumé de l'installation]
-
-## Test 1: Tâche simple
-[Tâche] → [Résultat] → [Note /5]
-
-## Test 2: Tâche complexe
-[Tâche] → [Résultat] → [Note /5]
-
-## Test 3: Edge case
-[Tâche] → [Résultat] → [Note /5]
-
-## Coût
-[Coût estimé]
-
-## Verdict
-- À adopter ?
-- À surveiller ?
-- À rejeter ?
-
-## Pourquoi
-[Explication]
+GOOD: "Explain the code structure first."
+      [Ask clarifying questions]
+      [Request one function at a time]
 ```
 
 ---
@@ -208,21 +228,27 @@ twitter.com/i/lists/XXXXX
 
 À la fin de ce TP :
 
-- [ ] Fichier `VEILLE_IA.md` créé
-- [ ] Sources sélectionnées
-- [ ] Routine définie (15 min/jour)
-- [ ] Premier partage effectué
+- [ ] Rust et Bevy installés (ou dans Docker)
+- [ ] Une démo fonctionnelle (au choix)
+- [ ] Fichier `RUST_BEVY_LEARNING.md` documenté
+- [ ] Commits atomiques avec messages clairs
+- [ ] Compréhension du code produit (vous pouvez l'expliquer)
 
 ---
 
 # Checkpoint
 
-**Pattern retenu :** La veille est un investissement, pas une distraction.
+**Pattern retenu :** L'agent est un guide, pas un développeur remplaçant.
 
-**Question clé :** Comment évitez-vous le bruit pour vous concentrer sur le signal ?
+**Question clé :** Si l'agent a écrit du code que vous ne comprenez pas, comment allez-vous le maintenir ?
+
+**Prochain module :** Module 12 - Projet final avec intégration complète du Git workflow.
 
 ---
 
-# Prochain module
+# Ressources
 
-Module 12 : Projet final - Intégration complète.
+- [Bevy Official Docs](https://bevyengine.org/learn/)
+- [Rust Book](https://doc.rust-lang.org/book/)
+- [Bevy Examples](https://github.com/bevyengine/bevy/tree/main/examples)
+- [r/rust_gamedev](https://www.reddit.com/r/rust_gamedev/) - Pour les idées de démos

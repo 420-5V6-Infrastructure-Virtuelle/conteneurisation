@@ -133,6 +133,8 @@ clean:
 
 # Docker et docker-compose
 
+> **📌 Voir `00_workflow_transversal.md` (Avancé/) pour le workflow Docker complet avec guardrails HARD et SOFT.**
+
 ## Pourquoi Docker ?
 
 **L'agent doit travailler dans un environnement reproductible.**

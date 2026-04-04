@@ -72,29 +72,62 @@ default_model: google/gemini-2.0-flash  # ~$0.07/1M tokens
 | Modèle | Input/1M | Output/1M | Usage recommandé |
 |--------|----------|-----------|------------------|
 | **Gemini Flash** | $0.07 | $0.30 | Exploration, drafts |
-| **DeepSeek** | Gratuit | Gratuit | Math, code simple |
-| **Claude Haiku** | $0.25 | $1.25 | Tâches courantes |
+| **Gemini Pro** | Gratuit* | Gratuit* | Planification, reflection |
 | **Claude Sonnet** | $3.00 | $15.00 | Décisions critiques |
 | **GPT-4o** | $2.50 | $10.00 | Alternatif premium |
 
-**25+ modèles sous $1/M token disponibles.**
+*\*Gemini Pro: plan gratuit généreux via Google AI Studio*
+
+**Modèles ultra-frugaux sur OpenRouter :**
+
+| Modèle | Input/1M | Output/1M | Usage |
+|--------|----------|-----------|-------|
+| **Minimax 2.5** | $0.10 | $0.10 | Implémentation simple |
+| **GLM-4.7** | $0.08 | $0.08 | Code trivial |
+| **NanoFlash** | $0.03 | $0.03 | Micro-tâches |
+
+**200+ modèles disponibles sur OpenRouter.**
 
 ---
 
-# Le pattern "frugal first"
+# Le pattern "Réfléchir puis implémenter"
 
-**Recommandation :**
+**Le concept : Utiliser les modèles gratuits pour la réflexion, les modèles frugaux pour l'implémentation.**
 
 ```python
-# Workflow frugal
-1. Exploration → Gemini Flash (quasi-gratuit)
-2. Draft initial → Claude Haiku (économique)
-3. Itérations → Claude Haiku
-4. Décision finale → Claude Sonnet (premium)
-5. Review → Gemini Flash
+# Workflow économique
+1. Réflexion/Planification → Gemini Pro (GRATUIT via Google AI Studio)
+2. Décision/Architecture → Claude Sonnet (premium, mais occasionnel)
+3. Implémentation simple → OpenRouter Minimax/GLM (~$0.08/1M)
+4. Review final → Gemini Flash (quasi-gratuit)
 ```
 
-**Économie réaliste : 60-80% de réduction**
+**Pourquoi ça marche :**
+
+| Phase | Temps | Modèle | Coût |
+|-------|------|--------|------|
+| **Réflexion** | 60% du temps | Gemini Pro free | $0 |
+| **Décision critique** | 10% | Claude Sonnet | $0.30 |
+| **Implémentation** | 25% | Minimax 2.5 | $0.10 |
+| **Review** | 5% | Gemini Flash | $0.01 |
+
+**Résultat :** Même workflow, 90% d'économie.
+
+**Offres gratuites à connaître :**
+
+| Provider | Plan gratuit | Limitations |
+|----------|--------------|-------------|
+| **Google AI Studio** | Gemini Pro illimité* | Rate limits, pas d'usage commercial |
+| **Nvidia NIM** | Modèles open source | 40 req/min, rate limits |
+| **OpenRouter** | Crédits initiaux | Variables |
+
+**Pattern alternatif - Nvidia Free Tier :**
+
+Nvidia propose des modèles open source gratuits :
+- Llama, Mistral, etc. via Nvidia NIM
+- 40 requêtes/minute
+- Idéal pour les tâches batch ou exploration
+- Gratuit, mais rate limits stricts
 
 ---
 
