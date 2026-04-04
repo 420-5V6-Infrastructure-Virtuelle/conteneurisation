@@ -32,6 +32,44 @@ ls -la | grep -E "Makefile|AGENTS.md|README.md|docker"
 
 ---
 
+## Checklist de découverte des conventions
+
+**Utiliser OpenCode pour analyser le projet :**
+
+```
+>Analyse ce projet et réponds aux questions suivantes:
+>1. Quelle est la stack technique exacte ?
+>2. Quelle est la structure des dossiers ?
+>3. Quelles sont les conventions de nommage ?
+>4. Quelles sont les commandes de build/test/run ?
+```
+
+**Remplir la checklist :**
+
+| Élément | Convention identifiée | Source |
+|---------|----------------------|--------|
+| **Stack** | Ex: FastAPI + PostgreSQL + Redis | requirements.txt, docker-compose.yml |
+| **Structure** | Ex: src/api/, src/models/, tests/ | Arborescence |
+| **Commandes** | Ex: make test, make dev, make lint | Makefile ou package.json |
+| **Commits** | Ex: feat:, fix:, docs: | git log --oneline |
+| **Tests** | Ex: pytest, coverage > 80% | tests/, pytest.ini |
+| **Imports** | Ex: imports groupés, ordre alphabétique | src/*.py |
+| **Nommage** | Ex: snake_case pour fonctions | Analyse de code |
+| **Gestion erreurs** | Ex: exceptions custom, HTTPException | patterns trouvés |
+| **Base de données** | Ex: SQLAlchemy ORM, migrations Alembic | models/ |
+| **API** | Ex: REST, versionné /api/v1/ | routes/ |
+| **Config** | Ex: .env, config.py, Pydantic settings | config/ |
+
+**Questions d'analyse approfondie :**
+
+1. **Commits :** Quels préfixes sont utilisés ? Y a-t-il des scopes ?
+2. **Style de code :** Y a-t-il un formatter configuré (black, prettier) ?
+3. **Tests :** Quelle est la structure des tests ? Couverture actuelle ?
+4. **Dépendances :** Comment sont-elles gérées ? Versions fixées ou flexibles ?
+5. **Patterns récurrents :** Quels design patterns sont utilisés ?
+
+---
+
 # Étape 2 : Créer le Makefile
 
 **Identifier les commandes du projet :**

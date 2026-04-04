@@ -124,7 +124,7 @@ opencode
 **Essayer un modèle premium :**
 
 ```yaml
-#~/.config/opencode/config.yaml
+# ~/.config/opencode/config.yaml
 default_model: anthropic/claude-3.5-sonnet
 ```
 
@@ -132,6 +132,29 @@ default_model: anthropic/claude-3.5-sonnet
 - Qualité de la réponse
 - Temps de réponse
 - Coût (tokens utilisés)
+
+---
+
+# Étape 7 : Grille de comparaison qualité/prix
+
+**Comparer objectivement vos 2 modèles testés :**
+
+| Critère | Modèle A (Gemini Flash) | Modèle B (Claude Sonnet) |
+|---------|------------------------|--------------------------|
+| **Vitesse** (1-5) | | |
+| **Pertinence** (1-5) | | |
+| **Précision** (1-5) | | |
+| **Suggestions utiles** (1-5) | | |
+| **Tokens consommés** | | |
+| **Coût estimé** | | |
+| **Score qualité** (moyenne) | | |
+
+**Formule du score qualité :**
+```
+Score = (Pertinence + Précision + Suggestions) / 3
+```
+
+**Question clé :** Le modèle premium justifie-t-il son prix pour cette tâche ?
 
 ---
 

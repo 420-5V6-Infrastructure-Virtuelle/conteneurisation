@@ -33,6 +33,16 @@ opencode --verbose
 [TOOL] grep(pattern="@app\.(get|post|put|delete)", output="content")
 ```
 
+**Grille d'observation du tool calling :**
+
+| Critère | Oui/Non | Notes |
+|---------|---------|-------|
+| Lit les fichiers avant de répondre | | |
+| Utilise plusieurs outils en séquence | | |
+| Vérifie les résultats | | |
+| Explique son raisonnement | | |
+| Demande clarification si ambigu | | |
+
 **Noter :**
 - Quels outils ont été utilisés ?
 - Dans quel ordre ?
@@ -152,6 +162,43 @@ mcpServers:
 - Pas d'image base64
 - Représentation accessible du DOM
 - Tokens économisés
+
+---
+
+# Étape 7 : L'exercice de spéculation
+
+**Objectif : Identifier quand l'agent "devine" au lieu de vérifier.**
+
+**Prompt volontairement vague :**
+```
+>Optimise les performances de l'application
+```
+
+**Observer le comportement :**
+
+| Action | Attendu | Observé |
+|--------|---------|---------|
+| A lu les fichiers de configuration | | |
+| A vérifié les métriques actuelles | | |
+| A demandé des clarifications | | |
+| A proposé des solutions spécifiques | | |
+| A identifié les bottlenecks réels | | |
+
+**Questions à se poser :**
+1. L'agent a-t-il lu les fichiers avant de proposer ?
+2. A-t-il identifié le contexte (DB, backend, frontend) ?
+3. Les suggestions sont-elles génériques ou ciblées ?
+
+**Correction :**
+```markdown
+>Avant de proposer des optimisations:
+>1. Lis vite-fait -l pour voir les processus actifs
+>2. Lis le docker-compose.yml pour identifier les services
+>3. Lis les logs récents pour les erreurs/perfs
+>4. Seulement ensuite, propose 3 optimisations ciblées
+```
+
+**Pattern retenu :** Toujours forcer la lecture avant l'action.
 
 ---
 

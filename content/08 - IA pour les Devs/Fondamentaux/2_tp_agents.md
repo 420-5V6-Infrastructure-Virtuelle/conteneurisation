@@ -103,15 +103,26 @@ opencode
 
 ```markdown
 Prompt: "Ajoute un endpoint pour supprimer un utilisateur."
-
-Mesurer:
-- Tokens consommés
-- Qualité du code généré
-- Respect des conventions
-- Présence de tests
 ```
 
-**Comparer les résultats.**
+**Grille de comparaison contexte riche vs pauvre :**
+
+| Critère | Prompt naïf (sans AGENTS.md) | Prompt structuré (avec AGENTS.md) |
+|---------|------------------------------|-----------------------------------|
+| **Compréhension du contexte** | | |
+| **Identification des impacts** | | |
+| **Respect des conventions** | | |
+| **Temps de réponse** | | |
+| **Tokens consommés** | | |
+| **Itérations nécessaires** | | |
+
+**Analyse qualitative à documenter :**
+
+1. **Bugs créés :** L'agent a-t-il introduit des erreurs sans AGENTS.md ?
+2. **Complétude :** A-t-il pensé aux cas limites (soft delete, permissions, tests) ?
+3. **Contexte manquant :** Quelles informations aurait-il fallu ajouter ?
+
+**Question clé :** Combien de tokens avez-vous économisés avec un bon AGENTS.md ?
 
 ---
 

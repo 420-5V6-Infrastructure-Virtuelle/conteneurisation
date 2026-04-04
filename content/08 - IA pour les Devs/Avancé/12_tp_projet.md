@@ -673,6 +673,27 @@ gh pr create --label ai-generated
 
 ---
 
+## Critères de succès par niveau
+
+**Objectifs par niveau :**
+
+| Niveau | Critères | Points |
+|--------|----------|--------|
+| **Minimum** | Code fonctionne, tests basiques, documentation minimale | 50% |
+| **Bon** | + Coverage > 70%, AGENTS.md complet, workflow Git propre | 75% |
+| **Excellent** | + Prompt caching optimisé, costs tracking, retours équipe | 100% |
+
+## Checkpoints temporels
+
+| Temps | Checkpoint | Action si retard |
+|-------|-----------|------------------|
+| **5 min** | Structure créée, branche initialisée | Simplifier le scope |
+| **15 min** | AGENTS.md terminé, premier prompt lancé | Vérifier les guardrails |
+| **35 min** | Feature principale implémentée | Passer en mode "Yolo" avec Docker |
+| **45 min** | Tests écrits, documentation à jour | Reviewer puis merger |
+
+---
+
 # Grille d'évaluation
 
 | Critère | Points | Détails |

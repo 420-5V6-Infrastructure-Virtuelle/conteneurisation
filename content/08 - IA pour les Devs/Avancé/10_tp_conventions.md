@@ -184,6 +184,35 @@ gh pr edit <number> --add-label ai-generated
 
 ---
 
+# Partie 5 : Jeu de rôle - Bug en production
+
+## Exercice de mise en situation
+
+**Scénario :** Vendredi 16h47, un bug critique est découvert en production. Le code coupable a été généré par IA.
+
+Voir le [scénario complet](../exercises/roleplay_scripts/prod_bug_scenario.md).
+
+**Participants :**
+- **Dev A** : Auteur du code (commit sans comprendre)
+- **Dev B** : Reviewer (a approuvé sans vérifier)
+- **Lead Dev** : Médiateur
+- **Product Owner** : Pressé par le client
+- **Observateurs** : Prennent des notes
+
+**Déroulement (15 minutes) :**
+1. Découverte du bug (2 min)
+2. Recherche du coupable (3 min)
+3. Confrontation (5 min)
+4. Résolution (5 min)
+5. Débrief (hors temps)
+
+**Questions à traiter :**
+1. Qui est responsable ? (Auteur, Reviewer, IA)
+2. Que dit la charte ?
+3. Comment éviter la prochaine fois ?
+
+---
+
 # Partie 5 : Metrics
 
 ## Quoi mesurer

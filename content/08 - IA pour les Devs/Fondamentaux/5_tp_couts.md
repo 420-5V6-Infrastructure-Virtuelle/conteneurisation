@@ -67,11 +67,29 @@ Model B (Claude Haiku): ?? tokens, $0.???, qualité ?
 Model C (Claude Sonnet): ?? tokens, $0.???, qualité ?
 ```
 
-**Critères de qualité :**
+**Grille d'évaluation qualité/prix :**
+
+| Critère | Modèle A (Flash) | Modèle B (Haiku) | Modèle C (Sonnet) |
+|---------|-----------------|------------------|-------------------|
+| **Vitesse** (1-5) | | | |
+| **Pertinence** (1-5) | | | |
+| **Précision** (1-5) | | | |
+| **Suggestions utiles** (1-5) | | | |
+| **Tokens consommés** | | | |
+| **Coût estimé** | | | |
+| **Score qualité** (moyenne) | | | |
+
+**Formula du score qualité :**
+```
+Score = (Pertinence + Précision + Suggestions) / 3
+```
+
+**Critères de qualité détaillés :**
 - Code compile sans erreurs
 - Tests passent
 - Conventions respectées
 - Pas de TODOs ou placeholders
+- Edge cases couverts
 
 ---
 

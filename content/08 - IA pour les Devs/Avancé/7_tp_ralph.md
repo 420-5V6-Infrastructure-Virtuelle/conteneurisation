@@ -231,6 +231,87 @@ EOF
 
 ---
 
+# Partie 9 : Parallelisation avec Git branches
+
+## Concept
+
+Lancer **deux agents en parallèle** sur deux features indépendantes, puis merger.
+
+**Pré-requis :**
+- Deux features sans dépendances entre elles
+- Base de code commune (main branch propre)
+
+## Workflow
+
+```bash
+# Créer deux branches depuis main
+git checkout main && git pull
+git checkout -b feature/feature-A
+git checkout main
+git checkout -b feature/feature-B
+
+# Ouvrir 2 sessions tmux
+tmux new -s agentA
+# Dans agentA: opencode sur feature/feature-A
+
+tmux new -s agentB
+# Dans agentB: opencode sur feature/feature-B
+```
+
+**Chaque agent travaille sur sa branche :**
+
+```
+# Agent A (session agentA)
+> Ajoute un système de tags aux articles
+> Contrainte: ne modifie pas les modèles existants
+
+# Agent B (session agentB)
+> Ajoute un système de favoris aux articles
+> Contrainte: ne modifie pas les modèles existants
+```
+
+## Gestion des conflits
+
+**Si les branches touchent les mêmes fichiers :**
+
+1. **Partager les fichiers à l'avance :**
+```markdown
+# AGENTS.md
+## Branches parallèles
+- feature/tags: src/models/article.py, src/api/tags.py
+- feature/favorites: src/models/article.py, src/api/favorites.py
+- CONFLIT POTENTIEL: src/models/article.py → coordination requise
+```
+
+2. **Stratégie de partition :**
+```
+Feature A modifie: src/api/a.py, tests/test_a.py
+Feature B modifie: src/api/b.py, tests/test_b.py
+Fichier commun: src/models/shared.py → reporter à la fin
+```
+
+3. **Merge séquentiel si nécessaire :**
+```bash
+# Merger A d'abord
+git checkout main
+git merge feature/feature-A
+
+# Puis merger B avec résolution
+git merge feature/feature-B
+# Résoudre les conflits manuellement
+```
+
+## Critères de succès
+
+| Critère | Objectif |
+|---------|----------|
+| Les deux agents travaillent indépendamment | Oui |
+| Les branches sont mergeables | Oui |
+| Gain de temps ≥ 30% vs séquentiel | Mesurer |
+| Aucune régression sur main | `make test` |
+
+---
+
 # Checkpoint
 
 **Pattern retenu :** Ralph Loop pour tâches atomiques avec critères vérifiables.
