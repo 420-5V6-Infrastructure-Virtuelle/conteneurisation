@@ -262,7 +262,7 @@ Ces liens sont à intégrer dans votre routine de veille (voir `11_cours_veille.
 ## Outils de monitoring et d'inspection
 
 - **[claude-devtools](https://github.com/matt1398/claude-devtools)** — Les DevTools manquants pour Claude Code : inspecter les sessions, tool calls, usage de tokens, sous-agents et fenêtre de contexte en UI visuelle.
-- **[codeburn](https://github.com/AgentSeal/codeburn)** — 
+- **[codeburn](https://github.com/AgentSeal/codeburn)** — Visualise où vont vos tokens session par session (par type de tool call, fichiers lus, etc.). Utile pour identifier ce qui consomme inutilement.
 - **[rtk](https://github.com/rtk-ai/rtk)** — Proxy CLI qui réduit la consommation de tokens de 60-90% sur les commandes dev courantes.
 
 ## Lectures importantes

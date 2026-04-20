@@ -208,26 +208,6 @@ routing:
 
 ---
 
-# Étape 6 : Caching sémantique
-
-**Identifier les patterns répétitifs :**
-
-```python
-# Mêmes prompts, réponses similaires
-"Quelle est la structure de ce projet ?"
-"Explique ce fichier"
-"Ajoute des tests pour cette fonction"
-```
-
-**Mettre en cache les réponses :**
-
-```yaml
-# OpenCode supporte le caching des conversations
-# Les réponses identiques sont servies depuis le cache
-```
-
----
-
 # Étape 7 : Outils d'optimisation des tokens
 
 ## rtk — proxy de réduction de tokens

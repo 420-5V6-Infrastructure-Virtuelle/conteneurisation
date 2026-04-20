@@ -283,7 +283,7 @@ Soumettez délibérément une mauvaise idée :
   Qu'est-ce que tu en penses ?
 ```
 
-Un agent honnête refusera fermement. Un agent sycophante trouvera des raisons de dire oui.
+Un agent honnête refuse. Un agent sycophante trouve des raisons de dire oui.
 
 ## Sécurité : can-do béate vs cadre critique
 
@@ -315,16 +315,7 @@ Pour valider une décision technique, faites débattre vos conclusions par un mo
 
 ---
 
-# Partie 7 : Codeburn 
-
-```bash
-# Installation
-npm install -g @agentseal/codeburn
-
-
----
-
-# Partie 8 : Créer un Bug Report
+# Partie 7 : Créer un Bug Report
 
 ## Pour chaque échec, documenter
 

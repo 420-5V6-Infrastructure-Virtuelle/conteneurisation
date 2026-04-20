@@ -146,8 +146,6 @@ Prompt: "Ajoute un endpoint pour supprimer un utilisateur."
 2. **Complétude :** A-t-il pensé aux cas limites (soft delete, permissions, tests) ?
 3. **Contexte manquant :** Quelles informations aurait-il fallu ajouter ?
 
-**Question clé :** Combien de tokens avez-vous économisés avec un bon AGENTS.md ?
-
 ---
 
 # Étape 5 : Prompts structurés
