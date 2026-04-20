@@ -177,6 +177,77 @@ Format de sortie:
 
 ---
 
+# Étape 7 : Feature funky sur Comparia
+
+Maintenant que votre AGENTS.md existe, testez-le en conditions réelles : ajoutez une petite feature originale à Comparia.
+
+**L'idée :** modifier le prompt système des modèles comparés pour leur donner un rôle absurde.
+
+Quelques pistes :
+- Un agent spécialisé dans les **conseils médicaux catastrophiques**
+- Un **coach sportif bidon** 
+
+**Démarche :**
+
+```
+> Je veux adapter Comparia pour [votre idée].
+  Quels fichiers modifier pour changer le prompt système des modèles ?
+  Respecte les conventions définies dans AGENTS.md.
+```
+
+**Ce qu'on observe ici :**
+- L'agent lit-il AGENTS.md avant de proposer ?
+- Respecte-t-il les conventions de nommage ?
+- Modifie-t-il uniquement les fichiers pertinents ?
+
+Comparez avec ce que vous auriez obtenu sans AGENTS.md (étape 4).
+
+---
+
+# Étape 8 : Patterns de workflow
+
+## Todo list pour les tâches complexes
+
+Pour toute tâche comportant plusieurs étapes, demandez explicitement une todo list :
+
+```
+> Avant de commencer, crée une todo list des étapes pour implémenter
+  cette feature dans Comparia. On validera chaque étape ensemble.
+```
+
+L'agent coche les étapes au fur et à mesure — vous gardez une vue d'ensemble et pouvez réorienter à tout moment.
+
+## Plan → Build → Test → Plan (modestly)
+
+Le cycle recommandé pour toute feature non triviale :
+
+```
+1. PLAN  — "Propose une architecture pour [feature]. Pas de code encore."
+2. BUILD — "Implémente l'étape 1 seulement."
+3. TEST  — "Lance les tests. Qu'est-ce qui casse ?"
+4. PLAN  — "On révise le plan avec ce qu'on a appris."
+```
+
+> Ne demandez pas à l'agent de tout faire d'un coup. Le cycle court force la vérification à chaque étape.
+
+## Laissez l'agent corriger ses propres erreurs
+
+Quand l'agent génère une erreur, résistez à l'envie de corriger vous-même dans le code :
+
+```
+# ❌ Vous corrigez silencieusement dans le code
+# → L'agent ne comprend pas pourquoi ça marche
+
+# ✅ Vous montrez l'erreur à l'agent
+> "make test" échoue avec ce message : [copier l'erreur]
+  Analyse et corrige.
+# → L'agent construit une représentation mentale du projet
+```
+
+Si vous corrigez vous-même, soit vous dites à l'agent ce que vous avez fait, soit vous le laissez corriger — dans les deux cas, il doit comprendre pourquoi.
+
+---
+
 # Livrable
 
 À la fin de ce TP :
@@ -185,6 +256,7 @@ Format de sortie:
 - [ ] `README.md` pour chaque dossier important
 - [ ] Mesure de l'économie de tokens
 - [ ] Comparaison prompt vague vs structuré
+- [ ] Une feature funky ajoutée à Comparia via AGENTS.md
 
 ---
 

@@ -213,7 +213,49 @@ Voir le [scénario complet](../exercises/roleplay_scripts/prod_bug_scenario.md).
 
 ---
 
-# Partie 5 : Metrics
+# Partie 6 : Intégration GitHub
+
+## /install-github-app — @claude dans vos issues et PRs
+
+Claude Code peut être invoqué directement depuis GitHub en taguant `@claude` dans une issue ou une PR :
+
+```
+# Dans une issue GitHub :
+@claude Fix this bug and create a PR
+```
+
+```bash
+# Configurer depuis Claude Code :
+/install-github-app
+```
+
+Une fois installé, l'agent peut répondre à vos issues, créer des branches, et ouvrir des PRs sans que vous quittiez GitHub.
+
+---
+
+# Partie 7 : Perspectives critiques sur l'IA en équipe
+
+## Closed-source : enshittification sans préavis
+
+Les modèles closed-source peuvent se dégrader silencieusement entre deux versions — sans changelog, sans notification. Un modèle qui était bon à l'implémentation peut devenir médiocre sur vos cas d'usage sans que vous le sachiez.
+
+**En pratique :**
+- Gardez un benchmark reproductible sur vos cas d'usage réels
+
+## AI Fluency Index : le piège des artefacts
+
+Selon l'[AI Fluency Index d'Anthropic](https://www.anthropic.com/research/AI-fluency-index), les gens "se shootent aux artefacts" — le mode génération d'artefacts (code, documents) crée un effet wow qui réduit l'esprit critique.
+
+Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite en avant du "et rajoute ça aussi".
+
+**Pour l'équipe :**
+- Promouvoir le dialogue itératif plutôt que la génération en bloc
+- Questionner chaque artefact plutôt que de l'accepter comme output final
+- L'enthousiasme de l'agent n'est pas une validation
+
+---
+
+# Partie 8 : Metrics
 
 ## Quoi mesurer
 
@@ -221,7 +263,7 @@ Voir le [scénario complet](../exercises/roleplay_scripts/prod_bug_scenario.md).
 |----------|-----------|
 | % code IA | Pas de cible, mais transparence |
 | Review time IA vs humain | Comparable |
-| Test coverage | > 70%|
+| Test coverage | > 70% |
 | Bug rate IA vs humain | Comparable |
 
 ---

@@ -152,63 +152,39 @@ Objectif : avoir une interface fonctionnelle avec au moins un modèle accessible
 
 ---
 
-# Étape 7 : Créer un usage funky
+# Étape 7 : Mode verbose et statusline
 
-Maintenant que l'app tourne, ajoutez une feature de votre choix.
+## `claude --verbose`
 
-**Exemple d'idée :** un comparateur de modèles spécialisé dans les **conseils médicaux catastrophiques** — l'IA joue le rôle d'un médecin incompétent.
-
-D'autres pistes :
-- Générateur de commits git poétiques
-- Assistant juridique qui cite des lois inexistantes
-- Un coach sportif bidon
-
-**Démarche :**
-
-```
-> Je veux adapter Comparia pour [votre idée]. Par où commencer ?
-  Quels fichiers modifier pour changer le prompt système ?
-```
-
-Travaillez en itérations courtes avec l'IA pour modifier le comportement des modèles comparés.
-
----
-
-# Étape 8 : Grille de comparaison qualité/prix
-
-**Comparer objectivement 2 modèles sur votre usage funky :**
-
-| Critère | Modèle A (Gemini Flash) | Modèle B (Claude Sonnet) |
-|---------|------------------------|--------------------------|
-| **Vitesse** (1-5) | | |
-| **Créativité** (1-5) | | |
-| **Cohérence** (1-5) | | |
-| **Tokens consommés** | | |
-| **Coût estimé** | | |
-
-**Question clé :** Le modèle premium justifie-t-il son prix pour cette tâche ?
-
----
-
-# Étape 9 : tmux pour les agents autonomes
-
-**Astuce : laisser tourner les agents en parallèle**
+Indispensable pour comprendre ce que fait réellement l'agent :
 
 ```bash
-# Créer une session tmux pour OpenCode
-tmux new -s opencode
-
-# Lancer OpenCode
-opencode
-
-# Détacher : Ctrl+B puis D
-# Revenir : tmux attach -t opencode
+claude --verbose
 ```
 
-**Pourquoi ?**
-- Agents autonomes (Ralph Loop) peuvent tourner des heures
-- Vous gardez le contrôle du terminal principal
-- Sessions persistantes entre les déconnexions SSH
+Vous verrez les tool calls en temps réel : quels fichiers sont lus, quelles commandes sont exécutées, combien de tokens sont consommés. C'est la première chose à activer quand un comportement vous surprend.
+
+## Statusline
+
+Ajoutez la statusline dans `~/.claude/settings.json` pour suivre votre consommation de contexte en permanence :
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  }
+}
+```
+
+Exemple de ce que vous voyez :
+
+```
+Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
+```
+
+**Règle simple :** `Ctx(u)` > 70% → `/compact`. > 85% → `/clear`.
 
 ---
 
@@ -219,7 +195,7 @@ opencode
 - [ ] OpenCode configuré avec OpenRouter
 - [ ] Comparia qui tourne en local
 - [ ] Un token Hugging Face configuré
-- [ ] Une version modifiée de Comparia avec un usage original
+- [ ] `claude --verbose` testé, statusline configurée
 
 ---
 

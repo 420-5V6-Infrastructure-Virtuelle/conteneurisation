@@ -252,3 +252,28 @@ GOOD: "Explain the code structure first."
 - [Rust Book](https://doc.rust-lang.org/book/)
 - [Bevy Examples](https://github.com/bevyengine/bevy/tree/main/examples)
 - [r/rust_gamedev](https://www.reddit.com/r/rust_gamedev/) - Pour les idées de démos
+
+---
+
+# Annexe : Liens de veille à connaître
+
+Ces liens sont à intégrer dans votre routine de veille (voir `11_cours_veille.md`).
+
+## Outils de monitoring et d'inspection
+
+- **[claude-devtools](https://github.com/matt1398/claude-devtools)** — Les DevTools manquants pour Claude Code : inspecter les sessions, tool calls, usage de tokens, sous-agents et fenêtre de contexte en UI visuelle.
+- **[codeburn](https://github.com/AgentSeal/codeburn)** — 
+- **[rtk](https://github.com/rtk-ai/rtk)** — Proxy CLI qui réduit la consommation de tokens de 60-90% sur les commandes dev courantes.
+
+## Lectures importantes
+
+- **[HN #47004712](https://news.ycombinator.com/item?id=47004712)** — Discussion HN à lire : retours d'expérience terrain sur l'usage des agents IA.
+- **[Reddit ExperiencedDevs — "An AI CEO finally said something honest"](https://www.reddit.com/r/ExperiencedDevs/comments/1r6olcv/an_ai_ceo_finally_said_something_honest/)** — Analyse critique sur le discours des entreprises IA.
+- **[Agentic Coding Trends Report 2026](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf)** — Rapport Anthropic sur les tendances du coding agentique.
+- **[AI Fluency Index](https://www.anthropic.com/research/AI-fluency-index)** — Recherche Anthropic sur l'usage réel de l'IA et le biais des artefacts.
+
+## Répertoires de ressources
+
+- **[Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)** — Skills officiels Claude Code : simplify, review, security-review, etc.
+- **[Claude Code Security Review](https://github.com/anthropics/claude-code-security-review)** — Skill de review sécurité pour Claude Code.
+- **[Claude Code Ultimate Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/cheatsheet.md)** — Cheatsheet community avec bonnes pratiques et quiz.

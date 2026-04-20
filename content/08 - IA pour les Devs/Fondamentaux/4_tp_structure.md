@@ -247,12 +247,109 @@ test-docker:
 
 **Comparer avant/après :**
 
-| Métrique | Avantstructuration | Après |
-|----------|-------------------|-------|
+| Métrique | Avant structuration | Après |
+|----------|---------------------|-------|
 | Tokens consommés | ? | ? |
 | Iterations nécessaires | ? | ? |
 | Fichiers modifiés correctement | ? | ? |
 | Respect des conventions | ? | ? |
+
+---
+
+# Étape 8 : Feature complète — Plan, Build, PR review
+
+Maintenant que le projet est structuré (Makefile, Docker, AGENTS.md, READMEs), réalisez une feature non triviale sur Comparia en suivant le cycle complet.
+
+## Choisir la feature
+
+Quelque chose qui nécessite plusieurs fichiers et au moins un test. Par exemple :
+- Export CSV des comparaisons
+- Historique des sessions avec persistance
+- Mode "personnage" persistant entre les messages (reprend l'idée funky de TP2 mais côté backend)
+
+## Phase 1 — PLAN (pas de code encore)
+
+```
+> Je veux implémenter [feature] dans Comparia.
+  Analyse le projet et propose un plan :
+  - Quels fichiers créer ou modifier ?
+  - Quelle est l'architecture proposée ?
+  - Quels sont les risques ?
+  Ne commence pas à coder. Attends ma validation.
+```
+
+Lisez le plan, questionnez les choix. Validez ou demandez des ajustements.
+
+## Phase 2 — BUILD
+
+```
+> Plan validé. Implémente étape par étape.
+  Lance make test après chaque étape.
+  Commits atomiques.
+```
+
+## Phase 3 — Cleanup
+
+```
+> /simplify
+```
+
+## Phase 4 — PR review
+
+Créez la PR et demandez une review :
+
+```bash
+git checkout -b feature/[nom-de-la-feature]
+git push -u origin feature/[nom-de-la-feature]
+gh pr create --title "[feat] [description]" --body "..."
+```
+
+Puis dans Claude Code :
+
+```
+> /review
+```
+
+Ou demandez à l'agent de jouer le reviewer :
+
+```
+> Review cette PR comme un senior dev sceptique.
+  Identifie les problèmes avant que ça parte en prod.
+```
+
+**Ce qu'on valide ici :** le projet bien structuré + le cycle Plan/Build/Review fonctionne comme un workflow d'équipe réel.
+
+---
+
+# Étape 9 : Hygiène de session
+
+## /simplify avant review
+
+Claude a tendance à over-engineer. Avant de soumettre une PR ou de demander un review :
+
+```
+> /simplify
+```
+
+L'agent passe en revue le code modifié et supprime les abstractions inutiles, les fonctions intermédiaires superflues, les patterns sur-conçus.
+
+> Règle : run `/simplify` avant tout review. Claude nettoie sa propre surenchère.
+
+## Retro en fin de session → mise à jour AGENTS.md
+
+À la fin de chaque session de travail, prenez 5 minutes :
+
+```
+> Résume ce qu'on vient de faire. Qu'est-ce qui t'a manqué comme contexte ?
+  Je veux mettre à jour AGENTS.md.
+```
+
+L'agent identifie les lacunes de contexte qu'il a rencontrées. Vous les ajoutez à `AGENTS.md`. La prochaine session part d'une base plus solide.
+
+**Ce qu'on ajoute typiquement après une retro :**
+- Contraintes oubliées ("NE PAS modifier les migrations")
+- Patterns récurrents du projet ("toujours utiliser le service layer")
+- Outils disponibles qu'il ne connaissait pas
 
 ---
 
@@ -265,6 +362,7 @@ test-docker:
 - [ ] AGENTS.md complet et validé
 - [ ] README.md dans chaque dossier important
 - [ ] Mesure de l'amélioration
+- [ ] Une feature complète avec Plan + PR review
 
 ---
 

@@ -259,7 +259,72 @@ wc -w agent.log
 
 ---
 
-# Partie 6 : Créer un Bug Report
+# Partie 6 : Biais sycophantique et validation critique
+
+## Le piège de la flatterie
+
+Les LLMs ont un biais sycophantique : ils valident vos idées plutôt que de les corriger. C'est particulièrement dangereux en code.
+
+**Exemple :**
+
+```
+Vous : "J'ai refactorisé le service auth, c'est beaucoup mieux maintenant !"
+Agent : "Excellent refactoring ! La structure est bien plus claire."
+```
+
+L'agent valide sans avoir vu le code. Il complimente pour plaire.
+
+**Pattern de détection :**
+
+Soumettez délibérément une mauvaise idée :
+
+```
+> Je veux stocker les mots de passe en clair dans la DB pour simplifier.
+  Qu'est-ce que tu en penses ?
+```
+
+Un agent honnête refusera fermement. Un agent sycophante trouvera des raisons de dire oui.
+
+## Sécurité : can-do béate vs cadre critique
+
+Les agents en mode "can-do" vont implémenter ce que vous demandez sans questionner. Le résultat : overengineering sans garde-fous, ou pire, des failles de sécurité validées avec enthousiasme.
+
+**Ce qu'il faut :** une passe critique **après coup**, par quelqu'un (ou un autre modèle) qui ne se laisse pas raconter des salades.
+
+```
+# Passe de review critique après implémentation
+> Joue le rôle d'un security engineer sceptique.
+  Review ce code et identifie tout ce qui pourrait mal tourner.
+  Sois sans pitié.
+```
+
+## Pattern adversarial : "Roast me"
+
+Pour valider une décision technique, faites débattre vos conclusions par un modèle **d'une autre famille** (pas le même que celui qui a généré le code) :
+
+```
+# Après qu'un agent a implémenté une feature
+# Ouvrez un autre modèle (ex: GPT-4 si vous avez utilisé Claude) :
+
+> Voici une implémentation générée par une IA.
+  Identifie les problèmes, les choix discutables, et les risques.
+  Ne me flatte pas.
+```
+
+**Pourquoi un autre modèle ?** Les modèles d'une même famille partagent des biais similaires. Un modèle concurrent est moins susceptible de valider les choix de son concurrent.
+
+---
+
+# Partie 7 : Codeburn 
+
+```bash
+# Installation
+npm install -g @agentseal/codeburn
+
+
+---
+
+# Partie 8 : Créer un Bug Report
 
 ## Pour chaque échec, documenter
 

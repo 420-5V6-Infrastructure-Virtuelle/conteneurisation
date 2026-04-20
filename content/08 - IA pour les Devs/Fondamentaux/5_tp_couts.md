@@ -188,6 +188,51 @@ routing:
 
 ---
 
+# Étape 7 : Outils d'optimisation des tokens
+
+## rtk — proxy de réduction de tokens
+
+[rtk](https://github.com/rtk-ai/rtk) est un proxy CLI qui réduit la consommation de tokens de 60-90% sur les commandes de dev courantes en compressant le contexte envoyé au modèle.
+
+```bash
+# Installation
+npm install -g rtk
+
+# Usage : préfixer vos commandes claude
+rtk claude "Ajoute un endpoint DELETE /users/:id"
+```
+
+Utile pour les tâches répétitives où le contexte projet est volumineux.
+
+## Grille qualité/prix sur Comparia
+
+Appliquez la grille suivante à un usage concret sur Comparia (par exemple : ajouter une feature de filtrage des comparaisons) :
+
+| Critère | Modèle A (Gemini Flash) | Modèle B (Claude Sonnet) |
+|---------|------------------------|--------------------------|
+| **Vitesse** (1-5) | | |
+| **Créativité** (1-5) | | |
+| **Cohérence** (1-5) | | |
+| **Tokens consommés** | | |
+| **Coût estimé** | | |
+
+**Question clé :** Le modèle premium justifie-t-il son prix pour cette tâche ?
+
+## Seuils de contexte à surveiller
+
+Gardez un œil sur `Ctx(u)` dans la statusline (configurée en TP1) :
+
+| Contexte % | État | Action |
+|------------|------|--------|
+| 0–50% | Vert | Travaillez librement |
+| 50–70% | Jaune | Soyez sélectif dans les lectures |
+| 70–90% | Orange | `/compact` maintenant |
+| 90%+ | Rouge | `/clear` requis |
+
+Chaque token non consommé est un token économisé.
+
+---
+
 # Livrable
 
 À la fin de ce TP :
@@ -196,6 +241,7 @@ routing:
 - [ ] Comparé 3 modèles sur la même tâche
 - [ ] Calculé le coût mensuel estimé
 - [ ] Identifié les tâches "frugales" vs "premium"
+- [ ] rtk testé sur une commande
 
 ---
 

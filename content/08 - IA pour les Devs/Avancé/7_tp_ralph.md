@@ -10,27 +10,68 @@ weight: 2015
 # Prérequis
 
 - OpenCode configuré
-- Un projet avec des tests (votre appdémo)
+- Comparia qui tourne en local (TP1)
 - tmux installé
 
 ---
 
-# Partie 1 : Setup tmux
+# Partie 1 : Setup tmux et contexte
 
 ## Pourquoi tmux ?
 
-Laisser l'agent tourner en background pendant que vous gardez le contrôle du terminal.
+Les agents autonomes (Ralph Loop) peuvent tourner des heures. tmux vous donne des sessions persistantes qui survivent aux déconnexions.
 
 ```bash
 # Créer une session dédiée
 tmux new -s ralph
 
-# Lancer OpenCode
+# Lancer OpenCode dans la session
 opencode
 
-# Détacher : Ctrl+B puis D
-# Revenir : tmux attach -t ralph
+# Détacher sans tuer la session : Ctrl+B puis D
+# Revenir plus tard :
+tmux attach -t ralph
+
+# Voir les sessions actives :
+tmux ls
 ```
+
+## Gérer le contexte pendant le loop
+
+Gardez un œil sur `Ctx(u)` (statusline configurée en TP1) :
+
+| Contexte % | Action |
+|------------|--------|
+| < 70% | L'agent travaille librement |
+| 70–85% | `/compact` — résume et libère |
+| > 85% | `/clear` — repart à zéro |
+
+```bash
+# Commandes de récupération de contexte
+/compact          # Résume et libère
+/clear            # Fresh start
+claude -c         # Reprend la dernière session (CLI)
+claude -r <id>    # Reprend une session spécifique
+```
+
+## Git worktrees pour agents parallèles
+
+Au lieu de jongler entre branches, les git worktrees permettent d'avoir **deux checkouts du même repo en simultané** — un par agent :
+
+```bash
+# Créer un worktree pour une feature
+git worktree add ../comparia-feature-b feature/feature-B
+
+# Agent A travaille dans le répertoire principal
+cd ~/comparia
+opencode  # Feature A
+
+# Agent B travaille dans le worktree isolé
+cd ~/comparia-feature-b
+opencode  # Feature B, sans conflit de fichiers
+```
+
+**Avantage sur les branches classiques :** pas de `git stash` ou de `git checkout` — chaque agent a son propre filesystem.
 
 ---
 

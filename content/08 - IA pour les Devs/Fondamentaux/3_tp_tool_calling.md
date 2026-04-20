@@ -202,7 +202,42 @@ mcpServers:
 
 ---
 
-# Étape 7 : Comparaison des approches
+# Étape 8 : MCP context7 — vérifier la doc d'une librairie
+
+Quand un agent travaille avec une librairie dont il peut avoir une connaissance périmée, le MCP context7 permet de lui injecter la documentation réelle à jour.
+
+**Exemple de pattern (illustration avec Bevy 0.15) :**
+
+```
+> Bevy 0.15 changed the Text2d API significantly.
+  Let me check the Bevy 0.15 text2d example for the correct API:
+
+[TOOL] context7_resolve-library-id [libraryName=bevy, query=Text2d text rendering in bevy 0.15]
+[TOOL] context7_query-docs [libraryId=/websites/rs_bevy_bevy, query=Text2d spawn text label in 3D world space Bevy 0.15]
+
+Now I understand Bevy 0.15's new Text2d API. Let me fix the code:
+```
+
+**Le pattern :**
+1. L'agent résout l'ID de la librairie dans le registre context7
+2. Il interroge la doc pour la version précise
+3. Il corrige ou implémente avec la vraie API
+
+**Applicable à n'importe quelle librairie** : FastAPI, SQLAlchemy, Next.js… Dès qu'une version récente casse une API connue.
+
+**Configurer context7 :**
+
+```yaml
+# ~/.config/opencode/mcp.yaml
+mcpServers:
+  context7:
+    command: npx
+    args: ["-y", "@upstash/context7-mcp@latest"]
+```
+
+---
+
+# Étape 9 : Comparaison des approches
 
 **Sans MCP (fichiers locaux uniquement) :**
 - L'agent lit les fichiers
@@ -213,8 +248,9 @@ mcpServers:
 - L'agent interagit avec GitHub
 - Peut tester via Playwright
 - Connecté à la DB via postgres MCP
+- Vérifie la doc à jour via context7
 
-**Question :** Quel MCP serait utile pour votre workflow ?
+**Question :** Quel MCP serait le plus utile pour votre stack actuelle ?
 
 ---
 
