@@ -75,6 +75,19 @@ export OPENROUTER_API_KEY="sk-or-v1-votre-clé"
 
 ---
 
+# Choisir son app de travail
+
+Comparia est l'app démo de cette formation, mais vous pouvez appliquer les mêmes exercices à votre propre projet. Voici comment calibrer le niveau :
+
+| Type d'app | Exemples | Niveau avec LLM |
+|------------|----------|-----------------|
+| **CRUD / utilitaire** | Lecteur RSS, todo app, lecteur de musique, API simple | ✅ Excellent — patterns bien documentés, l'agent excelle |
+| **App "métier"** | Logique domaine complexe, règles métier spécifiques, orchestration | ⚠️ Avancé — sans guardrails, l'agent se cassera la gueule |
+
+Pour cette formation : on reste sur Comparia (CRUD + API bien structurée). Les patterns avancés avec guardrails arrivent en jour 2.
+
+---
+
 # Étape 4 : Cloner et faire marcher Comparia
 
 L'application démo est **[Comparia](https://github.com/betagouv/comparia)**, un outil de comparaison de modèles d'IA développé par beta.gouv.fr.

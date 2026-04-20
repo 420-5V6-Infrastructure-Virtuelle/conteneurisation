@@ -144,7 +144,47 @@ Total/mois: $22.50
 
 ---
 
-# Étape 5 : Implémenter le model routing
+# Étape 5 : Le pattern pingre — réflexion gratuite, implémentation frugale
+
+L'idée : utiliser un modèle **gratuit** pour la phase de réflexion/planification, puis fournir ce plan à un modèle **ultra-frugal** pour l'implémentation mécanique.
+
+## En pratique
+
+**Étape 1 — Plan avec Gemini Pro (gratuit via Google AI Studio)**
+
+[Google AI Studio](https://aistudio.google.com) offre un plan gratuit généreux sur Gemini Pro (rate limits, pas d'usage commercial, mais parfait pour la réflexion) :
+
+```
+# Dans Google AI Studio ou via l'API gratuite :
+> Analyse ce besoin et propose un plan d'implémentation détaillé
+  pour ajouter [feature] à une API FastAPI.
+  Liste les fichiers à modifier, les étapes, les risques.
+  Ne génère pas de code.
+```
+
+**Étape 2 — Implémentation avec un modèle frugal sur OpenRouter**
+
+Copiez le plan dans votre agent OpenCode configuré sur un modèle cheap :
+
+```yaml
+# config.yaml
+default_model: minimax/minimax-01  # ~$0.10/1M — ou glm-4-9b-chat, nanoflash
+```
+
+```
+> Voici le plan validé : [coller le plan]
+  Implémente étape par étape. Commits atomiques.
+```
+
+**Résultat :** la partie coûteuse (raisonnement, architecture) est gratuite ; la partie mécanique (écriture de code répétitive) coûte quasi-rien.
+
+## Curiosité : Nvidia NIM async
+
+Nvidia propose les modèles open source (Llama, Mistral, etc.) **gratuitement** via [build.nvidia.com](https://build.nvidia.com), mais en mode asynchrone — jusqu'à 3h d'attente entre les requêtes en période de charge. Inutilisable en session interactive, mais intéressant pour des tâches batch overnight.
+
+---
+
+# Étape 6 : Implémenter le model routing
 
 **Configuration OpenCode avec routing :**
 

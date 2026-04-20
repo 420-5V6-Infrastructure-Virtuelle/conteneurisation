@@ -37,33 +37,57 @@ opencode
 
 # Étape 2 : Créer AGENTS.md
 
-**Structure minimale :**
+Ne remplissez pas ce fichier à la main — laissez l'agent le générer à partir de l'étape 1, puis corrigez les inexactitudes. Un AGENTS.md écrit par un humain à partir d'un template vide sera moins précis qu'un AGENTS.md généré par un LLM qui a lu le projet.
+
+```
+> À partir de ton analyse du projet, génère un fichier AGENTS.md complet.
+  Inclus la stack, l'architecture, les conventions, les commandes disponibles,
+  et une section "À NE PAS FAIRE" avec les contraintes critiques.
+```
+
+**Ce que ça doit ressembler pour Comparia :**
 
 ```markdown
 # AGENTS.md
 
 ## Project
-[Description en 1-2 phrases]
+Comparia est une interface de comparaison de modèles LLM développée par beta.gouv.fr.
+Elle soumet le même prompt à plusieurs modèles et compare les réponses côte à côte.
 
 ## Stack
-- Langage: ...
-- Framework: ...
-- DB: ...
-- Tests: ...
+- Backend: FastAPI (Python 3.11)
+- Frontend: Svelte + TypeScript
+- Infra: Docker Compose
+- Tests: pytest (backend), vitest (frontend)
 
 ## Architecture
-```
-[Diagramme ASCII de l'architecture]
-```
+backend/
+├── app/
+│   ├── routers/     # Endpoints FastAPI
+│   ├── services/    # Appels LLM
+│   └── models/      # Pydantic schemas
+frontend/
+└── src/
+    ├── lib/         # Composants Svelte réutilisables
+    └── routes/      # Pages SvelteKit
 
 ## Conventions
-- Naming: ...
-- Style: ...
-- Tests: ...
+- Python: snake_case, black formatter, docstrings Google style
+- TypeScript: camelCase, eslint
+- Commits: feat:, fix:, docs:, refac:
+
+## Commandes
+- make dev    # Backend + frontend
+- make test   # pytest + vitest
+- make lint   # black + ruff + eslint
 
 ## À NE PAS FAIRE
-- ...
+- Ne pas modifier .env directement
+- Ne pas ajouter de dépendances sans mettre à jour requirements.txt ET pyproject.toml
+- Ne pas commit sans passer make test
 ```
+
+Corrigez ensuite ce que l'agent a mal compris ou oublié.
 
 ---
 
