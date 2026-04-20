@@ -15,7 +15,7 @@ Avant de commencer, assurez-vous d'avoir :
 - [ ] Docker & docker-compose
 - [ ] Git configuré
 - [ ] Un éditeur de code (VSCode recommandé)
-- [ ] Un compte OpenRouteravec ~$10 de crédit
+- [ ] Un compte OpenRouter avec ~$10 de crédit
 
 ---
 
@@ -28,7 +28,7 @@ Avant de commencer, assurez-vous d'avoir :
 3. Générer une clé API
 4. Ajouter du crédit ($10 minimum)
 
-**PourquoiOpenRouter ?**
+**Pourquoi OpenRouter ?**
 - Accès à 200+ modèles
 - tarifs à la token
 - pas de vendor lock-in
@@ -75,98 +75,130 @@ export OPENROUTER_API_KEY="sk-or-v1-votre-clé"
 
 ---
 
-# Étape 4 : Choisir l'application démo
+# Étape 4 : Cloner et faire marcher Comparia
 
-Choisissez selon votre confort et intérêts :
-
-| Option | Stack | Complexité | Repo |
-|--------|-------|------------|------|
-| **Minimal Python** | FastAPI + SQLite | ~300 lignes | `minimal-fastapi` |
-| **Full Python** | FastAPI + PostgreSQL | Réaliste | `full-stack-fastapi` |
-| **SvelteKit** | SvelteKit minimal | ~800 lignes | `swyxkit` |
-| **Elixir/Phoenix** | Langage non maîtrisé | Challenge | `phoenix-elixir-app` |
-
-**Pourquoi l'option Elixir/Phoenix ?**
-
-Travailler sur un langage/framework **que vous ne connaissez pas** simule un scénario réaliste : l'IA vous aide à monter en compétence rapidement sur une nouvelle stack.
+L'application démo est **[Comparia](https://github.com/betagouv/comparia)**, un outil de comparaison de modèles d'IA développé par beta.gouv.fr.
 
 ```bash
-# Cloner l'application choisie
-git clone <repo-choisi> mon-app-demo
-cd mon-app-demo
+git clone https://github.com/betagouv/comparia
+cd comparia
 ```
 
----
-
-# Étape 5 : Premier test
-
-**LancerOpenCode sur le projet :**
+**Lire le README et lancer l'app :**
 
 ```bash
-cd mon-app-demo
+# Explorer la structure du projet avec OpenCode
 opencode
 ```
 
-**Prompt de test :**
 ```
->Analyse ce projet et explique-moi sa structure
+> Analyse ce projet, explique sa structure et dis-moi comment le lancer en local
 ```
 
-**Observations à noter :**
-- Combien de tokens utilisés ?
-- Temps de réponse ?
-- Qualité de l'analyse ?
+Suivez les instructions générées pour installer les dépendances et démarrer l'application.
+
+**Vérification :** l'interface est accessible dans le navigateur.
 
 ---
 
-# Étape 6 : Changer de modèle
+# Étape 5 : Obtenir un token Hugging Face
 
-**Essayer un modèle premium :**
+Comparia s'appuie sur des modèles accessibles via [Hugging Face](https://huggingface.co). Vous avez besoin d'un token d'accès.
 
-```yaml
-# ~/.config/opencode/config.yaml
-default_model: anthropic/claude-3.5-sonnet
+**Option A — Compte manuel (5 min) :**
+1. Créer un compte sur [huggingface.co](https://huggingface.co)
+2. Aller dans Settings → Access Tokens
+3. Créer un token avec les droits `read`
+
+**Option B — Explorer l'automatisation :**
+
+Réfléchissez aux différentes façons d'instrumentaliser cette étape :
+
+| Méthode | Outil | Cas d'usage |
+|---------|-------|-------------|
+| **Navigation visuelle** | Playwright / Puppeteer | Automatiser la création de compte |
+| **API directe** | `curl` / SDK HF | Gérer les tokens programmatiquement |
+| **Mode recherche IA** | OpenCode en mode recherche | Trouver des alternatives gratuites |
+
+```
+> Recherche des alternatives gratuites à Hugging Face Inference API
+  pour tester des LLMs open-source sans créer de compte
 ```
 
-**Refaire le même prompt et comparer :**
-- Qualité de la réponse
-- Temps de réponse
-- Coût (tokens utilisés)
+Observez comment l'IA explore et présente ses résultats en **mode recherche**.
+
+**Configurer le token :**
+```bash
+export HF_TOKEN="hf_votre_token"
+```
 
 ---
 
-# Étape 7 : Grille de comparaison qualité/prix
+# Étape 6 : Faire tourner l'app simplifiée
 
-**Comparer objectivement vos 2 modèles testés :**
+Comparia a une version allégée pour le développement. Avec l'aide de l'IA :
+
+```
+> Comment lancer Comparia en mode simplifié / développement local
+  sans toute l'infrastructure de production ?
+```
+
+Objectif : avoir une interface fonctionnelle avec au moins un modèle accessible.
+
+**Points à observer :**
+- L'IA lit-elle correctement la doc du projet ?
+- Propose-t-elle des raccourcis pertinents ?
+- Gère-t-elle bien les erreurs de configuration ?
+
+---
+
+# Étape 7 : Créer un usage funky
+
+Maintenant que l'app tourne, ajoutez une feature de votre choix.
+
+**Exemple d'idée :** un comparateur de modèles spécialisé dans les **conseils médicaux catastrophiques** — l'IA joue le rôle d'un médecin incompétent.
+
+D'autres pistes :
+- Générateur de commits git poétiques
+- Assistant juridique qui cite des lois inexistantes
+- Un coach sportif bidon
+
+**Démarche :**
+
+```
+> Je veux adapter Comparia pour [votre idée]. Par où commencer ?
+  Quels fichiers modifier pour changer le prompt système ?
+```
+
+Travaillez en itérations courtes avec l'IA pour modifier le comportement des modèles comparés.
+
+---
+
+# Étape 8 : Grille de comparaison qualité/prix
+
+**Comparer objectivement 2 modèles sur votre usage funky :**
 
 | Critère | Modèle A (Gemini Flash) | Modèle B (Claude Sonnet) |
 |---------|------------------------|--------------------------|
 | **Vitesse** (1-5) | | |
-| **Pertinence** (1-5) | | |
-| **Précision** (1-5) | | |
-| **Suggestions utiles** (1-5) | | |
+| **Créativité** (1-5) | | |
+| **Cohérence** (1-5) | | |
 | **Tokens consommés** | | |
 | **Coût estimé** | | |
-| **Score qualité** (moyenne) | | |
-
-**Formule du score qualité :**
-```
-Score = (Pertinence + Précision + Suggestions) / 3
-```
 
 **Question clé :** Le modèle premium justifie-t-il son prix pour cette tâche ?
 
 ---
 
-# Étape 7 : tmux pour les agents autonomes
+# Étape 9 : tmux pour les agents autonomes
 
 **Astuce : laisser tourner les agents en parallèle**
 
 ```bash
-# Créer une session tmux pourOpenCode
+# Créer une session tmux pour OpenCode
 tmux new -s opencode
 
-# LancerOpenCode
+# Lancer OpenCode
 opencode
 
 # Détacher : Ctrl+B puis D
@@ -185,14 +217,15 @@ opencode
 À la fin de ce TP, vous devez avoir :
 
 - [ ] OpenCode configuré avec OpenRouter
-- [ ] Testé au moins 2 modèles différents
-- [ ] Une application démo clonée
-- [ ] Noté les différences de comportement entre modèles
+- [ ] Comparia qui tourne en local
+- [ ] Un token Hugging Face configuré
+- [ ] Une version modifiée de Comparia avec un usage original
 
 ---
 
 # Ressources
 
+- [Comparia — betagouv](https://github.com/betagouv/comparia)
 - [Documentation OpenRouter](https://openrouter.ai/docs)
-- [Modèles disponibles](https://openrouter.ai/models)
+- [Hugging Face Inference API](https://huggingface.co/docs/api-inference)
 - [OpenCode GitHub](https://github.com/opencode-ai/opencode)
