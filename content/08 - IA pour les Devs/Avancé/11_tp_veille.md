@@ -11,9 +11,6 @@ weight: 2051
 
 Utiliser un agent IA pour explorer une technologie que vous ne connaissez **pas** : ici **Rust** et le framework de jeux vidéo **Bevy**.
 
-**Ce n'est pas un TP sur la veille IA** - le cours (11_cours_veille.md) couvre déjà les sources (HN/Lobste.rs LLM tags, LocalLLM).  
-**C'est un TP sur le travail avec un agent** sur un domaine inconnu.
-
 ---
 
 # Le concept "Unknown Tech"

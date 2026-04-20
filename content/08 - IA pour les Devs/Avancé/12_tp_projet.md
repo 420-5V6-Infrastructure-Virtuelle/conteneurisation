@@ -9,7 +9,19 @@ weight: 2056
 
 # Objectif
 
-Appliquer toutes les connaissances acquises dans un projet complet en utilisant OpenCode et ses extensions.
+Appliquer toutes les connaissances acquises dans un projet complet.
+
+## Choisir son projet
+
+| Niveau | Exemples | Avec un agent |
+|--------|----------|---------------|
+| **Simple** | Lecteur RSS, todo + auth, blog, lecteur musique | ✅ Excellent |
+| **Intermédiaire** | Chat temps réel, dashboard, API gateway | ⚠️ Possible avec guardrails |
+| **Ambitieux** | E-commerce, facturation, CRM | ⛔ Trop complexe — réduire le scope |
+
+**Alternative** : technologie inconnue (Rust + Bevy, Phoenix/Elixir…) — TP11 montre le pattern.
+
+La règle : choisissez quelque chose où le critère de succès est objectif (`make test` passe, l'app tourne).
 
 ---
 

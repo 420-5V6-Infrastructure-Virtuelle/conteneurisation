@@ -22,10 +22,23 @@ C'est le payoff de tous les TPs précédents : AGENTS.md, Makefile, prompts stru
 # Choisir la feature
 
 Quelque chose qui touche plusieurs fichiers et nécessite au moins un test :
-
 - Export CSV des comparaisons
 - Historique des sessions avec persistance
-- Mode "personnage" persistant entre les messages (reprend l'idée funky de TP2 côté backend)
+- Mode "personnage" persistant entre les messages (reprend l'idée de TP2 côté backend)
+- **Une seule conversation** — Comparia affiche actuellement deux conversations en parallèle. Simplifier à une seule réduit la surface d'état côté frontend et backend, sans retirer la comparaison (on peut conserver les deux modèles côte à côte sur un même échange).
+- **Historique côté client** — Sauvegarder les comparaisons dans le localStorage pour les retrouver après rechargement.
+
+<!-- Autres idées solides :
+- Export de la comparaison en Markdown / JSON (un bouton, un endpoint)
+- Partager une comparaison via URL (sérialiser l'état dans les query params)
+- Épingler un modèle favori par utilisateur (localStorage)
+-->
+
+<!-- Idées plus incertaines :
+- Système de notation par réponse (thumbs up/down) — nécessite du persistance côté serveur
+- Bibliothèque de prompts système réutilisables
+- Comparaison à 3 modèles (UI non triviale)
+-->
 
 ---
 

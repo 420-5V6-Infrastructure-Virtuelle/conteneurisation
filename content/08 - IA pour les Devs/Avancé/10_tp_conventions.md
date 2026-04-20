@@ -13,6 +13,19 @@ weight: 2045
 
 Créer un document de convention pour l'usage de l'IA dans une équipe.
 
+## Les tensions réelles
+
+Avant de rédiger des règles, identifier les tensions que votre équipe vit déjà :
+
+| Tension | Ce qu'on entend |
+|---------|-----------------|
+| **Productivité vs Qualité** | "L'IA code plus vite mais le code est moins maintenable" |
+| **Apprentissage vs Dépendance** | "Les juniors ne comprennent pas ce qu'ils committent" |
+<!-- | **Transparence vs Secret** | "Faut-il dire au client que l'IA a écrit le code ?" |
+| **Standardisation vs Créativité** | "Tout le monde génère le même style fade" | -->
+
+Une convention efficace adresse ces tensions — elle ne les ignore pas.
+
 ---
 
 # Partie 1 : Audit de l'existant
@@ -217,21 +230,52 @@ Voir le [scénario complet](../exercises/roleplay_scripts/prod_bug_scenario.md).
 
 # Partie 6 : Intégration GitHub
 
-## /install-github-app — @claude dans vos issues et PRs
+## Workflow PR avec un agent
 
-Claude Code peut être invoqué directement depuis GitHub en taguant `@claude` dans une issue ou une PR :
+L'intégration IA dans les PRs est pénible à configurer une fois, puis elle devient transparente. Le pattern est simple : vous taguez l'agent dans un commentaire GitHub, il lit la PR et répond (ou agit).
 
+<!-- **Avec Codex CLI** — via l'intégration GitHub Actions :
+
+```yaml
+# .github/workflows/codex-review.yml
+on:
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  codex:
+    if: contains(github.event.comment.body, '@codex')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "${{ github.event.comment.body }}" | codex
+``` -->
+
+Ensuite dans une PR :
 ```
-# Dans une issue GitHub :
-@claude Fix this bug and create a PR
+@codex What do you think about this approach?
+@codex Are there edge cases I'm missing in this function?
 ```
+
+L'agent lit le diff, le contexte de la PR, et répond dans les commentaires.
+
+**Avec Claude Code** — via l'app GitHub officielle :
 
 ```bash
 # Configurer depuis Claude Code :
 /install-github-app
 ```
 
-Une fois installé, l'agent peut répondre à vos issues, créer des branches, et ouvrir des PRs sans que vous quittiez GitHub.
+```
+# Dans une issue ou PR GitHub :
+@claude Fix this bug and create a PR
+@claude Review this PR and flag security issues
+```
+
+Une fois installé, l'agent peut répondre aux issues, créer des branches, et ouvrir des PRs directement depuis GitHub — sans quitter l'interface.
+
+**Mise en garde :** Ces agents lisent vos PRs et issues, qui peuvent contenir des données sensibles ou des tentatives de prompt injection (voir TP3). Limitez les permissions de l'app GitHub à ce qui est nécessaire.
 
 ---
 
