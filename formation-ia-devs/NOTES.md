@@ -1,3 +1,8 @@
+## Ah et dire somewhere que y a 2 philosophies : 
+soit on MCP soit on bash tool
+some tools are fundamental some gimmicky and weaken ur security( supply chain/prompt injection)
+- talk about prompt injection somewhere
+
 ## Workflow for Github PRs
 
 Annoying to setup but in the end you just say @codex wdy think?
@@ -5,6 +10,7 @@ ex: https://github.com/ketsapiwiq/pelagica/pull/1
 
 ## Laïus on plans: weekly+daily limit+token limit (and cache use or not)
 
+---
 ## Roast
 Problèmes structurels majeurs
 1. Deux outils, zéro explication de la relation

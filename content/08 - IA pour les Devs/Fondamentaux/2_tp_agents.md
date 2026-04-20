@@ -5,7 +5,7 @@ weight: 1035
 
 ## _Structurer le contexte pour l'IA_
 
-> ⏱ **1h15**
+> ⏱ **1h**
 
 > **Outil principal :** Codex CLI (`codex`). Remplacer par `opencode` ou `claude` selon votre outil.
 
@@ -191,6 +191,15 @@ Format de sortie:
 ```
 
 Essayez les deux. Comparez avec `git diff` ce qui a réellement changé.
+
+**Anti-patterns courants à éviter :**
+
+| Anti-pattern | Conséquence |
+|--------------|-------------|
+| Prompt trop long, tout mélangé | Confusion, tokens gâchés, résultat approximatif |
+| Pas de contraintes | Code non idiomatique, dépendances non désirées |
+| Oublier les tests | L'agent n'y pense pas si vous ne le demandez pas |
+| Ignorer l'existant | Duplication — l'agent recrée ce qui existe déjà |
 
 ---
 
