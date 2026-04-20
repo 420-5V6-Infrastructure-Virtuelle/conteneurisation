@@ -24,6 +24,7 @@ chmod 600 id_ssh_shared/id_ssh_shared
 ```
 
 - faites `ssh-add ~/id_ssh_shared/id_ssh_shared` pour déverrouiller la clé, **le mot de passe est `trucmuch42`**
+- si cela échoue : `eval $(ssh-agent)` en premier
 
 ### Si vous utilisez votre propre compte
 Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en créer, allez dans *API > Personal access tokens* et créez un nouveau token. Copiez bien ce token et collez-le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt` (important : détruisez ce token à la fin du TP par sécurité).
