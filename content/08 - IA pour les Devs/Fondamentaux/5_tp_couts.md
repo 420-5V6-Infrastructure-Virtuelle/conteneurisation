@@ -1,25 +1,43 @@
 ---
-title: "5 - TP Optimisation des Coûts"
+title: "5 - TP Modes et Modèles"
 weight: 1065
 ---
 
-## _Maîtriser sa facture IA_
+## _Utiliser le bon modèle pour la bonne tâche_
+
+> ⏱ **45 min**
+
+> **Outil principal :** Codex CLI. Remplacer `codex` par `opencode` ou `claude` selon votre outil.
 
 ---
 
 # Objectif
 
-Comparer différents modèles et mesurer l'impact sur les coûts et la qualité.
+Comprendre pourquoi un agent ne devrait pas utiliser le même modèle pour planifier et pour coder — et savoir configurer ses modes en pratique.
 
 ---
 
 # Étape 1 : Mesurer sa consommation
 
-**Lancer OpenCode avec verbeux :**
+Chaque outil expose sa consommation différemment — utilisez l'option native plutôt qu'un pipe.
 
+**Codex CLI** — affichage intégré dans le TUI, résumé tokens/coût à la fin de chaque session.
+
+**OpenCode** — mode verbose :
 ```bash
-opencode --verbose 2>&1 | tee session.log
+opencode --verbose
 ```
+Tokens et coût apparaissent dans les logs après chaque échange.
+
+**Claude Code** — statusline en temps réel (configurée en TP1) + verbose :
+```bash
+claude --verbose
+```
+
+**Pour aller plus loin — outils tiers :**
+
+- **[claude-devtools](https://github.com/matt1398/claude-devtools)** — UI visuelle pour inspecter les sessions Claude Code : tool calls, token usage, sous-agents, fenêtre de contexte.
+- **[codeburn](https://github.com/AgentSeal/codeburn)** — visualise où partent vos tokens par type de tool call. Utile pour repérer ce qui consomme inutilement.
 
 **Travailler sur une tâche :**
 
@@ -27,220 +45,120 @@ opencode --verbose 2>&1 | tee session.log
 > Add pagination to the GET /users endpoint
 ```
 
-**Analyser les logs :**
-
-```bash
-# Extraire les tokens consommés
-grep -i "token" session.log
-grep -i "cost" session.log
-```
-
-**Noter :**
-- Tokens d'entrée (prompt)
-- Tokens de sortie (completion)
-- Coût estimé
+Notez les tokens d'entrée, de sortie, et le coût estimé affiché.
 
 ---
 
-# Étape 2 : Comparer les modèles
+# Étape 2 : Plan vs Act — deux phases différentes
 
-**Configurer 3 modèles :**
+Un agent qui reçoit "Refactor the auth service" fait en réalité deux choses très différentes :
+
+**Phase Plan**
+- Comprendre le codebase et ses contraintes
+- Identifier les impacts sur les autres modules
+- Décider de l'architecture
+- Décomposer en étapes exécutables
+
+→ Tâche cognitive dense. Un modèle avec un fort raisonnement (Claude Sonnet, o3, Gemini Pro) fait ici une vraie différence.
+
+**Phase Act**
+- Écrire le code selon le plan établi
+- Refactorer fichier par fichier
+- Générer des tests boilerplate
+- Appliquer les conventions mécaniquement
+
+→ Tâche répétitive et prévisible. Un modèle cheap et rapide (Gemini Flash, Haiku) suffit largement.
+
+**L'insight :** payer le modèle cher uniquement pour la réflexion, pas pour l'exécution mécanique.
+
+---
+
+# Étape 3 : Configurer les phases par outil
+
+**Codex CLI** — switcher de modèle entre les phases :
+
+```bash
+# Phase Plan : modèle avec forte capacité de raisonnement
+OPENAI_MODEL="anthropic/claude-3.5-sonnet" codex "Analyse l'architecture auth et propose un plan de refactoring. Pas de code."
+
+# Phase Act : modèle frugal pour l'implémentation
+OPENAI_MODEL="google/gemini-flash-1.5" codex "Implémente ce plan : [coller le plan]"
+```
+
+**OpenCode** — deux profils dans config.yaml :
 
 ```yaml
 # ~/.config/opencode/config.yaml
 models:
-  frugal:
-    model: google/gemini-2.0-flash
-  balanced:
-    model: anthropic/claude-3.5-haiku
-  premium:
+  plan:
     model: anthropic/claude-3.5-sonnet
+  act:
+    model: google/gemini-2.0-flash
 ```
 
-**Même tâche, 3 modèles :**
+Sélectionnez le profil selon la phase en cours.
+
+**Claude Code** — Plan mode et switch de modèle :
 
 ```
-Tâche: "Add input validation to the POST /users endpoint"
-
-Model A (Gemini Flash): ?? tokens, $0.???, qualité ?
-Model B (Claude Haiku): ?? tokens, $0.???, qualité ?
-Model C (Claude Sonnet): ?? tokens, $0.???, qualité ?
+Shift+Tab   # Active le Plan mode : l'agent réfléchit avant d'agir
 ```
 
-**Grille d'évaluation qualité/prix :**
-
-| Critère | Modèle A (Flash) | Modèle B (Haiku) | Modèle C (Sonnet) |
-|---------|-----------------|------------------|-------------------|
-| **Vitesse** (1-5) | | | |
-| **Pertinence** (1-5) | | | |
-| **Précision** (1-5) | | | |
-| **Suggestions utiles** (1-5) | | | |
-| **Tokens consommés** | | | |
-| **Coût estimé** | | | |
-| **Score qualité** (moyenne) | | | |
-
-**Formula du score qualité :**
+```bash
+# Changer de modèle en cours de session :
+/model claude-haiku-4-5   # Passer en frugal pour l'implémentation
 ```
-Score = (Pertinence + Précision + Suggestions) / 3
-```
-
-**Critères de qualité détaillés :**
-- Code compile sans erreurs
-- Tests passent
-- Conventions respectées
-- Pas de TODOs ou placeholders
-- Edge cases couverts
 
 ---
 
-# Étape 3 : Prompt compression
+# Étape 4 : Choisir son modèle selon la tâche
 
-**Mesurer le même prompt compressé :**
+| Type de tâche | Exigence | Modèle adapté |
+|--------------|----------|---------------|
+| Architecture, sécurité, refactoring complexe | Raisonnement fort | Sonnet, o3, Gemini Pro |
+| Écriture de code selon un plan | Vitesse, coût | Gemini Flash, Haiku |
+| Review de code avec screenshot UI | Vision | Claude Sonnet, Gemini |
+| Génération de tests unitaires répétitifs | Coût minimal | Flash, Haiku |
+| Debugging d'une erreur obscure | Raisonnement fort | Sonnet, o3 |
 
-```markdown
-# Prompt long (~500 tokens)
-Contexte: Ce projet est une API REST dévelopée avec FastAPI...
-Objectif: Ajouter une validation des entrées pour le endpoint...
-Contraintes: Respecter les conventions définies dans AGENTS.md...
-[etc.]
-
-# Prompt compressé (~100 tokens)
-Project: FastAPI REST API
-Task: Add input validation to POST /users
-Check: AGENTS.md for conventions
-Require: email format, password strength, no duplicates
-```
-
-**Comparer les tokens et la qualité du résultat.**
-
----
-
-# Étape 4 : Calculer le ROI
-
-**Scénario A : Tout premium**
-
-```python
-Tâches/jour: 20
-Tokens/tâche: 5000 input + 2000 output
-Coût/tâche: $0.015 (Sonnet)
-Coût/jour: $0.30
-Coût/mois: $9
-```
-
-**Scénario B : Frugal first**
-
-```python
-Tâches/jour: 20
-Tokens/tâche: 5000 input + 2000 output
-Coût/tâche: $0.0005 (Gemini Flash)
-Coût/jour: $0.01
-Coût/mois: $0.30
-
-Plus 5 tâches critiques en Sonnet: $0.75/jour
-Total/mois: $22.50
-```
-
-**Économie : 75%**
+**La règle pratique :** frugal par défaut, premium uniquement pour refactoring, architecture, sécurité.
 
 ---
 
 # Étape 5 : Le pattern pingre — réflexion gratuite, implémentation frugale
 
-L'idée : utiliser un modèle **gratuit** pour la phase de réflexion/planification, puis fournir ce plan à un modèle **ultra-frugal** pour l'implémentation mécanique.
+L'idée : utiliser un modèle **gratuit** pour la phase Plan, puis fournir ce plan à un modèle **ultra-frugal** pour l'implémentation mécanique.
 
-## En pratique
-
-**Étape 1 — Plan avec Gemini Pro (gratuit via Google AI Studio)**
+**Phase Plan — Gemini Pro gratuit via Google AI Studio**
 
 [Google AI Studio](https://aistudio.google.com) offre un plan gratuit généreux sur Gemini Pro (rate limits, pas d'usage commercial, mais parfait pour la réflexion) :
 
 ```
-# Dans Google AI Studio ou via l'API gratuite :
 > Analyse ce besoin et propose un plan d'implémentation détaillé
   pour ajouter [feature] à une API FastAPI.
   Liste les fichiers à modifier, les étapes, les risques.
   Ne génère pas de code.
 ```
 
-**Étape 2 — Implémentation avec un modèle frugal sur OpenRouter**
+**Phase Act — modèle frugal sur OpenRouter**
 
-Copiez le plan dans votre agent OpenCode configuré sur un modèle cheap :
+Copiez le plan dans votre agent configuré sur un modèle cheap :
 
-```yaml
-# config.yaml
-default_model: minimax/minimax-01  # ~$0.10/1M — ou glm-4-9b-chat, nanoflash
+```bash
+OPENAI_MODEL="google/gemini-flash-1.5" codex "Voici le plan validé : [coller le plan]. Implémente étape par étape."
 ```
 
-```
-> Voici le plan validé : [coller le plan]
-  Implémente étape par étape. Commits atomiques.
-```
-
-**Résultat :** la partie coûteuse (raisonnement, architecture) est gratuite ; la partie mécanique (écriture de code répétitive) coûte quasi-rien.
+**Résultat :** la partie coûteuse (raisonnement, architecture) est gratuite ; la partie mécanique coûte quasi-rien.
 
 ## Curiosité : Nvidia NIM async
 
-Nvidia propose les modèles open source (Llama, Mistral, etc.) **gratuitement** via [build.nvidia.com](https://build.nvidia.com), mais en mode asynchrone — jusqu'à 3h d'attente entre les requêtes en période de charge. Inutilisable en session interactive, mais intéressant pour des tâches batch overnight.
+Nvidia propose des modèles open source (Llama, Mistral, etc.) **gratuitement** via [build.nvidia.com](https://build.nvidia.com), mais en mode asynchrone — jusqu'à 3h d'attente en période de charge. Inutilisable en session interactive, mais intéressant pour des tâches batch overnight.
 
 ---
 
-# Étape 6 : Implémenter le model routing
+# Étape 6 : Seuils de contexte à surveiller
 
-**Configuration OpenCode avec routing :**
-
-```yaml
-# ~/.config/opencode/config.yaml
-default_model: google/gemini-2.0-flash
-
-routing:
-  complex_tasks:
-    - "refactor"
-    - "architecture"
-    - "security"
-    model: anthropic/claude-3.5-sonnet
-  
-  simple_tasks:
-    - "fix typo"
-    - "add comment"
-    - "format"
-    model: google/gemini-2.0-flash
-```
-
----
-
-# Étape 7 : Outils d'optimisation des tokens
-
-## rtk — proxy de réduction de tokens
-
-[rtk](https://github.com/rtk-ai/rtk) est un proxy CLI qui réduit la consommation de tokens de 60-90% sur les commandes de dev courantes en compressant le contexte envoyé au modèle.
-
-```bash
-# Installation
-npm install -g rtk
-
-# Usage : préfixer vos commandes claude
-rtk claude "Ajoute un endpoint DELETE /users/:id"
-```
-
-Utile pour les tâches répétitives où le contexte projet est volumineux.
-
-## Grille qualité/prix sur Comparia
-
-Appliquez la grille suivante à un usage concret sur Comparia (par exemple : ajouter une feature de filtrage des comparaisons) :
-
-| Critère | Modèle A (Gemini Flash) | Modèle B (Claude Sonnet) |
-|---------|------------------------|--------------------------|
-| **Vitesse** (1-5) | | |
-| **Créativité** (1-5) | | |
-| **Cohérence** (1-5) | | |
-| **Tokens consommés** | | |
-| **Coût estimé** | | |
-
-**Question clé :** Le modèle premium justifie-t-il son prix pour cette tâche ?
-
-## Seuils de contexte à surveiller
-
-Gardez un œil sur `Ctx(u)` dans la statusline (configurée en TP1) :
+Le contexte consommé, c'est aussi des tokens payants. Gardez un œil sur `Ctx(u)` dans la statusline (configurée en TP1) :
 
 | Contexte % | État | Action |
 |------------|------|--------|
@@ -257,19 +175,18 @@ Chaque token non consommé est un token économisé.
 
 À la fin de ce TP :
 
-- [ ] Mesuré sa consommation de tokens
-- [ ] Comparé 3 modèles sur la même tâche
-- [ ] Calculé le coût mensuel estimé
-- [ ] Identifié les tâches "frugales" vs "premium"
-- [ ] rtk testé sur une commande
+- [ ] Mesuré sa consommation sur une tâche réelle
+- [ ] Identifié deux tâches : une "Plan" (raisonnement), une "Act" (exécution)
+- [ ] Configuré un profil frugal dans son outil
+- [ ] Essayé le pattern pingre (Gemini gratuit → modèle cheap)
 
 ---
 
 # Checkpoint
 
-**Question clé :** À quel moment vaut-il la peine de payer premium ?
+**Question clé :** Pour quelle tâche d'aujourd'hui auriez-vous pu utiliser un modèle moins cher ?
 
-**Pattern retenu :** Frugal first, premium pour les décisions critiques.
+**Pattern retenu :** Phase Plan = raisonnement fort. Phase Act = modèle frugal.
 
 ---
 
