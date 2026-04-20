@@ -248,7 +248,7 @@ mcpServers:
 
 ---
 
-# Playwright et le quirk des screenshots
+# Playwright et l'astuce des screenshots
 
 **Un screenshot n'a pas besoin d'être une image.**
 
@@ -256,8 +256,8 @@ mcpServers:
 # L'agent peut demander un screenshot
 # Playwright renvoie une représentation textuelle !
 
-# Pas ça (lourd, tokens) :
-screenshot_base64 = "iVBORw0KGgoAAAANSUhEUgAA..."  # 50KB+
+# Pas une image (lourd en tokens) :
+screenshot_path = "image.png"  # 50KB+
 
 # Mais ça (léger, exploitable) :
 page_snapshot = """
@@ -268,7 +268,7 @@ page_snapshot = """
 """
 ```
 
-**OpenCode utilise les snapshots textuels :**
+**Playwright utilise les snapshots textuels :**
 - Économie de tokens massive
 - Plus exploitable par le LLM
 - Pas de vision nécessaire

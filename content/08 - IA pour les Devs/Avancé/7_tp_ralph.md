@@ -5,6 +5,10 @@ weight: 2015
 
 ## _Mettre en place un workflow autonome_
 
+> ⏱ **1h30**
+
+> **Outil principal :** OpenCode (`opencode --prompt`). Codex : `codex "$(cat TASK.md)"`. Claude Code : `claude -p "$(cat TASK.md)"`.
+
 ---
 
 # Prérequis

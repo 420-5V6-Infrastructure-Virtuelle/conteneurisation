@@ -5,6 +5,8 @@ weight: 2045
 
 ## _Créer une convention IA pour l'équipe_
 
+> ⏱ **1h**
+
 ---
 
 # Objectif

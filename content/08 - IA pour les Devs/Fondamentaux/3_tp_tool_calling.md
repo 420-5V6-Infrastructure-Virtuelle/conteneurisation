@@ -5,6 +5,10 @@ weight: 1045
 
 ## _Observer ce que fait l'agent_
 
+> ⏱ **1h**
+
+> **Outil principal :** Codex CLI. Remplacer `codex` par `opencode` ou `claude` selon votre outil. La config MCP diffère selon l'outil — voir les notes en contexte.
+
 ---
 
 # Objectif
@@ -15,10 +19,12 @@ Comprendre le pattern tool calling et configurer un MCP basique.
 
 # Étape 1 : Observer les appels
 
-**Lancer OpenCode en mode verbeux :**
+**Lancer l'agent :**
 
 ```bash
-opencode --verbose
+codex       # Codex : tool calls visibles dans le TUI nativement
+            # OpenCode : opencode --verbose
+            # Claude Code : claude --verbose
 ```
 
 **Prompt simple :**
@@ -79,17 +85,21 @@ opencode --verbose
 **Configurer un MCP simple :**
 
 ```yaml
-# ~/.config/opencode/mcp.yaml
+# OpenCode : ~/.config/opencode/mcp.yaml
 mcpServers:
   filesystem:
     command: mcp-filesystem
     args: ["/home/user/mon-app-demo"]
 ```
 
-**Redémarrer OpenCode :**
+> **Claude Code :** la config MCP va dans `~/.claude/settings.json` sous la clé `mcpServers` (même format).
+>
+> **Codex CLI :** config MCP via `~/.codex/config.toml` ou variables d'environnement selon la version.
+
+**Redémarrer l'agent :**
 
 ```bash
-opencode
+codex   # OpenCode : opencode | Claude Code : claude
 ```
 
 **Vérifier que le MCP est chargé :**
@@ -206,16 +216,16 @@ mcpServers:
 
 Quand un agent travaille avec une librairie dont il peut avoir une connaissance périmée, le MCP context7 permet de lui injecter la documentation réelle à jour.
 
-**Exemple de pattern (illustration avec Bevy 0.15) :**
+**Exemple de pattern (FastAPI 0.115 — `lifespan` remplace `on_event`) :**
 
 ```
-> Bevy 0.15 changed the Text2d API significantly.
-  Let me check the Bevy 0.15 text2d example for the correct API:
+> FastAPI 0.115 deprecated the on_event startup/shutdown hooks.
+  Let me check the current API:
 
-[TOOL] context7_resolve-library-id [libraryName=bevy, query=Text2d text rendering in bevy 0.15]
-[TOOL] context7_query-docs [libraryId=/websites/rs_bevy_bevy, query=Text2d spawn text label in 3D world space Bevy 0.15]
+[TOOL] context7_resolve-library-id [libraryName=fastapi, query=lifespan startup shutdown]
+[TOOL] context7_query-docs [libraryId=/tiangolo/fastapi, query=lifespan context manager app startup]
 
-Now I understand Bevy 0.15's new Text2d API. Let me fix the code:
+Now I understand the new lifespan pattern. Let me update the code:
 ```
 
 **Le pattern :**

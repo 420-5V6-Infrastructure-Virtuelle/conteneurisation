@@ -1,5 +1,83 @@
-https://github.com/matt1398/claude-devtools:  The missing DevTools for Claude Code — inspect session logs, tool calls, token usage, subagents, and context window in a visual UI.
-https://github.com/rtk-ai/rtk:  CLI proxy that reduces LLM token consumption by 60-90% on common dev commands.
+## Workflow for Github PRs
+
+Annoying to setup but in the end you just say @codex wdy think?
+ex: https://github.com/ketsapiwiq/pelagica/pull/1
+
+## Laïus on plans: weekly+daily limit+token limit (and cache use or not)
+
+## Roast
+Problèmes structurels majeurs
+1. Deux outils, zéro explication de la relation
+
+La formation mélange OpenCode (configuré sur OpenRouter) et claude (CLI Anthropic). TP1–TP5 utilisent opencode --verbose, mais TP1 étape 7 introduit soudainement claude --verbose et ~/.claude/settings.json. Pour un participant, c'est deux outils différents qui font la même chose — sans jamais expliquer pourquoi il y en a deux, ni quand utiliser lequel.
+
+2. AGENTS.md fait deux fois
+
+TP2 étape 2 : générer un AGENTS.md complet avec l'agent. TP4 étape 4 : "utiliser OpenCode pour générer un AGENTS.md complet". Étape 3 de TP2 et étape 5 de TP4 : "README par dossier" — même instruction, mot pour mot. Si quelqu'un suit les TPs dans l'ordre, il fait deux fois la même chose.
+
+3. Le routing: dans la config OpenCode est fictif
+
+TP5 étape 6 :
+
+
+routing:
+  complex_tasks:
+    - "refactor"
+    model: anthropic/claude-3.5-sonnet
+OpenCode n'a pas cette fonctionnalité. Le participant configure ça, rien ne se passe, il ne sait pas si c'est lui ou l'outil. C'est le genre de chose qui détruit la crédibilité d'une formation.
+
+Problèmes pédagogiques
+4. Le timing est impossible
+
+12 modules × (cours + TP à 7-9 étapes) en 2 jours. Sans time estimate par TP, le formateur ne sait pas quoi couper en live. TP4 seul (Makefile + Docker + AGENTS.md + Feature complète + PR review) représente facilement 3h si les gens ne connaissent pas Docker.
+
+5. Comparia est un point de défaillance unique
+
+Si le setup Docker / HuggingFace token prend 45 minutes (ce qui est réaliste en salle avec des proxies d'entreprise, des perms système etc.), toute la journée 1 est en retard. Aucun plan B documenté pour les participants qui ne font pas tourner l'app.
+
+6. Les grilles d'observation ne servent à rien
+
+TP1, TP2, TP3, TP4 ont des tableaux vides type :
+
+Critère	Oui/Non	Notes
+Lit les fichiers avant de répondre		
+En atelier, personne ne remplit ça. Soit c'est une activité guidée avec un animateur qui demande les réponses à voix haute, soit c'est du remplissage de slide. Le format ne correspond pas à l'usage réel.
+
+7. Le context7 example utilise Bevy
+
+TP3 étape 8 illustre context7 avec "Bevy 0.15 changed the Text2d API". Bevy n'apparaît que dans TP11 (Unknown Tech), module optionnel de veille. Pour quelqu'un qui suit la formation en ordre, la référence est incompréhensible.
+
+Ce qui fonctionne bien
+Le "fil rouge Comparia" est une bonne idée — un projet réel, cohérent, qui grandit au fil des TPs.
+Le pattern pingre (Gemini gratuit pour planifier, modèle cheap pour implémenter) est original et honnête.
+Les scénarios de bugs dans exercises/bug_scenarios/ sont excellents — concrets, basés sur des vraies erreurs d'agents.
+TP8 (debugging) est le meilleur TP : des exercices pratiques qui font vraiment comprendre les patterns d'échec.
+Ce que je ferais
+Par ordre d'impact :
+
+Supprimer ou corriger la fausse config routing: — c'est le seul vrai bug de crédibilité.
+Choisir un outil et s'y tenir : soit OpenCode soit Claude Code, pas les deux sans explication.
+Fusionner TP2 et TP4 ou supprimer les doublons AGENTS.md/README.
+Ajouter une estimation de temps par TP pour que le formateur puisse ajuster en live.
+Remplacer les grilles vides par des questions de débrief à poser en groupe.
+
+## https://github.com/Yeachan-Heo/oh-my-codex
+
+
+## Mention prompt injection and what approach Codex has. 
+
+Web search
+
+Codex ships with a first-party web search tool. For local tasks in the Codex CLI, Codex enables web search by default and serves results from a web search cache. The cache is an OpenAI-maintained index of web results, so cached mode returns pre-indexed results instead of fetching live pages. This reduces exposure to prompt injection from arbitrary live content, but you should still treat web results as untrusted. If you are using --yolo or another full access sandbox setting, web search defaults to live results. To fetch the most recent data, pass --search for a single run or set web_search = "live" in Config basics. You can also set web_search = "disabled" to turn the tool off.
+
+You’ll see web_search items in the transcript or codex exec --json output whenever Codex looks something up.
+
+
+
+
+
+---
+# Old/integrated
 
 Hadrien, [06/04/2026 03:44]
 Tip: Ask Claude to create a todo list when working on complex tasks to track progress and remain on track

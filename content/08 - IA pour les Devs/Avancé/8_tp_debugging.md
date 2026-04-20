@@ -5,6 +5,8 @@ weight: 2025
 
 ## _Diagnostiquer et corriger les échecs_
 
+> ⏱ **1h**
+
 ---
 
 # Objectif
