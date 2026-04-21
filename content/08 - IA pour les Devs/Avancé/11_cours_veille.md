@@ -52,7 +52,7 @@ weight: 2050
 
 ## Pour une veille avancée : LocalLLM
 
-**r/LocalLLA** (Reddit) - La référence pour les modèles locaux :
+**r/LocalLLm** (Reddit) - La référence pour les modèles locaux :
 - Benchmarks en temps réel
 - Quantisation, fine-tuning, local inference
 - Nouveaux modèles open source (Llama, Mistral, Qwen, etc.)
@@ -63,29 +63,9 @@ weight: 2050
 - Intérêt pour les détails techniques (GGUF, quantisation)
 - Tests de performance avant déploiement
 
-## Comptes à suivre
-
-| Compte | Plateforme | Intérêt |
-|--------|-------------|----------|
-| @karpathy | Twitter | ML deep dives |
-| @simonw | Blog | Outils pratiques |
-| @svpino | Twitter | Engineering IA |
-| Official accounts | Twitter | Claude, OpenAI, etc. |
-
 ---
 
 # Les Providers et leurs produits
-
-## État des lieux 2026
-
-| Provider | Modèle phare | Usage |
-|----------|--------------|-------|
-| **Anthropic** | Claude 3.5 Sonnet | Code, reasoning |
-| **OpenAI** | GPT-4o, o1 | General, reasoning |
-| **Google** | Gemini Pro | Multimodal, frugal |
-| **Meta** | Llama 4 | Open source |
-| **DeepSeek** | V3 | Frugal, coding |
-| **Mistral** | Mistral Large | European, open |
 
 ---
 
@@ -94,8 +74,6 @@ weight: 2050
 1. **Context windows** : 200k → 1M+ tokens
 2. **Reasoning models** : o1, Claude thinking
 3. **Multimodal complet** : Text + image + audio
-4. **Autonomous agents** : Ralph loop, self-healing
-5. **Cost collapse** : $/token en chute libre
 
 ---
 
@@ -103,51 +81,17 @@ weight: 2050
 
 ## La guerre des prix
 
-| Modèle | Coût/1M input | Quand l'utiliser |
+| Modèle | Coût/1M input | 
 |--------|---------------|------------------|
-| Gemini Flash | $0.07 | Draft, brainstorming |
-| DeepSeek V3 | $0.10 | Coding, math |
-| Claude Haiku | $0.25 | Quick tasks |
-| GPT-4o-mini | $0.15 | General |
+| Gemini Flash | $0.07 | 
+| MiniMax |  |
+| NanoFlash | |
+| GLM 4.7 | |
 
 **Stratégie :** Routage intelligent selon la tâche.
 
 ---
 
-# Outils à surveiller
-
-## TUI Agents
-
-| Outil | Statut | Particularité |
-|-------|--------|---------------|
-| **OpenCode** | Actif | Open source, agnostique |
-| **Claude Code** | Actif | Vendor lock-in |
-| **Cursor** | Actif | IDE intégré |
-| **Aider** | Actif | CLI lightweight |
-| **Goose** | Nouveau | Open source |
-
----
-
-## IDE Assistants
-
-| Outil | Statut | Particularité |
-|-------|--------|---------------|
-| **Copilot** | Mature | IDE intégré |
-| **Cursor** | Populaire | Fork VSCode |
-| **Cline** | Actif | Extension VSCode |
-| **Roo Code** | Fork | Plus de flexibilité |
-
----
-
-## PR Bots
-
-| Outil | Statut | Particularité |
-|-------|--------|---------------|
-| **Jules** | Google | Background PR work |
-| **CodeRabbit** | Commercial | Review automatique |
-| **Copilot for PR** | GitHub | Suggestions |
-
----
 
 # MCP Ecosystem
 
@@ -208,75 +152,23 @@ deepwiki_fetch:
 - Documenter les decisions d'architecture
 
 ---
+# Annexe : Liens de veille à connaître
 
-# Techniques de veille
+## Outils de monitoring et d'inspection
 
-## Daily workflow
+- **[claude-devtools](https://github.com/matt1398/claude-devtools)** — Les DevTools manquants pour Claude Code : inspecter les sessions, tool calls, usage de tokens, sous-agents et fenêtre de contexte en UI visuelle.
+- **[codeburn](https://github.com/AgentSeal/codeburn)** — Visualise où vont vos tokens session par session (par type de tool call, fichiers lus, etc.). Utile pour identifier ce qui consomme inutilement.
+- **[rtk](https://github.com/rtk-ai/rtk)** — Proxy CLI qui réduit la consommation de tokens de 60-90% sur les commandes dev courantes.
 
-```markdown
-## Matin (15 min)
-- [ ] Hacker News front page
-- [ ] Twitter lists (AI twitter)
-- [ ] Discord serveurs actifs
+## Lectures importantes
 
-## Semaine (1h)
-- [ ] Newsletter(s) en profondeur
-- [ ] Un article technique
+- **[HN #47004712](https://news.ycombinator.com/item?id=47004712)** — Discussion HN à lire : retours d'expérience terrain sur l'usage des agents IA.
+- **[Reddit ExperiencedDevs — "An AI CEO finally said something honest"](https://www.reddit.com/r/ExperiencedDevs/comments/1r6olcv/an_ai_ceo_finally_said_something_honest/)** — Analyse critique sur le discours des entreprises IA.
+- **[Agentic Coding Trends Report 2026](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf)** — Rapport Anthropic sur les tendances du coding agentique.
+- **[AI Fluency Index](https://www.anthropic.com/research/AI-fluency-index)** — Recherche Anthropic sur l'usage réel de l'IA et le biais des artefacts.
 
-## Mois (2h)
-- [ ] Un paper en détail
-- [ ] Test d'un nouvel outil
-```
+## Répertoires de ressources
 
----
-
-## Filtrer le bruit
-
-**Ce qui compte :**
-- Nouveaux modèles
-- Nouveaux outils
-- Failures et lessons learned
-- Techniques pratiques
-
-**Ce qui peut attendre :**
-- News financières (funding, acquisitions)
-- Spéculation sur l'avenir
-- Hype sans substance
-
----
-
-# Partager en équipe
-
-## Créer un canal veille
-
-```markdown
-# Slack/Discord : #veille-ia
-
-## Format recommandé
-[Lien]
- TL;DR : 1-2 phrases
- Pourquoi ça compte : 1-2 phrases
-
-## Rotation
-- Chaque membre partage 1 chose/semaine
-- Pas de spam, que le meilleur
-```
-
----
-
-# Anticiper les changements
-
-## Les signaux
-
-| Signal | Implication |
-|--------|-------------|
-| Nouveau modèle open source | Possibilité de self-host |
-| Hausse de contexte window | Plus de code en une fois |
-| Nouveau MCP | Nouvelles capacités agents |
-| Faille de sécurité | Mise à jour urgente |
-
----
-
-# TP : Veille technologique
-
-Voir `11_tp_veille.md` →
+- **[Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills)** — Skills officiels Claude Code : simplify, review, security-review, etc.
+- **[Claude Code Security Review](https://github.com/anthropics/claude-code-security-review)** — Skill de review sécurité pour Claude Code.
+- **[Claude Code Ultimate Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/cheatsheet.md)** — Cheatsheet community avec bonnes pratiques et quiz.
