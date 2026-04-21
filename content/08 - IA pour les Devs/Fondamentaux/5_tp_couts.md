@@ -216,7 +216,17 @@ Nvidia propose des modèles open source (Llama, Mistral, etc.) **gratuitement** 
 
 # Étape 7 : Gérer son contexte — /compact et /clear
 
-Le contexte s'accumule à chaque échange : historique de la conversation, fichiers lus, résultats de commandes, sorties de tests. Et chaque token d'entrée se paie à chaque nouvel échange.
+Le contexte s'accumule à chaque échange : historique de la conversation, fichiers lus, résultats de commandes, sorties de tests.
+
+**Ce n'est pas que pour les coûts c'est une question de focus.** Un contexte saturé dégrade la qualité des réponses : l'agent commence à oublier des contraintes, à reproduire des erreurs déjà corrigées, à se perdre dans des chemins abandonnés. La performance chute bien avant que le token limit soit atteint.
+
+**Règles de session :**
+
+- **Une session = un problème.** Mélanger deux issues dans la même session pollue le contexte des deux.
+- **Plusieurs sessions courtes > une longue session.** Recommencer proprement est souvent plus rapide que de gérer un agent qui dérive.
+- **Commencez une nouvelle session régulièrement**, surtout après un changement de sujet ou une longue exploration.
+
+Et chaque token d'entrée se paie à chaque nouvel échange — gérer le contexte réduit aussi les coûts.
 
 ## /compact — résumer sans perdre le fil
 

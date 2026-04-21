@@ -11,7 +11,7 @@ weight: 2045
 
 # Objectif
 
-Créer un document de convention pour l'usage de l'IA dans une équipe.
+Poser 3 guardrails concrets que votre équipe appliquera dès demain — pas une convention parfaite, mais une convention que tout le monde a votée.
 
 ## Les tensions réelles
 
@@ -21,296 +21,126 @@ Avant de rédiger des règles, identifier les tensions que votre équipe vit dé
 |---------|-----------------|
 | **Productivité vs Qualité** | "L'IA code plus vite mais le code est moins maintenable" |
 | **Apprentissage vs Dépendance** | "Les juniors ne comprennent pas ce qu'ils committent" |
-<!-- | **Transparence vs Secret** | "Faut-il dire au client que l'IA a écrit le code ?" |
-| **Standardisation vs Créativité** | "Tout le monde génère le même style fade" | -->
 
 Une convention efficace adresse ces tensions — elle ne les ignore pas.
 
 ---
 
-# Partie 1 : Audit de l'existant
+# Partie 1 : Audit — 10 min
 
-##Étape 1 : Identifier les pratiques actuelles
+Avant d'écrire des règles, savoir d'où on part.
 
 **Questions à se poser :**
 
 1. Qui utilise l'IA dans l'équipe ?
 2. Quels outils sont utilisés ?
-3. Quelles sont les plaintes ?
-4. Quels sont les succès ?
+3. Quelles sont les plaintes récurrentes ?
+4. Quels sont les succès observés ?
 
----
-
-##Étape 2 : Documenter les usages
+Créez `AUDIT_IA.md` avec vos réponses :
 
 ```markdown
 # AUDIT_IA.md
 
 ## Outils utilisés
-- OpenCode : 3 personnes
-- Cursor : 2 personnes
-- Copilot : 5 personnes
+- [outil] : [nombre de personnes]
 
 ## Succès rapportés
-- Gain de temps sur les tests
-- Documentation générée rapidement
-- Refactoring assisté
+- ...
 
 ## Problèmes rencontrés
-- Code non compris par les juniors
-- Styles hétérogènes
-- Dépendances non validées
+- ...
 ```
+
+**Livrable partiel :** au moins 3 problèmes identifiés.
 
 ---
 
-# Partie 2 : Rédiger la convention
+# Partie 2 : 3 guardrails à voter — 20 min
 
-## Template à compléter
+## Étape 1 : Chacun propose sa règle (2 min)
+
+Chaque participant écrit **une seule règle** — la plus importante à ses yeux pour encadrer l'usage de l'IA dans l'équipe.
+
+Exemples de règles possibles :
+
+```
+- Commit de code IA non compris = refus de merge
+- Toute PR IA-générée porte le label "ai-generated"
+- Le reviewer doit valider les dépendances ajoutées par l'IA
+- Les juniors expliquent le code généré avant de commit
+- Pas de secrets partagés avec un modèle externe
+```
+
+## Étape 2 : Vote collectif (3 min)
+
+Chacun vote pour les 3 règles qu'il juge les plus utiles (pas les siennes). Les 3 avec le plus de votes sont retenues.
+
+## Étape 3 : Documenter les 3 gagnantes (5 min)
 
 ```markdown
 # CONVENTIONS_IA.md
 
-## 1. Usage Acceptable
+## Guardrails votés le [date]
 
-### Interdit
-- [ ] Commit de code non compris
-- [ ] Utiliser l'IA pour des décisions d'architecture sans consensus
-- [ ] Partager des secrets avec l'IA
-- [ ] Générer du code sensible sans expert review
-
-### Obligatoire
-- [ ] Documenter les prompts significatifs
-- [ ] Review humaine obligatoire
-- [ ] Maintenir couverture de tests > X%
-- [ ] Signaler les limitations
-
-### Recommandé
-- [ ] Utiliser AGENTS.md
-- [ ] Préférer modèles frugaux pour tâches simples
-- [ ] Valider les dépendances générées
-
-## 2. Processus de Review
-
-### Pour le reviewer
-- [ ] Le code est-il compréhensible ?
-- [ ] Les tests sont-ils significatifs ?
-- [ ] Pas decredentials ?
-- [ ] Dépendances légitimes ?
-
-### Label
-- [ ] Ajouter label \"ai-generated\" sur les PR
-- [ ] Review plus approfondie pour ce label
-
-## 3. Junior vs Senior
-
-### Règle
-Le junior DOIT expliquer le code généré avant de commit.
-
-### Questionstypes
-- \"Pourquoi cette approche ?\"
-- \"Quelles sont les alternatives ?\"
-- \"Comment fonctionne ce module ?\"
-
-## 4. Transparence
-
-### Communication client
-- Projets sensibles : déclarer l'usage IA
-- Code standard : non requis
-
-### Responsabilité
-- Le développeur qui commit est responsable
-- L'équipe qui review est coresponsable
+1. [Règle 1]
+2. [Règle 2]
+3. [Règle 3]
 ```
+
+**Livrable partiel :** `CONVENTIONS_IA.md` avec exactement 3 règles.
 
 ---
 
-# Partie 3 : Workflow
+# Partie 3 : Label GitHub — 10 min
 
-##Étape 1 : Définir le process
+Créer le label `ai-generated` sur le repo de l'équipe.
 
-```
-┌─────────────────────────────────────────────┐
-│           WORKFLOW AVEC IA                  │
-│                                             │
-│  Dev génère avec IA                         │
-│         │                                   │
-│         ▼                                   │
-│  Dev comprend le code                       │
-│  (sinon refuse de commit)                   │
-│         │                                   │
-│         ▼                                   │
-│  Tests + Lint OK                           │
-│         │                                   │
-│         ▼                                   │
-│  PR avec label \"ai-generated\"              │
-│         │                                   │
-│         ▼                                   │
-│  Review approfondie                         │
-│         │                                   │
-│         ▼                                   │
-│  Merge siapprouvé                          │
-└─────────────────────────────────────────────┘
-```
+```bash
+# Créer le label
+gh label create "ai-generated" --color "B8B8B8" --description "Code généré par IA - review approfondie requise"
 
----
-
-##Étape 2 : Créer le label
-
-**GitHub :**
-
-```yaml
-# Créer un label dans les settings
-name: ai-generated
-color: B8B8B8
-description: Code généré parIA - review approfondie requise
+# Vérifier
+gh label list | grep ai-generated
 ```
 
 **Utilisation :**
 
 ```bash
-# Ajouter le label à une PR
+# Ajouter le label à une PR existante
 gh pr edit <number> --add-label ai-generated
 ```
 
----
-
-# Partie 4 : Gestion des conflits
-
-## Scénario : Deux approches
-
-**Situation :**
-- Dev A utilise IA pour générer
-- Dev B préfère code manuel
-- Conflit de style
-
-**Résolution :**
-
-1. Comparer objectivement :
-   - Lisibilité
-   - Maintenabilité
-   - Performance
-   - Tests
-
-2. Préférer la compréhension
-   - Le code que personne comprend = supprimer
-
-3. Documenter le choix
+**Livrable partiel :** `gh label list | grep ai-generated` retourne le label.
 
 ---
 
-# Partie 5 : Jeu de rôle - Bug en production
+# Partie 4 : Roleplay — vendredi 16h47 — 15 min
 
-## Exercice de mise en situation
+## Scénario
 
-**Scénario :** Vendredi 16h47, un bug critique est découvert en production. Le code coupable a été généré par IA.
+**Vendredi 16h47.** Un utilisateur signale que les commandes passées depuis 2h sont doublées en base de données. Le `git blame` pointe vers un commit "feat: add order processing" mergé ce matin. Le code a été généré par IA — le reviewer a approuvé sans comprendre la logique de déduplication.
 
-Voir le [scénario complet](../exercises/roleplay_scripts/prod_bug_scenario.md).
+## Rôles
 
-**Participants :**
-- **Dev A** : Auteur du code (commit sans comprendre)
-- **Dev B** : Reviewer (a approuvé sans vérifier)
-- **Lead Dev** : Médiateur
-- **Product Owner** : Pressé par le client
-- **Observateurs** : Prennent des notes
+- **Dev A** : auteur du code (a committé sans comprendre la déduplication)
+- **Dev B** : reviewer (a approuvé sans vérifier la logique)
+- **Lead Dev** : médiateur, doit prendre une décision
+- **Product Owner** : pressé par le client, veut un fix maintenant
+- **Observateurs** : prennent des notes sur ce qui aurait pu être évité
 
-**Déroulement (15 minutes) :**
+## Déroulement
+
 1. Découverte du bug (2 min)
-2. Recherche du coupable (3 min)
-3. Confrontation (5 min)
-4. Résolution (5 min)
-5. Débrief (hors temps)
+2. Recherche de la cause (3 min)
+3. Confrontation dev/reviewer/lead (5 min)
+4. Décision et fix d'urgence (5 min)
 
-**Questions à traiter :**
-1. Qui est responsable ? (Auteur, Reviewer, IA)
-2. Que dit la charte ?
-3. Comment éviter la prochaine fois ?
+## Questions de débrief
 
----
-
-# Partie 6 : Intégration GitHub
-
-## Workflow PR avec un agent
-
-L'intégration IA dans les PRs est pénible à configurer une fois, puis elle devient transparente. Le pattern est simple : vous taguez l'agent dans un commentaire GitHub, il lit la PR et répond (ou agit).
-
-<!-- **Avec Codex CLI** — via l'intégration GitHub Actions :
-
-```yaml
-# .github/workflows/codex-review.yml
-on:
-  pull_request_review_comment:
-    types: [created]
-
-jobs:
-  codex:
-    if: contains(github.event.comment.body, '@codex')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          echo "${{ github.event.comment.body }}" | codex
-``` -->
-
-Ensuite dans une PR :
-```
-@codex What do you think about this approach?
-@codex Are there edge cases I'm missing in this function?
-```
-
-L'agent lit le diff, le contexte de la PR, et répond dans les commentaires.
-
-**Avec Claude Code** — via l'app GitHub officielle :
-
-```bash
-# Configurer depuis Claude Code :
-/install-github-app
-```
-
-```
-# Dans une issue ou PR GitHub :
-@claude Fix this bug and create a PR
-@claude Review this PR and flag security issues
-```
-
-Une fois installé, l'agent peut répondre aux issues, créer des branches, et ouvrir des PRs directement depuis GitHub — sans quitter l'interface.
-
-**Mise en garde :** Ces agents lisent vos PRs et issues, qui peuvent contenir des données sensibles ou des tentatives de prompt injection (voir TP3). Limitez les permissions de l'app GitHub à ce qui est nécessaire.
-
----
-
-# Partie 7 : Perspectives critiques sur l'IA en équipe
-
-## Closed-source : enshittification sans préavis
-
-Les modèles closed-source peuvent se dégrader silencieusement entre deux versions — sans changelog, sans notification. Un modèle qui était bon à l'implémentation peut devenir médiocre sur vos cas d'usage sans que vous le sachiez.
-
-**En pratique :**
-- Gardez un benchmark reproductible sur vos cas d'usage réels
-
-## AI Fluency Index : le piège des artefacts
-
-Selon l'[AI Fluency Index d'Anthropic](https://www.anthropic.com/research/AI-fluency-index), les gens "se shootent aux artefacts" — le mode génération d'artefacts (code, documents) crée un effet wow qui réduit l'esprit critique.
-
-Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite en avant du "et rajoute ça aussi".
-
-**Pour l'équipe :**
-- Promouvoir le dialogue itératif plutôt que la génération en bloc
-- Questionner chaque artefact plutôt que de l'accepter comme output final
-- L'enthousiasme de l'agent n'est pas une validation
-
----
-
-# Partie 8 : Metrics
-
-## Quoi mesurer
-
-| Métrique | Objectif |
-|----------|-----------|
-| % code IA | Pas de cible, mais transparence |
-| Review time IA vs humain | Comparable |
-| Test coverage | > 70% |
-| Bug rate IA vs humain | Comparable |
+1. Qui est responsable ? L'auteur, le reviewer, ou l'IA ?
+2. Laquelle de vos 3 guardrails aurait évité ça ?
+3. Que manquait-il dans le process de review ?
 
 ---
 
@@ -318,18 +148,18 @@ Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite
 
 À la fin de ce TP :
 
-- [ ] Audit des pratiques documenté
-- [ ] Convention IA rédigée
-- [ ] Label \"ai-generated\" configuré
-- [ ] Processus de review défini
+- [ ] `AUDIT_IA.md` complété (au moins 3 problèmes identifiés)
+- [ ] `CONVENTIONS_IA.md` avec exactement 3 guardrails votés
+- [ ] `gh label list | grep ai-generated` retourne le label
+- [ ] Roleplay joué, débrief noté
 
 ---
 
 # Checkpoint
 
-**Pattern retenu :** L'IA ne commit pas, l'humain commit.
+**Pattern retenu :** Pas de convention parfaite — une convention que tout le monde a choisie.
 
-**Question clé :** Comment gérez-vous les désaccords sur le code IA ?
+**Question clé :** Laquelle de vos 3 règles aurait le plus d'impact dès la semaine prochaine ?
 
 ---
 

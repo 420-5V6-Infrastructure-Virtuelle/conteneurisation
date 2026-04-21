@@ -23,6 +23,23 @@ weight: 2050
 
 ---
 
+# Perspectives critiques 
+
+## Closed-source : enshittification sans préavis
+
+Les modèles closed-source peuvent se dégrader silencieusement entre deux versions — sans changelog, sans notification. Un modèle qui était bon à l'implémentation peut devenir médiocre sur vos cas d'usage sans que vous le sachiez.
+
+**En pratique :**
+- Gardez un benchmark reproductible sur vos cas d'usage réels
+
+## AI Fluency Index : le piège des artefacts
+
+Selon l'[AI Fluency Index d'Anthropic](https://www.anthropic.com/research/AI-fluency-index), les gens "se shootent aux artefacts" — le mode génération d'artefacts (code, documents) crée un effet wow qui réduit l'esprit critique.
+
+Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite en avant du "et rajoute ça aussi".
+
+---
+
 # Les sources de veille
 
 ## Agrégateurs et newsletters
