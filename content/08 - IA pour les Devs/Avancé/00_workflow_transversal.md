@@ -122,83 +122,6 @@ git reset --hard origin/feature/ma-feature  # Revenir au dernier push
 
 ---
 
-# Docker Workflow Optionnel
-
-## Pourquoi Docker ?
-
-**Isolation des environnements agents.**
-
-| Avantage | Description |
-|----------|-------------|
-| **Sandbox** | L'agent ne peut pas casser votre système |
-| **Reproductibilité** | Même environnement pour toute l'équipe |
-| **Cleanup facile** | `docker rm` et c'est propre |
-
----
-
-## Guardrails SOFT avec Docker
-
-**Container = Protection du filesystem.**
-
-```dockerfile
-# Dockerfile pour agent sandbox
-FROM node:20-slim
-
-WORKDIR /app
-
-# Pas de volumes sensibles
-# Pas de USER root (si possible)
-# Network limité
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-
-CMD ["bash"]
-```
-
-```bash
-# Lancer un agent dans un container
-docker build -t agent-sandbox .
-docker run -it --rm \
-  -v $(pwd):/app \
-  agent-sandbox \
-  bash
-
-# L'agent travaille dans /app
-# Il ne peut pas toucher au reste du système
-```
-
----
-
-## Guardrails HARD (Linux User)
-
-**Alternative : User Linux sans permissions.**
-
-```bash
-# Créer un user limité
-sudo useradd -m -s /bin/bash agentuser
-
-# Donner accès uniquement au projet
-sudo chown -R agentuser:agentuser /path/to/project
-
-# Lancer les commande agent en tant que agentuser
-sudo -u agentuser bash
-cd /path/to/project
-# L'agent ne peur pas toucher à ~, /etc, etc.
-```
-
-**Avantages :**
-- Plus proche de l'environnement réel
-- Pas de couche Docker
-
-**Inconvénients :**
-- Setup plus complexe
-- Moins isolé que Docker
-
----
-
 ## Règle #5 : Slop Removal (Avant Commit)
 
 **Les agents génèrent du code "slop" - code inutile qu'il faut nettoyer.**
@@ -470,8 +393,8 @@ AGENT: "Based on the search results, NextAuth.js v5 with OAuth
 ## Checklist avant chaque TP
 
 - [ ] Branche Git créée (`feature/nom-feature`)
-- [ ] Container Docker lancé (optionnel mais recommandé)
 - [ ] AGENTS.md configuré avec "call me by name"
+- [ ] Sandbox choisi si mode autonome (voir TP7)
 - [ ] MCP Search disponible si nécessaire
 
 ## Pendant le TP
@@ -485,7 +408,6 @@ AGENT: "Based on the search results, NextAuth.js v5 with OAuth
 
 - [ ] Historique Git reviewé
 - [ ] Branche mergée dans main (ou PR créée)
-- [ ] Container nettoyé (`docker rm`)
 
 ---
 
@@ -493,7 +415,7 @@ AGENT: "Based on the search results, NextAuth.js v5 with OAuth
 
 Ce module est référencé dans :
 
-- **Module 7** : Ralph Loop
+- **Module 7** : Sandboxing & Exécution Autonome
 - **Module 8** : Debugging
 - **Module 9** : Tests
 - **Module 10** : Conventions

@@ -1,6 +1,7 @@
 ---
 title: "6 - TP Multimodal et Modèles Frugaux"
 weight: 1065
+draft: true
 ---
 
 ## _Comparer et optimiser les coûts_
@@ -10,6 +11,25 @@ weight: 1065
 # Objectif
 
 Comparer différents modèles, mesurer les coûts, et expérimenter la multimodalité.
+
+## Quand utiliser le multimodal
+
+| Cas d'usage | Description |
+|-------------|-------------|
+| **Screenshot d'erreur** | Montrer l'erreur en UI plutôt que de la décrire |
+| **Mockup → code** | Transformer un design en HTML/CSS |
+| **Diagramme d'archi** | Analyser un schéma et suggérer une implémentation |
+| **Debug visuel** | "Pourquoi la page s'affiche comme ça ?" |
+
+## Limitations à connaître
+
+| Limitation | Impact |
+|------------|--------|
+| Coût élevé | Une image = 500–2000 tokens selon la résolution |
+| Hallucination visuelle | Le modèle peut "lire" du texte qui n'existe pas |
+| Résolution limitée | Les détails fins sont souvent manqués |
+
+**L'astuce Playwright :** au lieu d'envoyer une image (lourd), le MCP Playwright retourne une représentation textuelle du DOM. Aucun token d'image, même précision pour naviguer la structure. Voir TP3 Étape 6.
 
 ---
 

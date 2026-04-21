@@ -1,6 +1,7 @@
 ---
 title: "9 - TP Tests et Qualité"
 weight: 2035
+draft: true
 ---
 
 ## _Générer et valider des tests_
@@ -10,6 +11,37 @@ weight: 2035
 # Objectif
 
 Apprendre à générer des tests de qualité avec l'IA et à les valider.
+
+## Le paradoxe des tests IA
+
+L'agent peut générer des tests qui **passent** mais ne testent rien :
+
+```python
+# ❌ Ce test passe — et ne prouve rien
+def test_delete_user():
+    response = client.delete("/users/1")
+    assert response.status_code == 200
+    # Ne vérifie pas que l'utilisateur est supprimé
+    # Ne teste pas les permissions
+    # Ne teste pas les erreurs
+```
+
+Un test qui ne plante jamais n'est pas un test — c'est du bruit.
+
+**Coverage est un indicateur, pas un objectif :**
+
+| Coverage | Interprétation |
+|----------|----------------|
+| < 50% | Insuffisant |
+| 50–70% | Minimum acceptable |
+| 70–85% | Bon |
+| 85–95% | Excellent |
+| > 95% | Soupçonner des tests vides |
+
+**Pattern TDD avec l'IA :**
+1. Vous écrivez le test (ce que le code DOIT faire)
+2. L'agent implémente le minimum pour le faire passer
+3. Vous relisez l'implémentation
 
 ---
 

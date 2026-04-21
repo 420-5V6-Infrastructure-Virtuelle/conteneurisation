@@ -11,6 +11,18 @@ weight: 1055
 
 ---
 
+
+# Les 4 piliers
+
+Un projet bien structuré pour l'IA a besoin de :
+
+1. **AGENTS.md** - Contexte permanent pour l'agent
+2. **Makefile / run.sh** - Commandes reproductibles
+3. **Docker** - Environnement isolé et défini
+4. **README.md par dossier** - Documentation lo
+
+---
+
 # Objectif
 
 Réaliser une feature non triviale sur Comparia en suivant le cycle complet : plan → build → PR review → retro AGENTS.md.

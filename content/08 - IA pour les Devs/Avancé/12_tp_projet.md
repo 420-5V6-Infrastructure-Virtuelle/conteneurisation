@@ -283,7 +283,7 @@ Les LLM excellent sur ces types de projets :
 
 **Si vous choisissez un projet avancé :**
 1. Commencez par un POC minimal
-2. Utilisez Docker ou user Linux sans permissions (voir `00_workflow_transversal.md`)
+2. Mettez en place un sandbox (voir TP7)
 3. Divisez en micro-features commitables
 
 ### 💡 Options alternatives : Technologies inconnues
@@ -473,7 +473,7 @@ YOU: "Now implement according to your plan.
 
 > **⚠️ Voir `00_workflow_transversal.md` pour les détails sur Yolo Mode et Catastrophic Forgetting.**
 
-**Rappel :** Ne pas laisser l'agent travailler sans supervision. Si vous utilisez ce mode, obligatoire : Docker OU user Linux sans permissions.
+**Rappel :** Ne pas laisser l'agent travailler sans supervision. Si vous utilisez ce mode, un sandbox est obligatoire — voir TP7.
 
 ```bash
 # Vérifier TOUJOURS après

@@ -15,6 +15,30 @@ weight: 1065
 
 Comprendre pourquoi un agent ne devrait pas utiliser le même modèle pour planifier et pour coder — et savoir configurer ses modes en pratique.
 
+## La réalité des coûts
+
+Mise en perspective du Hacker News :
+
+| Usage | Coût mensuel | Profil |
+|-------|-------------|--------|
+| Casual | $10–20 | Copilot, abonnement basique |
+| Actif | $40–100 | Cursor + Claude/GPT régulier |
+| Power user | $100–700 | Usage API intensif |
+| Extrême | $24 000 | Claude Code sans limite (cas réel HN) |
+
+Ce n'est pas une fatalité — c'est une question de stratégie.
+
+**Prix des modèles courants sur OpenRouter (output tokens) :**
+
+| Modèle | Coût / 1M tokens | Pour quoi |
+|--------|-----------------|-----------|
+| Gemini Flash | ~$0.30 | Tâches mécaniques, exploration |
+| Claude Haiku | ~$1.25 | Usage courant |
+| Claude Sonnet | ~$15.00 | Architecture, sécurité, décisions |
+| Minimax / GLM | ~$0.10 | Implémentation ultra-frugale |
+
+La différence entre Flash et Sonnet sur de l'implémentation mécanique : souvent nulle. Sur de l'architecture : souvent décisive.
+
 ---
 
 # Étape 1 : Mesurer sa consommation
@@ -49,7 +73,41 @@ Notez les tokens d'entrée, de sortie, et le coût estimé affiché.
 
 ---
 
-# Étape 2 : Plan vs Act — deux phases différentes
+# Étape 2 : Comprendre ce qu'on paie
+
+La facturation se fait au token. Un token ≈ 4 caractères en anglais, un peu moins en français.
+
+**Tokens d'entrée (input)**
+
+Tout ce que le modèle lit avant de répondre : le prompt système, l'historique de la conversation, les résultats des tool calls (contenu des fichiers lus, résultats de commandes…). Plus le contexte accumulé est grand, plus chaque échange coûte cher — même si vous ne demandez qu'une petite chose.
+
+**Tokens de sortie (output)**
+
+Tout ce que le modèle génère : texte de réponse, appels d'outils, code produit. Les tokens de sortie coûtent généralement 3 à 5× plus cher que les tokens d'entrée.
+
+**Tokens de raisonnement (reasoning)**
+
+Les modèles "thinking" (o3, claude-sonnet avec extended thinking…) génèrent une chaîne de réflexion interne avant de répondre. Ces tokens comptent comme des tokens de sortie — ils peuvent multiplier le coût par 5 sur une tâche complexe.
+
+```
+Input tokens  → $0.003 / 1M tokens  (ex. Claude Sonnet)
+Output tokens → $0.015 / 1M tokens
+Reasoning     → $0.015 / 1M tokens (inclus dans output)
+```
+
+## Où part l'argent en pratique
+
+Sur une session de codage typique, l'essentiel des tokens d'entrée vient des tool calls : l'agent lit des fichiers, exécute des commandes, lit les résultats — tout ça s'accumule dans le contexte.
+
+**Pour minimiser :**
+
+- `/compact` avant que le contexte dépasse 70% — résume l'historique sans le perdre
+- Demandez des réponses concises : `Réponds en 3 bullet points max`
+- Préférez `grep` à `lire tout le fichier` quand c'est possible — l'agent fait pareil si AGENTS.md le précise
+
+---
+
+# Étape 3 : Plan vs Act — deux phases différentes
 
 Un agent qui reçoit "Refactor the auth service" fait en réalité deux choses très différentes :
 
@@ -73,7 +131,7 @@ Un agent qui reçoit "Refactor the auth service" fait en réalité deux choses t
 
 ---
 
-# Étape 3 : Configurer les phases par outil
+# Étape 4 : Configurer les phases par outil
 
 **Codex CLI** — switcher de modèle entre les phases :
 
@@ -111,7 +169,7 @@ Shift+Tab   # Active le Plan mode : l'agent réfléchit avant d'agir
 
 ---
 
-# Étape 4 : Choisir son modèle selon la tâche
+# Étape 5 : Choisir son modèle selon la tâche
 
 | Type de tâche | Exigence | Modèle adapté |
 |--------------|----------|---------------|
@@ -125,7 +183,7 @@ Shift+Tab   # Active le Plan mode : l'agent réfléchit avant d'agir
 
 ---
 
-# Étape 5 : Le pattern pingre — réflexion gratuite, implémentation frugale
+# Étape 6 : Le pattern pingre — réflexion gratuite, implémentation frugale
 
 L'idée : utiliser un modèle **gratuit** pour la phase Plan, puis fournir ce plan à un modèle **ultra-frugal** pour l'implémentation mécanique.
 
@@ -156,9 +214,42 @@ Nvidia propose des modèles open source (Llama, Mistral, etc.) **gratuitement** 
 
 ---
 
-# Étape 6 : Seuils de contexte à surveiller
+# Étape 7 : Gérer son contexte — /compact et /clear
 
-Le contexte consommé, c'est aussi des tokens payants. Gardez un œil sur `Ctx(u)` dans la statusline (configurée en TP1) :
+Le contexte s'accumule à chaque échange : historique de la conversation, fichiers lus, résultats de commandes, sorties de tests. Et chaque token d'entrée se paie à chaque nouvel échange.
+
+## /compact — résumer sans perdre le fil
+
+```
+/compact
+```
+
+Ce que ça fait :
+- Résume le contenu de la conversation en un bloc condensé
+- Remplace l'historique détaillé par ce résumé dans le contexte
+- L'agent conserve les décisions prises, les fichiers connus, l'état du projet
+- Vous continuez la session sans payer pour les anciens échanges
+
+Ce que ça ne fait **pas** :
+- Ne supprime pas le contexte — `/clear` fait ça
+- N'aide pas une session déjà à 90%+ — les tokens sont déjà brûlés
+
+**Quand l'utiliser :**
+- À 70% du contexte, pas après — vérifiez `Ctx(u)` dans la statusline
+- Après un long passage de lecture de fichiers (tool spam)
+- Avant de changer de phase : après le Plan, avant le Build
+
+## /clear — repartir de zéro
+
+`/clear` vide complètement le contexte. À réserver aux sessions vraiment bloquées — l'agent perd tout ce qu'il savait du projet. Préparez un résumé court à lui redonner avant de reprendre.
+
+**Claude Code uniquement :**
+```bash
+claude -c          # Reprend la dernière session compactée
+claude -r <id>     # Reprend une session spécifique par son ID
+```
+
+## Seuils de contexte
 
 | Contexte % | État | Action |
 |------------|------|--------|
@@ -167,7 +258,49 @@ Le contexte consommé, c'est aussi des tokens payants. Gardez un œil sur `Ctx(u
 | 70–90% | Orange | `/compact` maintenant |
 | 90%+ | Rouge | `/clear` requis |
 
-Chaque token non consommé est un token économisé.
+
+---
+
+# Étape 8 : Plans, limites et cache
+
+## Définir ses limites de dépense
+
+Sur **OpenRouter**, configurez des limites avant de lancer un agent autonome :
+
+- **Limite quotidienne** : coupe la clé si vous dépassez X$ en 24h — indispensable avant un Ralph Loop
+- **Limite hebdomadaire** : plafond global pour éviter les surprises de fin de semaine
+- **Limite par requête** : force l'agent à rester concis
+
+> Réglage dans le dashboard OpenRouter → Settings → Limits. Fixez une limite quotidienne dès l'installation — pas après le premier incident.
+
+## Token limit par requête
+
+Certains outils permettent de limiter les tokens de sortie par appel :
+
+```bash
+# Codex CLI — via variable d'environnement
+export OPENAI_MAX_TOKENS=4096
+
+# OpenCode — dans config.yaml
+max_tokens: 4096
+```
+
+Un token limit trop bas casse les réponses longues. Un token limit absent laisse l'agent produire 10 000 tokens pour une réponse de 50 lignes.
+
+## Le cache de prompt
+
+Certains providers (Anthropic, OpenAI) permettent de mettre en cache les tokens d'entrée répétitifs. Résultat : si vous relancez une session avec le même AGENTS.md + les mêmes fichiers, les tokens déjà vus ne sont pas refacturés au plein tarif.
+
+**Chez Anthropic :** tokens mis en cache coûtent ~10% du prix normal à la relecture (après 5 min de TTL).
+
+```
+Session 1 : 10 000 tokens d'entrée → $0.03
+Session 2 (même contexte) : 10 000 tokens → $0.003 (cache hit)
+```
+
+**Quand c'est utile :** sessions longues sur le même projet, Ralph Loop avec AGENTS.md stable.
+
+**Quand ça n'aide pas :** prompts qui changent à chaque fois, modèles sans support du cache (la plupart des modèles frugaux sur OpenRouter).
 
 ---
 

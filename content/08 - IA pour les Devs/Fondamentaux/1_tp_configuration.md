@@ -8,6 +8,22 @@ weight: 1025
 > ⏱ **45 min**
 
 > **Outil principal :** Codex CLI. Les variantes OpenCode et Claude Code sont notées où elles diffèrent.
+<!-- 
+---
+
+# L'écosystème en 3 minutes
+
+Trois catégories d'outils, un seul principe : **apportez votre propre clé API**.
+
+| Catégorie | Exemples | Usage |
+|-----------|----------|-------|
+| **Agents TUI** (terminal) | Codex, OpenCode, Claude Code | Session autonome dans le projet |
+| **Assistants IDE** | Cursor, Copilot, Cline | Autocomplete + chat dans l'éditeur |
+| **Bots PR** | Jules, CodeRabbit | Revue automatique sur les Pull Requests |
+
+Cette formation se concentre sur les agents TUI — les plus puissants pour coder et les plus transparents sur ce qu'ils font.
+
+**Pourquoi une clé OpenRouter plutôt qu'un abonnement ?** Accès à 200+ modèles sans vendor lock-in : frugal (Gemini Flash) comme premium (Claude Sonnet). Vous changez de modèle sans changer d'outil. -->
 
 ---
 
