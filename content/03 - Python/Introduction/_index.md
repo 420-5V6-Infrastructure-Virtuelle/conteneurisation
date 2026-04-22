@@ -152,7 +152,7 @@ Lire des (bons) livres plutôt que des (mauvais) tutoriels. [Cf Bibliographie](/
 
 ### Communauté
 
-Bonne nouvelle le Python est un écosystème informatique plutôt sain: culture libriste et passion de l'informatique dans la communauté python. N'hésitez pas à aller rencontrer d'autre développeurs.
+Bonne nouvelle le Python est un écosystème informatique plutôt sain: culture libriste et passion de l'informatique dans la communauté python. N'hésitez pas à aller rencontrer d'autre développeur·euses.
 
 ### Après cette formation
 

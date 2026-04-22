@@ -6,7 +6,7 @@
 
 ## Description
 
-Cette formation sur l'état de l'art des outils IA pour développeurs vous apportera une maîtrise des dernières technologies d'IA appliquées au développement.
+Cette formation sur l'état de l'art des outils IA pour développeur·euses vous apportera une maîtrise des dernières technologies d'IA appliquées au développement.
 
 ### Au cours de cette journée, vous apprendrez à :
 
@@ -36,9 +36,9 @@ Développeur·se·s souhaitant intégrer des outils d'IA dans leur workflow pour
 
 ### Jour 1 : L'IA dans le workflow du dev
 
-#### Découvertes des cas d'usages IA pour les développeurs
-- Tendances actuelles de l'IA pour les développeurs
-- Comment les développeurs peuvent-ils utiliser l'IA ?
+#### Découvertes des cas d'usages IA pour les développeur·euses
+- Tendances actuelles de l'IA pour les développeur·euses
+- Comment les développeur·euses peuvent-ils utiliser l'IA ?
 
 #### Impact de l'IA sur le workflow de développement
 - Collaboration IA / Développeur

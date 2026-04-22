@@ -54,7 +54,7 @@ Il est un des projets qui symbolise et supporte techniquement ces transformation
 - On retourne à la consommation de "temps de calcul" et de services après une "aire du Personnal Computer".
 - Pour organiser cela on définit trois niveaux à la fois techniques et économiques de l'informatique:
   - **Software as a Service**: location de services à travers internet pour les usagers finaux
-  - **Plateform as a Service**: location d'un environnement d'exécution logiciel flexible à destination des développeurs
+  - **Plateform as a Service**: location d'un environnement d'exécution logiciel flexible à destination des développeur·euses
   - **Infrastructure as a Service**: location de resources "matérielles" à la demande pour installer des logiciels sans avoir à maintenir un data center.
 
 #### Conteneurisation
@@ -77,7 +77,7 @@ Les conteneurs sont souvent comparés à l'innovation du porte conteneur pour le
 
 #### Le mouvement DevOps
 
-- Dépasser l'opposition culturelle et de métier entre les développeurs et les administrateurs système.
+- Dépasser l'opposition culturelle et de métier entre les développeur·euses et les administrateurs système.
 - Intégrer tout le monde dans une seule équipe et ...
 - Calquer les rythmes de travail sur l'organisation agile du développement logiciel
 - Rapprocher techniquement la gestion de l'infrastructure du développement avec l'infrastructure as code.

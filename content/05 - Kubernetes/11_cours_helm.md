@@ -98,6 +98,6 @@ Exemples :
 
 ##### Limites des opérateurs
 
-Il est possible de développer soit même des opérateurs mais il s'agit de développement complexes qui devraient être entrepris par les développeurs du logiciel et qui sont surtout utiles pour des applications distribuées et stateful. Les opérateurs n'ont pas forcément vocation à remplacer les Charts Helm comme on l'entend parfois.
+Il est possible de développer soit même des opérateurs mais il s'agit de développement complexes qui devraient être entrepris par les développeur·euses du logiciel et qui sont surtout utiles pour des applications distribuées et stateful. Les opérateurs n'ont pas forcément vocation à remplacer les Charts Helm comme on l'entend parfois.
 
 Voir : https://thenewstack.io/kubernetes-when-to-use-and-when-to-avoid-the-operator-pattern/

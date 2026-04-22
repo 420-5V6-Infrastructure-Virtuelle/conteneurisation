@@ -98,7 +98,7 @@ ETC...
 
 Cf. le livre Fluent Python et [la doc officielle](https://docs.python.org/3/reference/datamodel.html)
 
-Implémenter ces différentes fonctions d'API n'est pas obligation mais surtout utile pour construire du code (souvent de librairie) qui sera agréable à utiliser pour les autre développeurs habitués à Python.
+Implémenter ces différentes fonctions d'API n'est pas obligation mais surtout utile pour construire du code (souvent de librairie) qui sera agréable à utiliser pour les autre développeur·euses habitués à Python.
 
 ## Design Patterns
 

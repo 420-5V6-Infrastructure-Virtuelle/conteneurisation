@@ -29,14 +29,13 @@ weight: 2050
 
 Les modèles closed-source peuvent se dégrader silencieusement entre deux versions — sans changelog, sans notification. Un modèle qui était bon à l'implémentation peut devenir médiocre sur vos cas d'usage sans que vous le sachiez.
 
-**En pratique :**
-- Gardez un benchmark reproductible sur vos cas d'usage réels
+Ex: https://github.com/besimple-oss/broccoli
 
-## AI Fluency Index : le piège des artefacts
+## AI Fluency Index
 
-Selon l'[AI Fluency Index d'Anthropic](https://www.anthropic.com/research/AI-fluency-index), les gens "se shootent aux artefacts" — le mode génération d'artefacts (code, documents) crée un effet wow qui réduit l'esprit critique.
+Selon l'[AI Fluency Index d'Anthropic](https://www.anthropic.com/research/AI-fluency-index), le mode génération d'artefacts (code, documents) crée un effet wow qui réduit l'esprit critique.
 
-Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite en avant du "et rajoute ça aussi".
+Le modèle de chat back-and-forth préserve davantage l'esprit critique.
 
 ---
 
@@ -48,16 +47,6 @@ Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite
 |--------|-----------|-------|
 | **Hacker News** | Quotidien | Technique, discussions |
 | **Lobste.rs** | Quotidien | Technique, moins de bruit |
-| **The AI Epoch** | Hebdo | Agrégateur |
-| **Decoder** | Quotidien | News IA |
-| **Alpha Signal** | Hebdo | ML/Research |
-
-### Hacker News - Tags LLM
-
-**Pour une veille légère :** Utilisez le tag `llm` sur HN :
-- https://news.ycombinator.com/llm (nouveau format 2026)
-- Filtré automatiquement sur les sujets LLM
-- Commentaires techniques de qualité
 
 ### Lobste.rs - Communauté technique
 
@@ -89,8 +78,8 @@ Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite
 ## Tendances à surveiller
 
 1. **Context windows** : 200k → 1M+ tokens
-2. **Reasoning models** : o1, Claude thinking
-3. **Multimodal complet** : Text + image + audio
+2. Prix
+3. Multimodal image ou non
 
 ---
 
@@ -105,12 +94,11 @@ Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite
 | NanoFlash | |
 | GLM 4.7 | |
 
-**Stratégie :** Routage intelligent selon la tâche.
+=> Routage intelligent selon la tâche.
 
 ---
 
 
-# MCP Ecosystem
 
 ## Les MCP essentiels
 
@@ -121,14 +109,6 @@ Le modèle de chat back-and-forth garde davantage d'esprit critique que la fuite
 | **github** | Issues, PRs |
 | **playwright** | Browser automation |
 | **slack** | Messages |
-
----
-
-## Comment suivre les MCP
-
-- [MCP Registry](https://github.com/modelcontextprotocol/registry)
-- Awesome MCP lists
-- Communautés Discord/Slack
 
 ---
 

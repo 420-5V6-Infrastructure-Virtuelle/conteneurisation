@@ -98,7 +98,7 @@ On peut donc constater que les opérations traditionnelles implique une culture 
 
 - On s'organise à l'avance.
 - On vérifie plusieurs fois chaque chose.
-- On ne fait pas confiance au code que nous donnent les développeurs.
+- On ne fait pas confiance au code que nous donnent les développeur·euses.
 - On suit des procédures pour limiter les risques.
 - On surveille l'état du système (on parle de monitoring)
 - Et on reçoit même des SMS la nuit si ya un problème :S
@@ -113,12 +113,12 @@ Les opérations "traditionnelles":
 
 ### L'objectif technique idéal du DevOps : Intégration et déploiement continus (CI/CD)
 
-Du côté des développeurs avec l'agilité on a déjà depuis des années une façon d'automatiser pleins d'opérations sur le code à chaque fois qu'on valide une modification.
+Du côté des développeur·euses avec l'agilité on a déjà depuis des années une façon d'automatiser pleins d'opérations sur le code à chaque fois qu'on valide une modification.
 
 - Chaque modification du code est validée dans le gestionnaire de version **Git**.
 - Ensuite est envoyée sur le dépot de code commun.
 - Des tests logiciels se lancent automatiquement pour s'assurer qu'il n'y a pas de bugs ou de failles.
-- Le développeurs est averti des problèmes.
+- Le développeur·euses est averti des problèmes.
 
 C'est ce qu'on appelle l'intégration continue.
 

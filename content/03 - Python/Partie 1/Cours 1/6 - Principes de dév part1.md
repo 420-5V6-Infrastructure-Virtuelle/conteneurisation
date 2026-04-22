@@ -11,7 +11,7 @@ Le fait qu'un programme marche n'est pas suffisant voire parfois "secondaire" !
 
 - ... Mieux vaut un programme cassé mais lisible (donc débuggable)
 - ... qu'un programme qui marche mais incompréhensible (donc fragile et/ou qu'on ne saura pas faire évoluer)
-- ... et donc qui va surtout faire perdre du temps aux futurs développeurs
+- ... et donc qui va surtout faire perdre du temps aux futurs développeur·euses
 
 Autrement dit : **la lisibilité pour vous et vos collègues a énormément d'importance pour la maintenabilité et l'évolution d'un projet**
 

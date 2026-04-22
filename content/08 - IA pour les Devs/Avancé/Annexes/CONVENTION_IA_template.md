@@ -201,7 +201,7 @@ Pour les juniors (< 1 an dans l'équipe) :
 
 ## 8. Formation
 
-### Onboarding nouveaux développeurs
+### Onboarding nouveaux développeur·euses
 
 **Session 1 : Introduction (1h)**
 - Démonstration d'OpenCode

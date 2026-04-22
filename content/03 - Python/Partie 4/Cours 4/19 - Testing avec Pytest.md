@@ -15,7 +15,7 @@ Lorsqu'on a un gros logiciel avec une base de code python énorme on ne peut pas
 
 Comme un logiciel doit pouvoir être en permanence refactorisé pour resté efficace et propre on a vraiment besoin de tests pour tout logiciel d'une certaine taille.
 
-Si vous codez une librairie pour d'autres développeurs/utilisateurs, ces utilisateurs veulent un maximum de tests pour garantir que vous ne laisserait pas des bugs dans la prochaine version et qu'ils peuvent faire confiance à votre code.
+Si vous codez une librairie pour d'autres développeur·euses/utilisateurs, ces utilisateurs veulent un maximum de tests pour garantir que vous ne laisserait pas des bugs dans la prochaine version et qu'ils peuvent faire confiance à votre code.
 
 #### Pour anticiper les bugs avant qu'ils n'arrivent
 

@@ -101,7 +101,7 @@ La POO est critique pour garder un code structuré et compréhensible quand la c
 - Maintenir les variables isolées à l'intérieur d'un "scope" pour évitées qu'elles ne soient modifiée n'importe quand et n'importe comment et qu'il y ai des conflits de nom.
 - Fournir une façon d'architecturer un programme que tout le monde connait à peu près
 - Fournir un moyen efficace de programmer en évitant la répétition et favorisant la réutilisation
-- Créer des "boîtes noires" utilisables sans connaître leur fonctionnement interne (bien et pas bien à la fois). C'est à dire une façon de se répartir le travail entre développeurs (chacun sa boîte qu'on maîtrise).
+- Créer des "boîtes noires" utilisables sans connaître leur fonctionnement interne (bien et pas bien à la fois). C'est à dire une façon de se répartir le travail entre développeur·euses (chacun sa boîte qu'on maîtrise).
 
 
 ## DRY don't repeat yourself et couplage
