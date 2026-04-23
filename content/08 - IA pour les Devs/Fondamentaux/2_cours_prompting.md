@@ -179,6 +179,67 @@ C'est une **feature propriétaire et opaque** : chaque provider l'implémente di
 
 ---
 
+
+
+#  Gérer son contexte — /compact et /clear
+
+Le contexte s'accumule à chaque échange : historique de la conversation, fichiers lus, résultats de commandes, sorties de tests.
+
+**Ce n'est pas que pour les coûts c'est une question de focus.** Un contexte saturé dégrade la qualité des réponses : l'agent commence à oublier des contraintes, à reproduire des erreurs déjà corrigées, à se perdre dans des chemins abandonnés. La performance chute bien avant que le token limit soit atteint.
+
+**Règles de session :**
+
+- **Une session = un problème.** Mélanger deux issues dans la même session pollue le contexte des deux.
+- **Plusieurs sessions courtes > une longue session.** Recommencer proprement est souvent plus rapide que de gérer un agent qui dérive.
+- **Commencez une nouvelle session régulièrement**, surtout après un changement de sujet ou une longue exploration.
+
+Et chaque token d'entrée se paie à chaque nouvel échange — gérer le contexte réduit aussi les coûts.
+
+## /compact — résumer sans perdre le fil
+
+```
+/compact
+```
+
+Ce que ça fait :
+- Résume le contenu de la conversation en un bloc condensé
+- Remplace l'historique détaillé par ce résumé dans le contexte
+- L'agent conserve les décisions prises, les fichiers connus, l'état du projet
+- Vous continuez la session sans payer pour les anciens échanges
+
+Ce que ça ne fait **pas** :
+- Ne supprime pas le contexte — `/clear` fait ça
+- N'aide pas une session déjà à 90%+ — les tokens sont déjà brûlés
+
+**Quand l'utiliser :**
+- À 70% du contexte, pas après — vérifiez `Ctx(u)` dans la statusline
+- Après un long passage de lecture de fichiers (tool spam)
+- Avant de changer de phase : après le Plan, avant le Build
+
+## /clear — repartir de zéro
+
+`/clear` vide complètement le contexte. À réserver aux sessions vraiment bloquées — l'agent perd tout ce qu'il savait du projet. Préparez un résumé court à lui redonner avant de reprendre.
+
+**Claude Code uniquement :**
+```bash
+claude -c          # Reprend la dernière session compactée
+claude -r <id>     # Reprend une session spécifique par son ID
+```
+
+## Seuils de contexte
+
+| Contexte % | État | Action |
+|------------|------|--------|
+| 0–50% | Vert | Travaillez librement |
+| 50–70% | Jaune | Soyez sélectif dans les lectures |
+| 70–90% | Orange | `/compact` maintenant |
+| 90%+ | Rouge | `/clear` requis |
+
+
+---
+
+
+
 # TP : Créer votre AGENTS.md
 
 Le TP fil rouge continue : créer un `AGENTS.md` pour votre projet démo.
