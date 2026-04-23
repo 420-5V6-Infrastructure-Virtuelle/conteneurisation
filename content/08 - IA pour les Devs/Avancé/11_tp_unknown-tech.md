@@ -1,6 +1,7 @@
 ---
 title: "11 - TP Agent sur Tech inconnue"
 weight: 2051
+draft: true
 ---
 
 ## _Explorer une technologie inconnue avec un agent LLM_

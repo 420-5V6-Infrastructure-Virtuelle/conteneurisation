@@ -1,6 +1,6 @@
 ---
 title: "11 - Veille et Écosystème"
-weight: 2050
+weight: 2040
 ---
 
 ## _Rester à jour dans un écosystème en mouvement_

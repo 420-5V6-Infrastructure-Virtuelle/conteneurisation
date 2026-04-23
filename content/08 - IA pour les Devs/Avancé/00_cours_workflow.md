@@ -137,7 +137,35 @@ git reset --hard origin/feature/ma-feature  # Revenir au dernier push
 | **Fonctions mortes** | `function oldHelper()` | Maintenance burden |
 | **Types inutilisés** | `interface OldFormat` | Confusion |
 
+
+## Règle #6 : Apprendre à reconnaître les patterns d'échec et à les corriger.
+
+## Indicateurs à monitorer
+
+| Indicateur | Bon |Mauvais |
+|------------|-----|--------|
+| Fichiers modifiés | 5-10 | 50+ |
+| Tokens par itération | Stable | Croissant |
+| Tests passant | ↑ | Stagnant |
+| Temps par itération | Stable | Croissant |
+
+## Les 8 patterns à connaître
+
+| Pattern | Signal | Fix |
+|---------|--------|-----|
+| **Hallucinated API** | Imports qui n'existent pas | AGENTS.md liste les utilitaires disponibles |
+| **Infinite Fix Loop** | A→casse B→fixe B→casse A | Limite d'itérations + tests de régression |
+| **"Done" Bug** | "C'est fait !" mais 0 fichiers modifiés | Vérifier indépendamment avec `git diff --stat` |
+| **Ignoring Directives** | Modifie .env malgré l'interdiction | Répéter les contraintes, watchdog externe |
+| **Tool Spam** | Lit le même fichier 5 fois | AGENTS.md structuré, contexte clair |
+| **Context Amnesia** | Oublie ce qui a été décidé avant | Rotation à 70%, commits fréquents |
+| **Destructive Edits** | Supprime des fichiers "inutiles" | Fichiers protégés dans AGENTS.md |
+| **Type Error** | Passe une fonction au lieu d'une valeur | Tests de type, CI strict |
+
+**Règle d'or :** Ne demandez pas à l'agent si c'est fait, `make test` et `git diff`.
+
 ### Pattern de cleanup obligatoire
+
 
 ```bash
 # APRÈS que l'agent a fini, AVANT de commit
@@ -172,6 +200,8 @@ Avant chaque commit, vérifier :
 - [ ] Fonctions mortes supprimées
 - [ ] Variables inutilisées supprimées
 ```
+
+**A mettre dans `AGENTS.md` typiquement
 
 ---
 

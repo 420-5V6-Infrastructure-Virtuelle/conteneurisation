@@ -1,6 +1,6 @@
 ---
-title: "10 - TP Conventions d'Équipe"
-weight: 2045
+title: "8 - TP Conventions d'Équipe"
+weight: 2025
 ---
 
 ## _Créer une convention IA pour l'équipe_

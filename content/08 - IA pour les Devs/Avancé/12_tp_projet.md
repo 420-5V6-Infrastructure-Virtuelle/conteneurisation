@@ -1,6 +1,7 @@
 ---
 title: "12 - TP Projet Final"
 weight: 2056
+draft: true
 ---
 
 ## _Intégrer l'IA dans un projet réel_
