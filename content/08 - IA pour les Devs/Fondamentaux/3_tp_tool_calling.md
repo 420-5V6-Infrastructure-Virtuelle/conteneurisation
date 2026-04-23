@@ -17,13 +17,15 @@ Configurer des MCPs utiles et observer concrètement leur impact sur le comporte
 
 ---
 
-# Étape 1 : Observer les appels
+# Étape 1 : Observer les tool calls
 
+
+---
 **Lancer l'agent :**
 
 ```bash
 codex       # tool calls visibles nativement
-            # OpenCode : opencode --verbose
+            # OpenCode : tool calls visibles nativement
             # Claude Code : claude --verbose
 ```
 
@@ -75,24 +77,10 @@ codex       # tool calls visibles nativement
 
 # Étape 3 : Recherche web — MCPs ou natif ?
 
-Pas d'exercice ici, juste un point de configuration à connaître.
 
 **Claude Code et Codex** ont la recherche web intégrée nativement — rien à faire.
 
-**OpenCode** n'a pas de recherche intégrée. Il faut ajouter un MCP :
-
-```yaml
-# ~/.config/opencode/mcp.yaml
-mcpServers:
-  brave-search:
-    command: npx
-    args: ["-y", "@modelcontextprotocol/server-brave-search"]
-    env:
-      BRAVE_API_KEY: ${BRAVE_API_KEY}
-```
-
-Les alternatives `websearch` et `ddg_search` existent aussi (pas de clé requise pour ddg). Le résultat côté agent est identique dans les trois cas — c'est juste le moteur qui change.
-
+**OpenCode** n'a pas de recherche intégrée. Il faut ajouter un MCP comme `ddg_search`.
 ---
 
 # Étape 4 : context7 — ancrer l'agent dans la vraie doc
@@ -101,18 +89,15 @@ Quand l'agent travaille avec une librairie dont il peut avoir une connaissance p
 
 **Configurer context7 :**
 
-```yaml
-# ~/.config/opencode/mcp.yaml  (Claude Code : ~/.claude/settings.json)
-mcpServers:
-  context7:
-    command: npx
-    args: ["-y", "@upstash/context7-mcp@latest"]
+```
+codex mcp add context7 -- npx -y @upstash/context7-mcp
 ```
 
 **Redémarrer l'agent, puis tester :**
 
+Avec la question de votre choix :
 ```
->use context7
+>utilise context7
 >Comment migrer de on_event vers lifespan dans FastAPI ?
 ```
 
@@ -120,15 +105,16 @@ mcpServers:
 ```
 [TOOL] context7_resolve-library-id [libraryName=fastapi]
 [TOOL] context7_query-docs [libraryId=/tiangolo/fastapi, query=lifespan startup shutdown]
-
-→ L'agent répond avec la vraie API FastAPI 0.115, pas ce qu'il "croit" savoir
 ```
+L'agent répond avec la vraie API FastAPI 0.115, pas ce qu'il "croit" savoir
 
-**Tester avec une librairie de votre choix** — n'importe quelle lib où une version récente a cassé une API connue.
+<!-- **Tester avec une librairie de votre choix** — n'importe quelle lib où une version récente a cassé une API connue. -->
 
 ---
 
 # Étape 5 : Playwright — voir et interagir avec Comparia
+
+On peut utiliser directement le MCP Chrome DevTools ou Playwright. 
 
 **Pourquoi Playwright plutôt qu'un screenshot ?**
 
@@ -136,49 +122,43 @@ Playwright renvoie une représentation textuelle du DOM, pas une image. Économi
 
 **Configurer le MCP Playwright :**
 
-```yaml
-mcpServers:
-  playwright:
-    command: npx
-    args: ["-y", "@playwright/mcp@latest"]
+Codex :
+```
+codex mcp add playwright -- npx -y @playwright/mcp
+```
+
+Opencode :
+```
+{
+"mcp: [
+"playwright": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp"
+      ]
+    }
+]
+}
 ```
 
 **L'exercice :**
 
-Comparia tourne en local. Trouvez le port en lisant le README ou le `docker-compose.yml` du projet, puis donnez ce prompt à l'agent :
+Avec Comparia qui tourne en local, demandez à l'agent d'interagir avec la page.
 
-```
->Ouvre Comparia sur http://localhost:<PORT>
->Vérifie que la page d'accueil charge correctement.
->Si ce n'est pas le cas, attends et réessaie jusqu'à ce qu'elle soit disponible.
->Une fois chargée, décris ce que tu vois et interagis avec l'interface :
->lance une comparaison entre deux modèles avec le prompt "Explique le tool calling en 2 phrases".
-```
 
 **Observer les appels :**
 ```
 [TOOL] playwright_navigate(url="http://localhost:<PORT>")
 [TOOL] playwright_snapshot()
-→ snapshot textuel du DOM, pas d'image
-
-[TOOL] playwright_navigate(...)   ← si page pas encore dispo, l'agent boucle
-[TOOL] playwright_snapshot()
-→ "Page loaded: ComparIA — comparer les modèles d'IA"
-
 [TOOL] playwright_click(ref="textarea.prompt-input")
 [TOOL] playwright_fill(value="Explique le tool calling en 2 phrases")
 [TOOL] playwright_click(ref="button[type=submit]")
 [TOOL] playwright_snapshot()
-→ l'agent lit les réponses des deux modèles
 ```
-
-**Points d'attention :**
-- Pas de screenshot PNG — représentation DOM accessible
-- L'agent boucle naturellement si le serveur n'est pas encore prêt
-- Il peut lire les réponses des modèles comme du texte
-
----
-
+<!-- 
 # Étape 6 : LSP — navigation sémantique du code
 
 Le cours couvre les trois situations. En pratique :
@@ -212,9 +192,9 @@ mcpServers:
 
 Avec LSP, l'agent ne cherche pas par mots-clés — il interroge le language server, qui connaît la structure du code.
 
----
+--- -->
 
-# Étape 7 : L'anti-pattern "tool spam"
+<!-- # Étape 7 : L'anti-pattern "tool spam"
 
 **Observer un agent qui boucle :**
 
@@ -228,20 +208,20 @@ Avec LSP, l'agent ne cherche pas par mots-clés — il interroge le language ser
 **Cause :** contexte trop chargé, AGENTS.md absent ou vague.
 **Solution :** AGENTS.md clair sur la structure du projet, prompts structurés.
 
----
+--- -->
 
-# Étape 8 : GitHub — gh CLI ou MCP ?
+# Étape 6 : GitHub — gh CLI ou MCP ?
 
-C'est l'exemple parfait de la philosophie bash vs MCP. Les deux fonctionnent, les trade-offs sont réels.
+Philosophie bash vs MCP. Les deux fonctionnent.
 
 ## Approche 1 — gh CLI (bash)
 
 Si `gh` est installé et authentifié sur votre machine, l'agent peut l'utiliser directement sans aucune config :
 
 ```
->Crée une issue sur le repo Comparia pour signaler
->que la page d'accueil met plus de 3s à charger.
->Inclure le snapshot Playwright comme description.
+>Utilise la CLI gh
+>Liste les 5 dernières PRs ouvertes sur betagouv/comparia
+>et résume les changements de chacune
 ```
 
 L'agent exécutera quelque chose comme :
@@ -272,7 +252,7 @@ mcpServers:
 > Pour Claude Code : même format dans `~/.claude/settings.json` sous `mcpServers`.
 
 ```
->use mcp github
+>Utilise le MCP github
 >Liste les 5 dernières PRs ouvertes sur betagouv/comparia
 >et résume les changements de chacune
 ```
@@ -311,38 +291,11 @@ L'agent peut envoyer des messages, lire des canaux, rechercher dans l'historique
 **Telegram**  
 Plusieurs MCPs communautaires disponibles — pratique si votre équipe est sur Telegram plutôt que Slack.
 
-## Gestion de projet
-
-**Linear** — issues et sprints structurés, API propre, très utilisé dans les startups tech.
-
-**Notion** — lecture et écriture de pages. Utile si votre doc technique est dans Notion.
-
-**Jira** — pour les équipes enterprise. MCP officiel Atlassian disponible.
-
-## Données et infra
-
-**PostgreSQL / SQLite** — l'agent peut requêter directement votre base. Très puissant pour le debug ou l'exploration de données.
-
-```yaml
-postgres:
-  command: npx
-  args: ["-y", "@modelcontextprotocol/server-postgres", "postgresql://localhost/mydb"]
-```
-
 **Filesystem étendu** — accès à des dossiers en dehors du projet courant (logs système, exports, etc.).
 
-**Cloudflare** — gestion de DNS, Workers, KV store directement depuis l'agent.
+**Rappel sécurité :** Un package compromis s'exécute avec vos permissions.
 
-## Pour trouver d'autres MCPs
-
-- [mcp.so](https://mcp.so) — répertoire communautaire
-- [MCP Registry officiel](https://github.com/modelcontextprotocol/registry)
-- Chercher `mcp-server-*` sur npm ou PyPI
-
-> **Rappel sécurité :** vérifiez toujours le repo GitHub d'un MCP avant de l'installer via `npx -y`. Un package compromis s'exécute avec vos permissions.
-
----
-
+<!-- 
 # Livrable
 
 À la fin de ce TP :
@@ -352,7 +305,7 @@ postgres:
 - [ ] Playwright : Comparia chargée et interagie via l'agent
 - [ ] LSP configuré (ou compris pourquoi c'est déjà là)
 - [ ] GitHub : les deux approches testées (gh CLI + MCP)
-- [ ] Avoir identifié un anti-pattern tool spam dans vos observations
+- [ ] Avoir identifié un anti-pattern tool spam dans vos observations -->
 
 ---
 

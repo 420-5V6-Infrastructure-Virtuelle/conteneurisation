@@ -114,7 +114,8 @@ export OPENROUTER_API_KEY="sk-or-v1-..."
 | **Qualité** | Claude Sonnet | ~$3.00 |
 | **Multimodal** | Qwen-VL | ~$0.30 |
 
-**Conseil :** Commencez frugal, passez premium pour les décisions critiques.
+Commencez frugal, passez premium pour les décisions critiques.
+**Pour le cours :** il est intéressant d'opérer avec des modèles suboptimaux pour observer les comportements erratiques principaux des agents, causés par les modèles LLM qui sont derrière.
 
 ---
 
@@ -123,8 +124,4 @@ export OPENROUTER_API_KEY="sk-or-v1-..."
 Le TP fil rouge commence : configuration de votre environnement.
 
 **Objectif :**
-1. Créer un compte OpenRouter
-2. Configurer OpenCode avec votre clé
-3. Tester sur l'application démo de votre choix
-
-Voir `1_tp_configuration.md` →
+1. Configurer Codex avec votre clé

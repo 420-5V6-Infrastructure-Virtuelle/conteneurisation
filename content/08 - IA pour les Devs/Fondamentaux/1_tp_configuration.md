@@ -29,7 +29,6 @@ Cette formation se concentre sur les agents TUI — les plus puissants pour code
 
 # Prérequis
 
-- [ ] Node.js 18+
 - [ ] Docker & docker-compose
 - [ ] Git configuré
 - [ ] Un éditeur de code (VSCode recommandé)
@@ -55,16 +54,16 @@ export OPENROUTER_API_KEY="sk-or-v1-..."
 
 # Étape 2 : Installation
 
-**Codex CLI :**
+- **Codex CLI :**
 
 ```bash
 npm install -g @openai/codex
 codex --version
 ```
 
-> **OpenCode :** `npm install -g @opencode-ai/opencode` → `opencode --version`
->
-> **Claude Code :** `npm install -g @anthropic-ai/claude-code` → `claude --version`
+- **OpenCode :** <https://github.com/opencode-ai/opencode>
+
+-  **Claude Code :** `npm install -g @anthropic-ai/claude-code`
 
 ---
 
@@ -75,7 +74,7 @@ codex --version
 ```bash
 export OPENAI_API_KEY="${OPENROUTER_API_KEY}"
 export OPENAI_BASE_URL="https://openrouter.ai/api/v1"
-export OPENAI_MODEL="google/gemini-2.0-flash"   # modèle par défaut (frugal)
+export OPENAI_MODEL="" 
 ```
 
 > **OpenCode :** fichier `~/.config/opencode/config.yaml`
@@ -95,13 +94,6 @@ export OPENAI_MODEL="google/gemini-2.0-flash"   # modèle par défaut (frugal)
 # Choisir son app de travail
 
 Comparia est l'app démo de cette formation, mais vous pouvez appliquer les mêmes exercices à votre propre projet.
-
-| Type d'app | Exemples | Niveau avec LLM |
-|------------|----------|-----------------|
-| **CRUD / utilitaire** | Lecteur RSS, todo app, lecteur de musique, API simple | ✅ Excellent — patterns bien documentés, l'agent excelle |
-| **App "métier"** | Logique domaine complexe, règles métier spécifiques, orchestration | ⚠️ Avancé — sans guardrails, l'agent se cassera la gueule |
-
-Pour cette formation : on reste sur Comparia (CRUD + API bien structurée). Les patterns avancés avec guardrails arrivent en jour 2.
 
 ---
 
@@ -123,75 +115,18 @@ export OPENROUTER_TOKEN="hf_..."
 **Lancer l'app avec l'aide de l'agent :**
 
 ```bash
-codex   # OpenCode : opencode | Claude Code : claude
+codex
 ```
 
 ```
-> Analyse ce projet, explique sa structure et dis-moi comment le lancer en local
+> Arrive à lancer ce projet en local
 ```
 
-Suivez les instructions générées. **Vérification :** l'interface est accessible dans le navigateur.
+**Vérification :** l'interface est accessible dans le navigateur.
+
 
 ---
-
-# Étape 5 : Observer les tool calls
-
-Comprendre ce que fait l'agent en coulisse est essentiel — dès qu'un comportement vous surprend, c'est la première chose à regarder.
-
-**Codex CLI** affiche les tool calls nativement dans son interface TUI.
-
-**OpenCode :**
-
-```bash
-opencode --verbose
-```
-
-**Claude Code** offre le mode verbose le plus détaillé, plus une statusline permanente :
-
-```bash
-claude --verbose
-```
-
-```json
-// ~/.claude/settings.json — statusline de consommation en temps réel
-{
-  "statusLine": {
-    "type": "command",
-    "command": "npx -y ccstatusline@latest",
-    "padding": 0
-  }
-}
-```
-
-```
-Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
-```
-
-**Règle simple :** `Ctx(u)` > 70% → `/compact`. > 85% → `/clear`.
-
----
-
-
-# Étape 6 : Faire tourner l'app simplifiée
-
-Comparia a une version allégée pour le développement. Avec l'aide de l'IA :
-
-```
-> Comment lancer Comparia en mode simplifié / développement local
-  sans toute l'infrastructure de production ?
-```
-
-Objectif : avoir une interface fonctionnelle avec au moins un modèle accessible.
-
-**Points à observer :**
-- L'IA lit-elle correctement la doc du projet ?
-- Propose-t-elle des raccourcis pertinents ?
-- Gère-t-elle bien les erreurs de configuration ?
-
----
-
----
-
+<!-- 
 # Livrable
 
 - [ ] Clé OpenRouter configurée
@@ -199,7 +134,7 @@ Objectif : avoir une interface fonctionnelle avec au moins un modèle accessible
 - [ ] Comparia qui tourne en local
 - [ ] Token HuggingFace configuré
 
----
+--- -->
 
 # Ressources
 

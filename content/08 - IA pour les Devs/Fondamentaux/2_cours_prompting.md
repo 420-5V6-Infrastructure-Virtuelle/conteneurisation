@@ -74,8 +74,6 @@ Objectif: Ajouter une validation avant l'insertion."
 
 # Pattern : AGENTS.md
 
-**Le fichier qui change tout.**
-
 À la racine de votre projet, un fichier `AGENTS.md` donne le contexte à l'IA :
 
 ```markdown
@@ -106,11 +104,10 @@ API REST pour gestion d'utilisateurs.
 - Ne pas ajouter de dépendances sans validation
 ```
 
-**Pourquoi ça marche ?**
-- L'IA a le contexte permanent
-- Pas besoin de répéter à chaque prompt
-- Réduit les tokens consommés
+- C'est un contexte permanent
+- Pas besoin de le répéter à chaque prompt
 - **Plus de cohérence** dans les réponses
+- Ne pas oublier de demander à l'IA de le **tenir à jour**
 
 ---
 

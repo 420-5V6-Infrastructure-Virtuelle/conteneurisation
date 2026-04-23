@@ -119,11 +119,23 @@ make test         # Est-ce que ça marche ?
 
 # Étape 4 : Tester l'impact du contexte
 
-**Même prompt, avec et sans AGENTS.md :**
+
+Testez votre AGENTS.md en conditions réelles : ajoutez une petite feature originale sur votre projet de démo.
+
+**N'hésitez pas à sélectionner avec `/model` un modèle moins bon pour cet exercice, pour mieux voir le rôle de `AGENTS.md`**
+
+**Exemple :** modifier le prompt système des modèles comparés pour leur donner un rôle absurde (coach sportif bidon, conseiller financier catastrophique…)
 
 ```
-Prompt: "Ajoute un endpoint pour supprimer un utilisateur."
+> Je veux adapter Comparia pour [votre idée].
 ```
+
+**Même prompt, avec et sans AGENTS.md :**
+
+```bash
+git diff          # Ce qui a changé ligne par ligne
+```
+
 
 **Test 1 — sans AGENTS.md :**
 
@@ -134,6 +146,13 @@ codex             # Lancer l'agent
 
 ```
 > Ajoute un endpoint pour supprimer un utilisateur.
+```
+
+**Après chaque test :**
+
+```bash
+git diff          # Ce qui a changé ligne par ligne
+git stash         # Remettre à zéro pour le prochain test
 ```
 
 **Test 2 — avec AGENTS.md :**
@@ -147,94 +166,14 @@ codex
 > Ajoute un endpoint pour supprimer un utilisateur.
 ```
 
-**Après chaque test :**
-
-```bash
-git diff --stat   # Combien de fichiers modifiés ?
-git diff          # Ce qui a changé ligne par ligne
-git stash         # Remettre à zéro pour le prochain test
-```
 
 **Ce qu'on observe :**
-- L'agent respecte-t-il les conventions de nommage ?
-- A-t-il pensé aux cas limites (soft delete, permissions, tests) ?
 - Combien d'itérations ont été nécessaires ?
+- L'agent lit-il AGENTS.md avant de proposer ?
 
----
-
-# Étape 5 : Prompts structurés
-
-**❌ Prompt non structuré :**
-```
-Refactor la gestion des utilisateurs
-```
-
-**✅ Prompt structuré :**
-```markdown
-Contexte: API REST FastAPI avec SQLAlchemy.
-
-Objectif: Refactoriser src/services/user_service.py.
-
-Problème actuel:
-- Logique DB mélangée avec logique métier
-- Pas de gestion d'erreurs
-- Tests couvrent 60%
-
-Contraintes:
-- Garder la même interface publique
-- Ajouter des exceptions custom
-- Monter la couverture à 80%+
-
-Format de sortie:
-- Liste des fichiers modifiés
-- Nouveaux tests ajoutés
-```
-
-Essayez les deux. Comparez avec `git diff` ce qui a réellement changé.
-
-**Anti-patterns courants à éviter :**
-
-| Anti-pattern | Conséquence |
-|--------------|-------------|
-| Prompt trop long, tout mélangé | Confusion, tokens gâchés, résultat approximatif |
-| Pas de contraintes | Code non idiomatique, dépendances non désirées |
-| Oublier les tests | L'agent n'y pense pas si vous ne le demandez pas |
-| Ignorer l'existant | Duplication — l'agent recrée ce qui existe déjà |
-
----
-
-# Étape 6 : Pattern de validation
-
-**Toujours demander validation avant application :**
-
-```
-> Propose 3 façons de refactoriser ce module avec les pros/cons de chaque.
-  Attends ma validation avant d'implémenter.
-```
-
----
-
-# Étape 7 : Feature nouvelle sur Comparia
-
-Testez votre AGENTS.md en conditions réelles : ajoutez une petite feature originale.
-
-**Exemple :** modifier le prompt système des modèles comparés pour leur donner un rôle absurde (coach sportif bidon, conseiller financier catastrophique…)
-
-```
-> Je veux adapter Comparia pour [votre idée].
   Quels fichiers modifier pour changer le prompt système des modèles ?
   Respecte les conventions définies dans AGENTS.md.
-```
 
-**Ce qu'on observe :**
-- L'agent lit-il AGENTS.md avant de proposer ?
-- Respecte-t-il les conventions de nommage ?
-- Modifie-t-il uniquement les fichiers pertinents ?
-
-```bash
-git diff --stat   # Combien de fichiers touchés ?
-git diff          # Ce qui a changé ligne par ligne
-```
 
 ---
 
@@ -249,7 +188,7 @@ git diff          # Ce qui a changé ligne par ligne
 
 L'agent coche les étapes au fur et à mesure — vous gardez une vue d'ensemble et pouvez réorienter.
 
-## Plan → Build → Test → Plan (modestly)
+## Plan → Build → Test → Plan (plus modeste)
 
 Le cycle recommandé pour toute feature non triviale :
 
@@ -284,14 +223,10 @@ Si vous corrigez vous-même, dites-le à l'agent — il doit comprendre pourquoi
 
 - [ ] `AGENTS.md` à la racine du projet
 - [ ] Script de commandes fonctionnel (`make test` passe)
-- [ ] Comparaison prompt vague vs structuré observée dans `git diff`
+<!-- - [ ] Comparaison prompt vague vs structuré observée dans `git diff` -->
 - [ ] Une feature ajoutée
 
 ---
-
-# Checkpoint
-
-**Question clé :** Combien d'itérations de moins avec un bon AGENTS.md ?
 
 **Pattern retenu :** Structurer ses prompts avec contexte, objectif, contraintes, format de sortie. Vérifier systématiquement dans Git.
 

@@ -1,5 +1,5 @@
 ---
-title: "5 - TP Modes et Modèles"
+title: "5 - TP Contexte et coûts"
 weight: 1065
 ---
 
@@ -26,7 +26,7 @@ Mise en perspective du Hacker News :
 | Power user | $100–700 | Usage API intensif |
 | Extrême | $24 000 | Claude Code sans limite (cas réel HN) |
 
-Ce n'est pas une fatalité — c'est une question de stratégie.
+<!-- Ce n'est pas une fatalité — c'est une question de stratégie. -->
 
 **Prix des modèles courants sur OpenRouter (output tokens) :**
 
@@ -208,9 +208,9 @@ OPENAI_MODEL="google/gemini-flash-1.5" codex "Voici le plan validé : [coller le
 
 **Résultat :** la partie coûteuse (raisonnement, architecture) est gratuite ; la partie mécanique coûte quasi-rien.
 
-## Curiosité : Nvidia NIM async
+<!-- ## Curiosité : Nvidia NIM async
 
-Nvidia propose des modèles open source (Llama, Mistral, etc.) **gratuitement** via [build.nvidia.com](https://build.nvidia.com), mais en mode asynchrone — jusqu'à 3h d'attente en période de charge. Inutilisable en session interactive, mais intéressant pour des tâches batch overnight.
+Nvidia propose des modèles open source (Llama, Mistral, etc.) **gratuitement** via [build.nvidia.com](https://build.nvidia.com), mais en mode asynchrone — jusqu'à 3h d'attente en période de charge. Inutilisable en session interactive, mais intéressant pour des tâches batch overnight. -->
 
 ---
 
