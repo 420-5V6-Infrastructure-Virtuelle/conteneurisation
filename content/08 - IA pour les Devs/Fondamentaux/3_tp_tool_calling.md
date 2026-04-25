@@ -7,7 +7,7 @@ weight: 1045
 
 > ⏱ **45 min**
 
-> **Outil principal :** Codex CLI. Remplacer `codex` par `opencode` ou `claude` selon votre outil.
+<!-- > **Outil principal :** Codex CLI. Remplacer `codex` par `opencode` ou `claude` selon votre outil. -->
 
 ---
 
@@ -80,7 +80,7 @@ codex       # tool calls visibles nativement
 
 **Claude Code et Codex** ont la recherche web intégrée nativement — rien à faire.
 
-**OpenCode** n'a pas de recherche intégrée. Il faut ajouter un MCP comme `ddg_search`.
+**OpenCode** ou **Roo Code** n'ont pas de recherche intégrée. Il faut ajouter un MCP comme `ddg_search`.
 ---
 
 # Étape 4 : context7 — ancrer l'agent dans la vraie doc
@@ -89,6 +89,28 @@ Quand l'agent travaille avec une librairie dont il peut avoir une connaissance p
 
 **Configurer context7 :**
 
+Opencode :
+```
+{
+"mcp: [
+"playwright": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp"
+      ]
+    }
+]
+}
+```
+
+Roo Code:
+> Installer via le Roo Marketplace en cliquant sur les petits cubes en haut
+
+
+Codex :
 ```
 codex mcp add context7 -- npx -y @upstash/context7-mcp
 ```

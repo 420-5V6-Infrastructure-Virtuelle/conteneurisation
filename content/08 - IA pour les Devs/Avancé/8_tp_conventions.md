@@ -13,16 +13,15 @@ weight: 2025
 
 Poser 3 guardrails concrets que votre équipe appliquera dès demain — pas une convention parfaite, mais une convention que tout le monde a votée.
 
-## Les tensions réelles
+## Les tensions
 
-Avant de rédiger des règles, identifier les tensions que votre équipe vit déjà :
+Avant de rédiger des règles, identifier les tensions que votre équipe peut avoir déjà rencontré :
 
 | Tension | Ce qu'on entend |
 |---------|-----------------|
 | **Productivité vs Qualité** | "L'IA code plus vite mais le code est moins maintenable" |
 | **Apprentissage vs Dépendance** | "Les juniors ne comprennent pas ce qu'ils committent" |
 
-Une convention efficace adresse ces tensions — elle ne les ignore pas.
 
 ---
 
@@ -115,9 +114,8 @@ gh pr edit <number> --add-label ai-generated
 
 ---
 
-# Partie 4 : Roleplay — vendredi 16h47 — 15 min
 
-## Scénario
+# Scénario classique
 
 **Vendredi 16h47.** Un utilisateur signale que les commandes passées depuis 2h sont doublées en base de données. Le `git blame` pointe vers un commit "feat: add order processing" mergé ce matin. Le code a été généré par IA — le reviewer a approuvé sans comprendre la logique de déduplication.
 
@@ -128,7 +126,7 @@ gh pr edit <number> --add-label ai-generated
 - **Lead Dev** : médiateur, doit prendre une décision
 - **Product Owner** : pressé par le client, veut un fix maintenant
 - **Observateurs** : prennent des notes sur ce qui aurait pu être évité
-
+<!-- 
 ## Déroulement
 
 1. Découverte du bug (2 min)
@@ -140,9 +138,9 @@ gh pr edit <number> --add-label ai-generated
 
 1. Qui est responsable ? L'auteur, le reviewer, ou l'IA ?
 2. Laquelle de vos 3 guardrails aurait évité ça ?
-3. Que manquait-il dans le process de review ?
+3. Que manquait-il dans le process de review ? -->
 
----
+--- -->
 
 # Livrable
 
@@ -151,18 +149,3 @@ gh pr edit <number> --add-label ai-generated
 - [ ] `AUDIT_IA.md` complété (au moins 3 problèmes identifiés)
 - [ ] `CONVENTIONS_IA.md` avec exactement 3 guardrails votés
 - [ ] `gh label list | grep ai-generated` retourne le label
-- [ ] Roleplay joué, débrief noté
-
----
-
-# Checkpoint
-
-**Pattern retenu :** Pas de convention parfaite — une convention que tout le monde a choisie.
-
-**Question clé :** Laquelle de vos 3 règles aurait le plus d'impact dès la semaine prochaine ?
-
----
-
-# Prochain module
-
-Module 11 : Veille technologique.

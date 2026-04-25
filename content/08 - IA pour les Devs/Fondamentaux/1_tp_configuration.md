@@ -7,7 +7,10 @@ weight: 1025
 
 > ⏱ **45 min**
 
-> **Outil principal :** Codex CLI. Les variantes OpenCode et Claude Code sont notées où elles diffèrent.
+> **Outils :** OpenCode (TUI), Roo Code (VSCode) ou Codex CLI
+
+L'idée est d'aussi pouvoir tester différents modèles et Codex CLI ne le permet pas.
+
 <!-- 
 ---
 
@@ -29,7 +32,6 @@ Cette formation se concentre sur les agents TUI — les plus puissants pour code
 
 # Prérequis
 
-- [ ] Docker & docker-compose
 - [ ] Git configuré
 - [ ] Un éditeur de code (VSCode recommandé)
 - [ ] La clé OpenRouter fournie par le formateur
@@ -54,6 +56,10 @@ export OPENROUTER_API_KEY="sk-or-v1-..."
 
 # Étape 2 : Installation
 
+- **OpenCode :** <https://github.com/opencode-ai/opencode>
+
+- **Roo Code :** extension VSCode — chercher "Roo Code" dans le marketplace VSCode
+
 - **Codex CLI :**
 
 ```bash
@@ -61,13 +67,21 @@ npm install -g @openai/codex
 codex --version
 ```
 
-- **OpenCode :** <https://github.com/opencode-ai/opencode>
-
--  **Claude Code :** `npm install -g @anthropic-ai/claude-code`
-
 ---
 
 # Étape 3 : Configuration
+
+**Roo Code :** dans les paramètres de l'extension VSCode, renseigner l'URL `https://openrouter.ai/api/v1` et la clé OpenRouter.
+
+**OpenCode :** fichier `~/.config/opencode/config.yaml`
+```yaml
+providers:
+  openrouter:
+    api_key: ${OPENROUTER_API_KEY}
+    base_url: https://openrouter.ai/api/v1
+default_provider: openrouter
+default_model: google/gemini-2.0-flash
+```
 
 **Codex CLI** se configure via variables d'environnement :
 
@@ -77,17 +91,6 @@ export OPENAI_BASE_URL="https://openrouter.ai/api/v1"
 export OPENAI_MODEL="" 
 ```
 
-> **OpenCode :** fichier `~/.config/opencode/config.yaml`
-> ```yaml
-> providers:
->   openrouter:
->     api_key: ${OPENROUTER_API_KEY}
->     base_url: https://openrouter.ai/api/v1
-> default_provider: openrouter
-> default_model: google/gemini-2.0-flash
-> ```
->
-> **Claude Code :** via `~/.claude/settings.json` ou `ANTHROPIC_API_KEY` pour usage direct Anthropic.
 
 ---
 
@@ -106,16 +109,16 @@ git clone https://github.com/betagouv/comparia
 cd comparia
 ```
 
-**Configurer le token OpenRouter** (fourni par le formateur) :
+<!-- **Configurer le token OpenRouter** (fourni par le formateur) :
 
 ```bash
 export OPENROUTER_TOKEN="hf_..."
-```
+``` -->
 
 **Lancer l'app avec l'aide de l'agent :**
 
 ```bash
-codex
+opencode
 ```
 
 ```
@@ -130,7 +133,7 @@ codex
 # Livrable
 
 - [ ] Clé OpenRouter configurée
-- [ ] Agent installé et fonctionnel (`codex`, `opencode` ou `claude`)
+- [ ] Agent installé et fonctionnel (`opencode`, Roo Code ou `codex`)
 - [ ] Comparia qui tourne en local
 - [ ] Token HuggingFace configuré
 
@@ -140,5 +143,6 @@ codex
 
 - [Comparia — betagouv](https://github.com/betagouv/comparia)
 - [Documentation OpenRouter](https://openrouter.ai/docs)
-- [Codex CLI GitHub](https://github.com/openai/codex)
 - [OpenCode GitHub](https://github.com/opencode-ai/opencode)
+- [Roo Code VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=RooVeterinaryInc.roo-cline)
+- [Codex CLI GitHub](https://github.com/openai/codex)

@@ -72,13 +72,11 @@ rtk --version
 ## Initialisation
 
 ```bash
-# Pour Claude Code :
-rtk init -g
-
-# Pour un autre outil :
-rtk init --gemini       # Gemini CLI
-rtk init --copilot      # GitHub Copilot
-rtk init --agent cursor # Cursor
+rtk init -g --opencode      # OpenCode plugin
+rtk init --agent cline          # Cline / Roo Code
+rtk init -g --codex             # Codex (OpenAI)
+rtk init -g                     # Claude Code / Copilot
+rtk init -g --gemini            # Gemini CLI
 ```
 
 Redémarrez votre outil IA après l'init — les commandes se réécrivent automatiquement via un hook Bash.

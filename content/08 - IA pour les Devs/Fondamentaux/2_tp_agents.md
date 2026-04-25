@@ -7,7 +7,7 @@ weight: 1035
 
 > ⏱ **1h**
 
-> **Outil principal :** Codex CLI (`codex`). Remplacer par `opencode` ou `claude` selon votre outil.
+<!-- > **Outil principal :** Codex CLI (`codex`). Remplacer par `opencode` ou `claude` selon votre outil. -->
 
 ---
 

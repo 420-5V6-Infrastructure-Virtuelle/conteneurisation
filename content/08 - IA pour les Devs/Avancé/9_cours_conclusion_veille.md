@@ -11,15 +11,6 @@ weight: 2040
 
 **L'écosystème IA évolue très vite :**
 
-| Période | Changements majeurs |
-|---------|---------------------|
-| 2022 | ChatGPT launch |
-| 2023 | GPT-4, Claude 1, open source explosion |
-| 2024 | Claude 3, Gemini, Sora, multimodal |
-| 2025 | Claude 3.5 Sonnet, reasoning models, agents |
-| 2026 | Context windows 1M+, autonomous agents |
-
-**Résultat :** Ce qui était impossible hier est standard aujourd'hui.
 
 ---
 
