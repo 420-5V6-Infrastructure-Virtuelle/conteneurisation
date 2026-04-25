@@ -1,14 +1,14 @@
 ---
-title: "4 - TP Feature Complète"
+title: "4 - TP Délégation entre agents et skills"
 weight: 1055
-draft: true
+draft: false
 ---
 
 ## _Plan → Build → Review → Retro_
 
 > ⏱ **1h**
 
-> **Outil principal :** Codex CLI. Les commandes spécifiques à Claude Code sont signalées.
+<!-- > **Outil principal :** Codex CLI. Les commandes spécifiques à Claude Code sont signalées. -->
 
 ---
 
@@ -20,7 +20,58 @@ Un projet bien structuré pour l'IA a besoin de :
 1. **AGENTS.md** - Contexte permanent pour l'agent
 2. **Makefile / run.sh** - Commandes reproductibles
 3. **Docker** - Environnement isolé et défini
-4. **README.md par dossier** - Documentation lo
+4. **README.md par dossier** - Documentation
+
+---
+
+# Skills & Délégation multi-agents
+
+La plupart des outils proposent d'utiliser plusieurs agents préconfigurés pour certaines tâches, appelés "skill", "mode", "agent" ou "workflow" selon les outils. Dans la pratique, cela revient surtout à spécifier un (pré-)prompt particulier pour qu'un agent classique se concentre sur une problématique particulière. On peut ainsi créer des workflows plus complexes en demandant à un agent de déléguer des sous-tâches à un autre agent. Pour ce TP par exemple : un agent planifie, puis un autre exécute le plan, et un dernier enlève les parties inutiles : le "slop".
+
+## Créer un skill dans OpenCode
+
+Un skill est un dossier contenant un fichier `SKILL.md`. OpenCode cherche les skills dans :
+- **Projet :** `.opencode/skills/<nom>/SKILL.md`
+- **Global :** `~/.config/opencode/skills/<nom>/SKILL.md`
+
+Format du fichier :
+
+```markdown
+---
+name: mon-skill
+description: Ce que fait ce skill (utilisé par l'agent pour décider de l'activer)
+---
+
+## Instructions
+
+Ce que l'agent doit faire quand ce skill est activé.
+```
+
+L'agent voit les skills disponibles et les charge à la demande via son outil `skill`. L'invocation est automatique si la tâche correspond à la description du skill.
+
+## Créer un skill dans Codex CLI
+
+Même principe : un dossier avec `SKILL.md`, placé dans `.agents/skills/` à la racine du repo (ou `~/.agents/skills/` pour usage global).
+
+```
+.agents/skills/mon-skill/SKILL.md
+```
+
+Format identique :
+
+```markdown
+---
+name: mon-skill
+description: Ce que fait ce skill
+---
+
+Instructions pour Codex.
+```
+
+**Invocation explicite :** tapez `$mon-skill` dans votre prompt.  
+**Invocation implicite :** Codex active automatiquement le skill si votre tâche correspond à sa description.
+
+Pour créer un skill interactivement : lancez `$skill-creator`.
 
 ---
 
@@ -81,11 +132,8 @@ Lisez le plan, questionnez les choix. Validez ou demandez des ajustements avant 
 ---
 
 # Phase 3 — Cleanup
+S'assurer que l'agent lance lui-même le skill "Nettoyage de code".
 
-**Claude Code :**
-```
-> /simplify
-```
 
 **Codex / OpenCode :**
 ```
@@ -94,30 +142,36 @@ Lisez le plan, questionnez les choix. Validez ou demandez des ajustements avant 
   Ne change pas le comportement.
 ```
 
+**Claude Code :**
+```
+> /simplify
+```
+
 ---
+<!-- 
+# Phase 4 — Review
 
-# Phase 4 — PR review
-
-```bash
+<!-- ```bash
 git checkout -b feature/[nom-de-la-feature]
 git push -u origin feature/[nom-de-la-feature]
 gh pr create --title "[feat] description" --body "..."
-```
-
+``` -->
+<!-- 
 **Claude Code :**
 ```
 > /review
-```
+``` 
 
 **Codex / OpenCode :**
 ```
 > Review cette PR comme un senior dev sceptique.
   Identifie les problèmes avant que ça parte en prod.
 ```
+ -->
 
 ---
 
-# Phase 5 — Retro → AGENTS.md
+<!-- # Phase 5 — Retro → AGENTS.md
 
 ```
 > Résume ce qu'on vient de faire. Qu'est-ce qui t'a manqué comme contexte ?
@@ -131,8 +185,8 @@ L'agent identifie les lacunes de contexte rencontrées. Vous les ajoutez à `AGE
 - Patterns récurrents du projet ("toujours utiliser le service layer")
 - Outils disponibles qu'il ne connaissait pas
 
----
-
+--- -->
+<!-- 
 # Livrable
 
 - [ ] Feature implémentée et testée (`make test` passe)
@@ -145,7 +199,13 @@ L'agent identifie les lacunes de contexte rencontrées. Vous les ajoutez à `AGE
 
 **Pattern retenu :** Plan d'abord, code ensuite, retro toujours.
 
-**Question clé :** Qu'est-ce que la retro a révélé que votre AGENTS.md ne couvrait pas ?
+**Question clé :** Qu'est-ce que la retro a révélé que votre AGENTS.md ne couvrait pas ? -->
+
+---
+Ressources :
+
+- <https://opencode.ai/docs/skills/>
+- <https://developers.openai.com/codex/skills>
 
 ---
 

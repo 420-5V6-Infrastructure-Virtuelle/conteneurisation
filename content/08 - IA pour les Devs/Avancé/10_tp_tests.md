@@ -1,280 +1,236 @@
 ---
-title: "9 - TP Tests et Qualité"
+title: "10 - TP Bot de Review de PR"
 weight: 2035
 draft: true
 ---
 
-## _Générer et valider des tests_
+## _Un agent qui commente vos Pull Requests_
+
+> ⏱ **1h30**
 
 ---
 
 # Objectif
 
-Apprendre à générer des tests de qualité avec l'IA et à les valider.
+Mettre en place un bot GitHub Actions qui analyse chaque PR avec un agent IA, identifie les problèmes, et poste un commentaire structuré — sans intervention humaine.
 
-## Le paradoxe des tests IA
+## Pourquoi
 
-L'agent peut générer des tests qui **passent** mais ne testent rien :
-
-```python
-# ❌ Ce test passe — et ne prouve rien
-def test_delete_user():
-    response = client.delete("/users/1")
-    assert response.status_code == 200
-    # Ne vérifie pas que l'utilisateur est supprimé
-    # Ne teste pas les permissions
-    # Ne teste pas les erreurs
-```
-
-Un test qui ne plante jamais n'est pas un test — c'est du bruit.
-
-**Coverage est un indicateur, pas un objectif :**
-
-| Coverage | Interprétation |
-|----------|----------------|
-| < 50% | Insuffisant |
-| 50–70% | Minimum acceptable |
-| 70–85% | Bon |
-| 85–95% | Excellent |
-| > 95% | Soupçonner des tests vides |
-
-**Pattern TDD avec l'IA :**
-1. Vous écrivez le test (ce que le code DOIT faire)
-2. L'agent implémente le minimum pour le faire passer
-3. Vous relisez l'implémentation
+- Repérer les oublis évidents (gestion d'erreurs manquante, TODO laissés)
+- Uniformiser le niveau d'attention sur toutes les PRs
+- Donner du feedback instantané avant qu'un humain regarde
 
 ---
 
-# Partie 1 : Génération de tests
+# Prérequis
 
-##Étape 1 : Identifier une fonction à tester
+- Un repo GitHub avec les Actions activées
+- Une clé API OpenRouter
+- `gh` CLI installé localement pour tester
+
+---
+
+# Partie 1 : Configurer les secrets — 10 min
+
+## Étape 1 : Ajouter la clé API au repo
+
+Dans **Settings → Secrets and variables → Actions**, ajouter :
+
+| Secret | Valeur |
+|--------|--------|
+| `OPENAI_API_KEY` | Votre clé  |
+
+## Étape 2 : Vérifier les permissions du workflow
+
+Dans **Settings → Actions → General → Workflow permissions**, activer :
+
+- `Read and write permissions`
+
+Cela permet au workflow de poster des commentaires via `GITHUB_TOKEN`.
+
+---
+
+# Partie 2 : Le workflow GitHub Actions — 25 min
+
+## Étape 1 : Créer le fichier
 
 ```bash
-# Choisir une fonction
-cat src/services/user_service.py
+mkdir -p .github/workflows
+```
+
+## Étape 2 : Écrire le workflow
+
+```yaml
+# .github/workflows/ai-review.yml
+name: AI PR Review
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install opencode
+        run: npm install -g opencode-ai
+
+      - name: Setup opencode
+      #  TODO: Opencode config
+
+      - name: Run AI review
+        run: |
+          PROMPT=$(cat .github/review-prompt.md)
+          opencode -p "$PROMPT"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Post review comment
+        run: |
+          gh pr comment ${{ github.event.number }} \
+            --body "$(cat review.md)"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ---
 
-##Étape 2 : Prompt structuré pour tests
+# Partie 3 : Le prompt de review — 20 min
 
-```
-Generate comprehensive tests for user_service.create_user():
-
-Coverage requirements:
-1. Happy path: user created successfully
-2. Duplicate email: raises ValidationError
-3. Invalid email format: raises ValidationError
-4. Missing fields: raises ValidationError
-5. Database error: handles gracefully
-
-Use pytest with fixtures from tests/conftest.py.
-Assert on:
-- Return value (User object)
-- Database state (user exists)
-- Error messages (informative)
-
-File: tests/test_user_service.py
-```
-
----
-
-##Étape 3 : Valider les tests générés
-
-**Checklist de validation :**
-
-- [ ] Les tests compilent-ils ?
-- [ ] Les tests passent-ils ?
-- [ ] Les assertions sont-elles significatives ?
-- [ ] Les cas d'erreur sont-ils testés ?
-- [ ] Les tests sont-ils indépendants ?
-
----
-
-# Partie 2 : Coverage
-
-##Étape 1 : Mesurer lecoverage
+## Étape 1 : Créer le fichier de prompt
 
 ```bash
-# Lancer avec coverage
-pytest tests/ --cov=src --cov-report=html
-
-# Voir le rapport
-open htmlcov/index.html
+touch .github/review-prompt.md
 ```
 
+```markdown
+You are a senior software engineer reviewing a pull request. Write your review in `review.md`.
+
+The git diff follows this message.
+
+Return a markdown review with these sections:
+
+## Summary
+One paragraph describing what this PR does.
+
+## Issues
+Bullet list of bugs, security risks, or logic errors. Be specific: include file names and line numbers. Write "None found" if the diff looks clean.
+
+## Suggestions
+At most 5 bullet points for improvements (naming, missing tests, edge cases not handled).
+
+## Verdict
+Exactly one of: ✅ Ready to merge | ⚠️ Minor issues | ❌ Needs rework
+
+Be concise. If the diff is small and clean, say so and move on.
+```
+
+## Étape 2 : Adapter le prompt à votre stack
+
+
+```markdown
+# Exemple pour un projet Django
+Also check for:
+- ORM queries inside loops (N+1)
+- Model changes without migration
+- Missing `select_related` or `prefetch_related`
+```
+<!-- 
 ---
+## Étape 1 : Demander à l'agent de générer des suggestions
 
-##Étape 2 : Identifier les manques
+Ajoutez cette section à votre prompt :
 
-**Chercher les lignes non couvertes :**
+```markdown
+When you spot a fixable issue, include a GitHub suggestion block after the bullet point:
+
+Example:
+- `utils.py:42` — valeur de retour non vérifiée
+
+```suggestion
+return value if value is not None else default
+```
+
+Only add suggestions when the fix is straightforward and confined to a single line.
+```
+
+## Étape 2 : Choisir entre `comment` et `review`
 
 ```bash
-# Lignes manquantes
-grep "MISSING" htmlcov/index.html
+# Commenter sans verdict formel
+gh pr comment $PR_NUMBER --body "$(cat review.md)"
+
+# Poster un review avec verdict (approve / request-changes / comment)
+gh pr review $PR_NUMBER --request-changes --body "$(cat review.md)"
+gh pr review $PR_NUMBER --approve --body "$(cat review.md)"
 ```
+
+**Limite actuelle :** les suggestions avec coordonnées précises (fichier + numéro de ligne exact) nécessitent l'API REST GitHub, pas le `gh` CLI. Pour des suggestions inline au niveau de la ligne, utiliser `actions/github-script`. -->
 
 ---
 
-##Étape 3 : Demander des tests pour les manques
+# Partie 5 : Tester — 15 min
 
-```
-Generate tests to cover these uncovered lines:
-
-[Lignes non couvertes]
-
-Focus on edge cases and error paths.
-```
-
----
-
-# Partie 3 : Tests fragiles
-
-##Étape 1 : Créer un test fragile
-
-```python
-# tests/test_fragile.py
-def test_global_state():
-    # Ce test dépend de l'état global
-    assert len(User.query.all()) == 0
-    create_user("test@example.com")
-    assert len(User.query.all()) == 1
-```
-
-**Lancer plusieurs fois :**
-- Passe-t-il toujours ?
-- Change l'ordre des tests -> toujours ?
-
----
-
-##Étape 2 : Corriger le test
-
-```python
-# tests/test_robust.py
-def test_with_clean_state(db):
-    # Utiliser un fixture qui nettoie
-    initial = len(User.query.all())
-    create_user("test@example.com")
-    assert len(User.query.all()) == initial + 1
-    # Cleanup automatique via fixture
-```
-
----
-
-# Partie 4 : TDD assisté
-
-##Étape 1 : Écrire le test d'abord
-
-```python
-# tests/test_new_feature.py
-def test_user_avatar_upload():
-    """Test qu'un utilisateur peut uploader un avatar."""
-    user = create_user()
-    token = get_auth_token(user)
-    
-    response = client.post(
-        f"/users/{user.id}/avatar",
-        headers={"Authorization": f"Bearer {token}"},
-        files={"file": ("avatar.png", b"PNGDATA", "image/png")}
-    )
-    
-    assert response.status_code == 201
-    assert "url" in response.json()
-```
-
----
-
-##Étape 2 : Demander l'implémentation
-
-```
-Make this test pass:
-
-```python
-[test content]
-```
-
-Constraints:
-- Minimal implementation
-- No extra features
-- Handle file validation
-- Store in /uploads/avatars/
-```
-
----
-
-##Étape 3 : Vérifier
+## Étape 1 : Ouvrir une PR de test
 
 ```bash
-# Les tests passent ?
-pytest tests/test_new_feature.py -v
-
-# L'implémentation est propre ?
-cat src/api/routes/users.py
+git checkout -b test/ai-review-bot
+echo "# test" >> README.md
+git add README.md
+git commit -m "test: déclencher le bot de review"
+git push origin test/ai-review-bot
+gh pr create --title "Test bot de review IA" --body "Vérification du workflow"
 ```
 
----
-
-# Partie 5 : CI/CD setup
-
-##Étape 1 : Pre-commit
+## Étape 2 : Suivre l'exécution
 
 ```bash
-# Installer pre-commit
-pip install pre-commit
-
-# Créer le fichier
-cat > .pre-commit-config.yaml << 'EOF'
-repos:
-  - repo: local
-    hooks:
-      - id: test
-        name: Run tests
-        entry: pytest tests/
-        language: system
-        pass_filenames: false
-      - id: lint
-        name: Run linters
-        entry: make lint
-        language: system
-        pass_filenames: false
-EOF
-
-# Activer
-pre-commit install
+gh run watch
 ```
 
----
-
-##Étape 2 : Tester le pre-commit
+## Étape 3 : Vérifier le commentaire
 
 ```bash
-# Essayer de commit sans tests
-git add .
-git commit -m "test"
-# Le pre-commit devrait bloquer si tests échouent
+gh pr view --comments
 ```
 
 ---
+
+# Améliorations
+- Bot commente à chaque push: Supprimer le commentaire précédent avant d'en poster un nouveau |
+- Filtrer les PRs draft : ajouter `if: github.event.pull_request.draft == false` |
+
+<!-- **Supprimer le commentaire précédent du bot :** -->
+<!-- 
+```yaml
+- name: Supprimer l'ancien commentaire bot
+  run: |
+    COMMENT_ID=$(gh pr view ${{ github.event.number }} \
+      --json comments \
+      --jq '.comments[] | select(.author.login == "github-actions[bot]") | .databaseId' \
+      | tail -1)
+    if [ -n "$COMMENT_ID" ]; then
+      gh api repos/${{ github.repository }}/issues/comments/$COMMENT_ID -X DELETE
+    fi
+  env:
+    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+``` -->
+
+<!-- ---
 
 # Livrable
 
 À la fin de ce TP :
 
-- [ ] Avoir généré des tests complets
-- [ ] Avoir mesuré lecoverage
-- [ ] Avoir corrigé des tests fragiles
-- [ ] Avoir configuré pre-commit
-
----
-
-# Checkpoint
-
-**Pattern retenu :** Tests générés = à valider manuellement.
-
-**Question clé :** Quel pourcentage decoverage visez-vous ?
-
----
-
-# Prochain module
-
-Module 10 : Conventions d'équipe et tensions.
+- [ ] Secret `OPENAI_API_KEY` configuré dans le repo
+- [ ] `.github/workflows/ai-review.yml` commité et fonctionnel
+- [ ] `.github/review-prompt.md` commité avec un prompt adapté au projet
+- [ ] Un commentaire bot visible sur une vraie PR (`gh pr view --comments`) -->
