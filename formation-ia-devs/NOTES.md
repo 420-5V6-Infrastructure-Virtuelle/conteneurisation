@@ -1,7 +1,3 @@
-## Ah et dire somewhere que y a 2 philosophies : 
-soit on MCP soit on bash tool
-some tools are fundamental some gimmicky and weaken ur security( supply chain/prompt injection)
-- talk about prompt injection somewhere
 
 ## Workflow for Github PRs
 

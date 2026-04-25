@@ -1,7 +1,7 @@
 ---
 title: "IA pour les devs"
 pre: "<i class='fas fa-robot'></i> "
-weight: 8
+weight: 300
 chapter: true
 ---
 
