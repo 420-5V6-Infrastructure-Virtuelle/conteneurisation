@@ -1,7 +1,7 @@
 ---
 title: "6 - TP Multimodal"
 weight: 1065
-draft: false
+draft: true
 ---
 
 ## _Comparer et optimiser les coûts_
@@ -74,7 +74,48 @@ opencode
 
 ---
 
-## Étape 3 : Transformer un mockup
+## Étape 3 : Créer un skill Playwright Snapshot
+
+Un skill peut se spécialiser de deux façons :
+
+- **Autour d'un outil / MCP** : il indique à l'agent quels outils utiliser, comment les invoquer, et dans quel ordre.
+- **Autour d'un workflow** : il encode des étapes, des conseils, des commandes à lancer — sans dépendre d'un MCP particulier.
+
+Ici on combine les deux : le skill formalise le workflow de snapshot ET précise qu'il faut utiliser le MCP Playwright.
+
+**Créer le fichier `.opencode/skills/playwright-snapshot/SKILL.md`** (ou `.agents/skills/playwright-snapshot/SKILL.md` pour Codex) :
+
+```markdown
+---
+name: playwright-snapshot
+description: Take a Playwright DOM snapshot of a running local page and analyse its structure. Use this instead of screenshots to avoid image token costs.
+---
+
+## Workflow
+
+1. Start the app if not already running (`make dev` or `npm run dev`)
+2. Use the Playwright MCP tool `browser_snapshot` to capture the page at the target URL
+3. Report the snapshot as structured text — never as an image
+4. Identify layout issues, missing elements, or accessibility problems from the DOM structure
+
+## Tips
+
+- Always prefer `browser_snapshot` over `browser_screenshot` — snapshots are textual and cost 10–20× fewer tokens
+- If the page requires authentication, navigate to the login page first and complete the flow before snapshotting
+- For SPAs, wait for the main content to load: use `browser_wait_for` before snapping
+```
+
+**Tester le skill :**
+
+```
+> $playwright-snapshot  Analyse la page d'accueil de Comparia
+```
+
+Observez : l'agent charge le skill, lance l'app si nécessaire, et retourne un snapshot textuel sans aucun token d'image.
+
+---
+
+## Étape 4 : Transformer un mockup
 
 **Trouver un mockup simple (ou en créer un) :**
 
