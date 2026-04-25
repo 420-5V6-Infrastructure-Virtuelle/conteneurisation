@@ -271,7 +271,7 @@ mcpServers:
       GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_TOKEN}
 ```
 
-> Pour Claude Code : même format dans `~/.claude/settings.json` sous `mcpServers`.
+<!-- > Pour Claude Code : même format dans `~/.claude/settings.json` sous `mcpServers`. -->
 
 ```
 >Utilise le MCP github

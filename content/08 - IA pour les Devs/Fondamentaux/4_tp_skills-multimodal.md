@@ -113,10 +113,10 @@ description: Tester visuellement l'application localement — snapshot DOM, scre
 ## Conseils
 
 - Toujours préférer `browser_snapshot` à `browser_screenshot` : 10 à 20× moins de tokens
-- Pour les SPAs, attendre que le contenu principal soit chargé avant de prendre le snapshot
-- Si la page nécessite une authentification, naviguer vers la page de connexion et compléter le flux d'abord
+<!-- - Pour les SPAs, attendre que le contenu principal soit chargé avant de prendre le snapshot -->
+<!-- - Si la page nécessite une authentification, naviguer vers la page de connexion et compléter le flux d'abord -->
 - Toujours préciser ce qui est attendu vs ce qui est observé pour aider au diagnostic
-```
+
 
 ## Tester le skill
 

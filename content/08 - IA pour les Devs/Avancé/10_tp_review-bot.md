@@ -205,7 +205,7 @@ gh pr view --comments
 ---
 
 # Améliorations
-- Bot commente à chaque push: Supprimer le commentaire précédent avant d'en poster un nouveau |
+- Le bot commente à chaque push : Supprimer le commentaire précédent avant d'en poster un nouveau |
 - Filtrer les PRs draft : ajouter `if: github.event.pull_request.draft == false` |
 
 <!-- **Supprimer le commentaire précédent du bot :** -->
