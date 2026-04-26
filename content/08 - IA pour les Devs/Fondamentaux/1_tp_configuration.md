@@ -73,47 +73,46 @@ codex --version
 
 **Roo Code :** dans les paramètres de l'extension VSCode, renseigner l'URL `https://openrouter.ai/api/v1` et la clé OpenRouter.
 
-**OpenCode :** fichier `~/.config/opencode/config.yaml`
-```yaml
-providers:
-  openrouter:
-    api_key: ${OPENROUTER_API_KEY}
-    base_url: https://openrouter.ai/api/v1
-default_provider: openrouter
-default_model: google/gemini-2.0-flash
+**OpenCode — option interactive :**
+
 ```
+/connect   → recherchez "OpenRouter" → saisissez la clé fournie par le formateur
+/models    → sélectionnez le modèle souhaité
+```
+
+De nombreux modèles OpenRouter sont préchargés ; `/models` vous laisse en changer à tout moment.
+
 
 **Codex CLI** se configure via variables d'environnement :
 
 ```bash
 export OPENAI_API_KEY="${OPENROUTER_API_KEY}"
 export OPENAI_BASE_URL="https://openrouter.ai/api/v1"
-export OPENAI_MODEL="" 
 ```
+<!-- export OPENAI_MODEL=""  -->
 
 
 ---
 
 # Choisir son app de travail
 
-Comparia est l'app démo de cette formation, mais vous pouvez appliquer les mêmes exercices à votre propre projet.
+**[Microblog](https://github.com/miguelgrinberg/microblog)** est l'app démo de cette formation : un Twitter en Python créé chapitre par chapitre dans le [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world). Chaque branche correspond à un chapitre.
+
+
+
+<!-- En plus compliqué à déployer, **[Comparia](https://github.com/betagouv/comparia)** est un site de comparaison de modèles d'IA développé par beta.gouv.fr. -->
+
+Vous pouvez aussi appliquer les mêmes exercices à votre propre projet.
+<!-- git clone https://github.com/betagouv/comparia -->
 
 ---
 
-# Étape 4 : Cloner et faire marcher Comparia
-
-**[Comparia](https://github.com/betagouv/comparia)** est un outil de comparaison de modèles d'IA développé par beta.gouv.fr.
+# Étape 4 : Cloner et faire marcher Microblog
 
 ```bash
-git clone https://github.com/betagouv/comparia
-cd comparia
+git clone https://github.com/miguelgrinberg/microblog
+cd microblog
 ```
-
-<!-- **Configurer le token OpenRouter** (fourni par le formateur) :
-
-```bash
-export OPENROUTER_TOKEN="hf_..."
-``` -->
 
 **Lancer l'app avec l'aide de l'agent :**
 
@@ -122,27 +121,20 @@ opencode
 ```
 
 ```
-> Arrive à lancer ce projet en local
+> Fais tourner ce projet en local
 ```
 
 **Vérification :** l'interface est accessible dans le navigateur.
 
+> **Bonus :** [Comparia](https://github.com/betagouv/comparia) (outil de comparaison de LLMs de beta.gouv.fr) est une vraie app en production si vous voulez un terrain plus complexe.
 
 ---
-<!-- 
-# Livrable
-
-- [ ] Clé OpenRouter configurée
-- [ ] Agent installé et fonctionnel (`opencode`, Roo Code ou `codex`)
-- [ ] Comparia qui tourne en local
-- [ ] Token HuggingFace configuré
-
---- -->
 
 # Ressources
 
-- [Comparia — betagouv](https://github.com/betagouv/comparia)
-- [Documentation OpenRouter](https://openrouter.ai/docs)
+- [Microblog — miguelgrinberg](https://github.com/miguelgrinberg/microblog)
+- [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+- [OpenRouter](https://openrouter.ai/)
 - [OpenCode GitHub](https://github.com/opencode-ai/opencode)
 - [Roo Code VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=RooVeterinaryInc.roo-cline)
 - [Codex CLI GitHub](https://github.com/openai/codex)

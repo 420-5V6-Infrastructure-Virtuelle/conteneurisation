@@ -127,6 +127,20 @@ rtk discover
 
 ---
 
+---
+
+# Compression de contexte automatique avec opencode-dcp
+
+[opencode-dcp](https://github.com/tarquinen/opencode-dcp) est un plugin OpenCode qui compresse automatiquement le contexte de la conversation quand il grossit, sans intervention manuelle. Utile pour les longues sessions où le contexte s'accumule et commence à coûter cher.
+
+```json
+"plugin": ["@tarquinen/opencode-dcp@latest"]
+```
+
+Une fois installé, la compression se déclenche en arrière-plan — vous n'avez pas à penser à lancer `/compact` manuellement.
+
+---
+
 # Livrable
 
 À la fin de ce TP :

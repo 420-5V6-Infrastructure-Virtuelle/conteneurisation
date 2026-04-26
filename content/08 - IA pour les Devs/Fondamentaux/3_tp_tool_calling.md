@@ -134,7 +134,7 @@ L'agent répond avec la vraie API FastAPI 0.115, pas ce qu'il "croit" savoir
 
 ---
 
-# Étape 5 : Playwright — voir et interagir avec Comparia
+# Étape 5 : Playwright — voir et interagir avec Microblog
 
 On peut utiliser directement le MCP Chrome DevTools ou Playwright. 
 
@@ -168,7 +168,7 @@ Opencode :
 
 **L'exercice :**
 
-Avec Comparia qui tourne en local, demandez à l'agent d'interagir avec la page.
+Avec Microblog qui tourne en local, demandez à l'agent d'interagir avec la page.
 
 
 **Observer les appels :**
@@ -198,7 +198,7 @@ mcpServers:
     command: uvx
     args: ["serena-mcp-server"]
     env:
-      PROJECT_ROOT: /chemin/vers/comparia
+      PROJECT_ROOT: /chemin/vers/microblog
 ```
 
 **Tester la différence :**
@@ -242,17 +242,17 @@ Si `gh` est installé et authentifié sur votre machine, l'agent peut l'utiliser
 
 ```
 >Utilise la CLI gh
->Liste les 5 dernières PRs ouvertes sur betagouv/comparia
+>Liste les 5 dernières issues ouvertes sur miguelgrinberg/microblog
 >et résume les changements de chacune
 ```
 
-L'agent exécutera quelque chose comme :
+<!-- L'agent exécutera quelque chose comme :
 ```bash
 gh issue create \
-  --repo betagouv/comparia \
+  --repo miguelgrinberg/microblog \
   --title "Page d'accueil lente (>3s)" \
   --body "..."
-```
+``` -->
 
 **Avantages :** zéro config, transparent, aucune surface d'attaque supplémentaire.  
 **Limite :** l'agent a accès à tout ce que `gh` peut faire — avec vos permissions complètes.
@@ -275,7 +275,7 @@ mcpServers:
 
 ```
 >Utilise le MCP github
->Liste les 5 dernières PRs ouvertes sur betagouv/comparia
+>Liste les 5 dernières issues ouvertes sur miguelgrinberg/microblog
 >et résume les changements de chacune
 ```
 
@@ -324,7 +324,7 @@ Plusieurs MCPs communautaires disponibles — pratique si votre équipe est sur 
 
 - [ ] Avoir observé et compris les tool calls dans les logs
 - [ ] context7 configuré et testé sur une librairie réelle
-- [ ] Playwright : Comparia chargée et interagie via l'agent
+- [ ] Playwright : Microblog chargée et interagie via l'agent
 - [ ] LSP configuré (ou compris pourquoi c'est déjà là)
 - [ ] GitHub : les deux approches testées (gh CLI + MCP)
 - [ ] Avoir identifié un anti-pattern tool spam dans vos observations -->

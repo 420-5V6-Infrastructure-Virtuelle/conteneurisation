@@ -28,6 +28,32 @@ Dans chaque cas : l'agent avait trop de permissions et pas de cage.
 
 # Permissions
 
+## Opencode
+
+
+Vous pouvez définir des autorisations globalement (avec *) et remplacer des outils spécifiques.
+
+
+`opencode.json` :
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "*": "ask",
+    "bash": "allow",
+    "edit": "deny"
+  }
+}
+```
+
+ou
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": "allow"
+}
+```
 
 ## OpenAI Codex CLI
 
@@ -56,6 +82,18 @@ claude --dangerously-skip-permissions
 ```
 
 `--dangerously-skip-permissions` approuve automatiquement : lecture/écriture de fichiers, exécution de commandes shell, appels réseau. Le nom est volontairement alarmant.
+
+---
+
+# Le plugin oh-my-openagent et le mode Sysyphus
+
+En mode autonome (ralph loop ou longue tâche), OpenCode peut s'arrêter silencieusement au milieu d'une session — bug connu de l'outil. Le plugin **oh-my-openagent** ajoute le mode **Sysyphus** : quand l'agent s'arrête prématurément, il est relancé automatiquement avec le contexte de la tâche.
+
+```json
+"plugin": ["oh-my-openagent"]
+```
+
+Activer le mode Sysyphus dans l'interface OpenCode avant de lancer une tâche longue sans surveillance. Sans ça, une session de nuit peut silencieusement s'arrêter à mi-chemin sans que vous vous en rendiez compte au matin.
 
 ---
 

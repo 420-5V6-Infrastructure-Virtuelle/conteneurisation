@@ -13,14 +13,14 @@ weight: 1035
 
 # Objectif
 
-Rendre Comparia "AI-ready" : donner à l'agent le contexte projet dont il a besoin pour travailler sans approximations.
+Rendre Microblog "AI-ready" : donner à l'agent le contexte projet dont il a besoin pour travailler sans approximations.
 
 ---
 
 # Étape 1 : Analyser le projet
 
 ```bash
-cd comparia
+cd microblog
 codex   # OpenCode : opencode | Claude Code : claude
 ```
 
@@ -61,7 +61,7 @@ git add AGENTS.md && git commit -m "feat: add AGENTS.md"
 
 ## Comprendre Docker
 
-Comparia tourne dans Docker. Avant de demander à l'agent de lancer les tests, il faut comprendre ce que ça implique.
+Microblog peut tourner dans Docker. Avant de demander à l'agent de lancer les tests, il faut comprendre ce que ça implique.
 
 **L'image** est une recette figée : système d'exploitation, dépendances, code. Elle se construit une fois avec `docker build`.
 
@@ -117,25 +117,42 @@ make test         # Est-ce que ça marche ?
 
 ---
 
-# Étape 4 : Tester l'impact du contexte
+# Étape 4 : L'agent face à une dépendance manquante
 
+Microblog évolue chapitre par chapitre. Les branches avancées introduisent des services externes (Elasticsearch pour la recherche plein texte au chapitre 11, Redis pour les tâches de fond au chapitre 22) qui doivent tourner séparément.
 
-Testez votre AGENTS.md en conditions réelles : ajoutez une petite feature originale sur votre projet de démo.
-
-**N'hésitez pas à sélectionner avec `/model` un modèle moins bon pour cet exercice, pour mieux voir le rôle de `AGENTS.md`**
-
-**Exemple :** modifier le prompt système des modèles comparés pour leur donner un rôle absurde (coach sportif bidon, conseiller financier catastrophique…)
-
-```
-> Je veux adapter Comparia pour [votre idée].
-```
-
-**Même prompt, avec et sans AGENTS.md :**
+**Checkoutez une branche avancée :**
 
 ```bash
-git diff          # Ce qui a changé ligne par ligne
+git checkout chapter-22   # ou chapter-11 pour Elasticsearch
 ```
 
+**Demandez à l'agent de faire tourner l'app :**
+
+```
+> Cette branche correspond au chapitre 22 du Flask Mega-Tutorial
+> (https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xxii-background-jobs).
+> Fais tourner l'application.
+```
+
+**Ce qu'on observe :**
+
+- L'agent détecte la dépendance manquante ?
+- Il lit le README / le blog ?
+- Il propose de lancer Redis/ES en Docker ?
+- Il lance `docker compose` ou `docker run` seul ?
+- Il demande confirmation avant de lancer des services ?
+- Il échoue silencieusement ?
+
+Il n'y a pas de bonne réponse — l'objectif est d'observer jusqu'où l'agent va de façon autonome, et à quel moment il faut l'orienter.
+
+---
+
+# Étape 5 : Tester l'impact du contexte
+
+Revenez sur la branche principale et testez votre AGENTS.md en conditions réelles.
+
+**N'hésitez pas à sélectionner avec `/model` un modèle moins bon pour cet exercice, pour mieux voir le rôle de `AGENTS.md`**
 
 **Test 1 — sans AGENTS.md :**
 
@@ -166,13 +183,11 @@ codex
 > Ajoute un endpoint pour supprimer un utilisateur.
 ```
 
-
 **Ce qu'on observe :**
 - Combien d'itérations ont été nécessaires ?
 - L'agent lit-il AGENTS.md avant de proposer ?
 
-  Quels fichiers modifier pour changer le prompt système des modèles ?
-  Respecte les conventions définies dans AGENTS.md.
+**Idées de features pour aller plus loin :** afficher le nombre de posts d'un utilisateur sur son profil, ajouter un bouton "signaler un post", paginer les followers, afficher la date d'inscription sur la page utilisateur.
 
 
 ---
@@ -200,6 +215,16 @@ Le cycle recommandé pour toute feature non triviale :
 ```
 
 > Ne demandez pas à l'agent de tout faire d'un coup. Le cycle court force la vérification à chaque étape.
+
+## L'agent s'arrête au milieu d'une tâche
+
+Sur OpenCode, il arrive que l'agent s'arrête sans raison apparente au milieu d'une tâche longue — c'est un bug connu. Le plugin **[oh-my-openagent](https://github.com/oh-my-openagent/oh-my-openagent)** ajoute un mode **Sysyphus** qui relance automatiquement l'agent quand il s'arrête prématurément.
+
+```json
+"plugin": ["oh-my-openagent"]
+```
+
+Ce plugin est aussi utile pour la boucle ralph en mode autonome (abordé dans le TP sandboxing).
 
 ## Laissez l'agent corriger ses propres erreurs
 
