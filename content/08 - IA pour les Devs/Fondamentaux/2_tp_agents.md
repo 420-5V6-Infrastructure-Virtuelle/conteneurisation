@@ -218,7 +218,7 @@ Le cycle recommandé pour toute feature non triviale :
 
 ## L'agent s'arrête au milieu d'une tâche
 
-Sur OpenCode, il arrive que l'agent s'arrête sans raison apparente au milieu d'une tâche longue — c'est un bug connu. Le plugin **[oh-my-openagent](https://github.com/oh-my-openagent/oh-my-openagent)** ajoute un mode **Sysyphus** qui relance automatiquement l'agent quand il s'arrête prématurément.
+Sur OpenCode, il arrive que l'agent s'arrête sans raison apparente au milieu d'une tâche longue — c'est un bug connu. Le plugin **[oh-my-openagent](https://github.com/oh-my-openagent/oh-my-openagent)** ajoute un mode **Sisyphus** qui relance automatiquement l'agent quand il s'arrête prématurément.
 
 ```json
 "plugin": ["oh-my-openagent"]

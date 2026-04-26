@@ -3,9 +3,9 @@ title: "7 - TP Sandboxing, Sécurité & Exécution Autonome"
 weight: 2015
 ---
 
-## _Faire tourner un agent sans supervision sans se tirer une balle dans le pied_
+<!-- ## _Faire tourner un agent sans supervision sans se tirer une balle dans le pied_ -->
 
-> ⏱ **1h30**
+<!-- > ⏱ **1h30** -->
 
 ---
 
@@ -85,15 +85,15 @@ claude --dangerously-skip-permissions
 
 ---
 
-# Le plugin oh-my-openagent et le mode Sysyphus
+# Le plugin oh-my-openagent et le mode Sisyphus
 
-En mode autonome (ralph loop ou longue tâche), OpenCode peut s'arrêter silencieusement au milieu d'une session — bug connu de l'outil. Le plugin **oh-my-openagent** ajoute le mode **Sysyphus** : quand l'agent s'arrête prématurément, il est relancé automatiquement avec le contexte de la tâche.
+En mode autonome (ralph loop ou longue tâche), OpenCode peut s'arrêter silencieusement au milieu d'une session — bug connu de l'outil. Le plugin **oh-my-openagent** ajoute le mode **Sisyphus** : quand l'agent s'arrête prématurément, il est relancé automatiquement avec le contexte de la tâche.
 
 ```json
 "plugin": ["oh-my-openagent"]
 ```
 
-Activer le mode Sysyphus dans l'interface OpenCode avant de lancer une tâche longue sans surveillance. Sans ça, une session de nuit peut silencieusement s'arrêter à mi-chemin sans que vous vous en rendiez compte au matin.
+Activer le mode Sisyphus dans l'interface OpenCode avant de lancer une tâche longue sans surveillance. Sans ça, une session de nuit peut silencieusement s'arrêter à mi-chemin sans que vous vous en rendiez compte au matin.
 
 ---
 

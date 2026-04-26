@@ -24,8 +24,8 @@ Configurer des MCPs utiles et observer concrètement leur impact sur le comporte
 **Lancer l'agent :**
 
 ```bash
-codex       # tool calls visibles nativement
-            # OpenCode : tool calls visibles nativement
+opencode       # tool calls visibles nativement
+            # Codex : tool calls visibles nativement
             # Claude Code : claude --verbose
 ```
 
@@ -74,6 +74,7 @@ codex       # tool calls visibles nativement
 **Question :** L'agent a-t-il modifié les bons fichiers ?
 
 ---
+
 
 # Étape 3 : Recherche web — MCPs ou natif ?
 
@@ -290,6 +291,68 @@ Faites les deux, comparez :
 2. Avec le MCP : listez les PRs ouvertes et demandez un résumé
 
 **Question :** Laquelle des deux approches vous semble plus adaptée à votre contexte ? Pourquoi ?
+
+---
+
+
+
+# Permissions
+
+## Opencode
+
+
+Vous pouvez définir des autorisations globalement (avec *) et remplacer des outils spécifiques.
+
+
+`opencode.json` :
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "*": "ask",
+    "bash": "allow",
+    "edit": "deny"
+  }
+}
+```
+
+ou
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": "allow"
+}
+```
+
+## OpenAI Codex CLI
+
+```bash
+# Mode suggestion (défaut) — demande approbation à chaque action
+codex "ajoute la pagination"
+
+# Auto-edit — approuve les modifications de fichiers, demande pour les commandes shell
+codex --approval-mode auto-edit "$(cat TASK.md)"
+
+# Full-auto — approuve tout, y compris les commandes shell arbitraires
+codex --approval-mode full-auto "$(cat TASK.md)"
+```
+
+`full-auto` ne s'utilise qu'à l'intérieur d'un sandbox. Jamais sur votre machine principale.
+
+## Claude Code
+
+```bash
+# Mode interactif normal — Claude demande avant chaque action sensible
+claude
+
+# Skipper TOUTES les permissions — à n'utiliser qu'en sandbox
+claude --dangerously-skip-permissions
+
+```
+
+`--dangerously-skip-permissions` approuve automatiquement : lecture/écriture de fichiers, exécution de commandes shell, appels réseau. Le nom est volontairement alarmant.
+
 
 ---
 
