@@ -123,4 +123,4 @@ Commencez frugal, passez premium pour les décisions critiques.
 Le TP fil rouge commence : configuration de votre environnement.
 
 **Objectif :**
-1. Configurer Codex avec votre clé
+1. Configurer Opencode ou Roo avec votre clé
