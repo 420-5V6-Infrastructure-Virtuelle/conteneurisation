@@ -51,7 +51,7 @@ Ne choisissez pas un outil individuel - comprenez les **catégories**.
 - **Open source** : vous contrôlez
 - **Agnostique** : pas lié à un provider
 
-**Usage :** `opencode "add authentication to the API"` puis laissez mouliner.
+<!-- **Usage :** `opencode run "add authentication to the API"` puis laissez mouliner. -->
 
 ---
 

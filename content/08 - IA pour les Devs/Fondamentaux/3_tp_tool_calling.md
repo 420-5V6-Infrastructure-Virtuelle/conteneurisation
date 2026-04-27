@@ -25,6 +25,8 @@ Configurer des MCPs utiles et observer concrètement leur impact sur le comporte
 
 ```bash
 opencode       # tool calls visibles nativement
+# ou
+codex
             # Codex : tool calls visibles nativement
             # Claude Code : claude --verbose
 ```

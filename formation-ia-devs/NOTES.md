@@ -1,4 +1,16 @@
+## Notes 27/04/36
 
+Ajouter lexique
+
+tokenization
+
+schéma TUI <=> provider
+
+schéma tool calling
+
+
+
+---
 ## Workflow for Github PRs
 
 Annoying to setup but in the end you just say @codex wdy think?
