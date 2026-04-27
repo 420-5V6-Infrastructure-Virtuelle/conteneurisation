@@ -13,9 +13,53 @@ schéma tool calling
 
 - revoir partie Reasoning => confus entre effort max et mode thinking
 
+- feature simple : supprimer tweets, a t il pensé a la protection misclick? est il en train de fix l'env et les tests sur le même commit ?
+
 - pour tp mcp / tools : juste évoquer les autres mais aller direct sur playwright, parler du sandboxing codex qi fait bugger le mcp playwright, parler du mode headless à désac, puis faire se créer un compte à l'ia via playwright, et enfin tester mode vision vs. mode DOM desc.
 
 
+- pour tp3/4 : faire en sorte que le skill soit plutot slop reviewer que playwright (ou les 2 mais enlever redondant setup mcp playwrith tp3 et tp4)
+
+- rework tp4 skills to cutout slop and say : https://developers.openai.com/codex/skills +  $skill-creator teste l'app dans playwright en mode "headful" et sans pb de sandbox + dis lui de faire un subagent pour voir + dis que dans skills y a aussi des scripts python
+
+Pour jour 2 :
+- prompt engineering / mieux écrire, raccourcis à prendre, contexte, blagues sur formulaires de politesse
+- profils : dev ou manager ? agents spé / pour gestion de projet, sur mon poste j'ai un agents.md qui décrit mon équipe et ce que je sais faire
+
+- faire du tmxu et du openclaw like ?
+
+- d'autres outils de base à install sur sa machine, génération de docs lecture d'excel / (pandoc)
+
+- skills générique ou spécifique ? guidelines
+
+- feautres : multi repo, flutter + web => TP avec tmux qui parle à des agents ? communication multi agents => tmux, a2a
+
+- c'est quoi le workflow state of the art
+
+- métiers créent jira, revue, pull requests
+
+- connexion avec figma => créer à partir d'une maquette
+
+- sécu : améliorer sécu, pentest TP dans microblog, mais écosystème d'outil pour renforcer la sécu avec PR review, et autres tools
+
+- capacité d'effort extra high / low / mid : quand faire le full patate ?
+low tu perds des infos
+
+- worfklow deep research, avec couts et markdown en cache
+
+- faire du sysadmin avec ? du frontend !! faire autrement que du bateau => design system + visuel + a11y + pdf du rgaa !!!
+
+- google stich ? flow ? mcp figma
+
+- claude design
+
+- bouquins ux : Qdrant 
+
+- design system boursorama
+
+- ticket ?
+
+- génération de documentation mermaid => skills
 
 ---
 ## Workflow for Github PRs
