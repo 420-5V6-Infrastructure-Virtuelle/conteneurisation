@@ -78,14 +78,15 @@ Le modèle de chat back-and-forth préserve davantage l'esprit critique.
 
 ## La guerre des prix
 
-| Modèle | Coût/1M input | 
-|--------|---------------|------------------|
-| Gemini Flash | $0.07 | 
-| MiniMax |  |
-| NanoFlash | |
-| GLM 4.7 | |
+| Modèle | Coût/1M input tokens | Notes |
+|--------|---------------------|-------|
+| Gemini Flash 2.0 | $0.07 | Gratuit sur AI Studio |
+| GLM-4.7 | ~$0.05 | Via OpenRouter |
+| MiniMax 2.5 | ~$0.10 | Bon rapport qualité/prix |
+| Claude Haiku | $0.25 | Rapide, cohérent |
+| Claude Sonnet | $3.00 | Le sweet spot qualité |
 
-=> Routage intelligent selon la tâche.
+Routage intelligent selon la tâche : Haiku/Flash pour exploration et questions rapides, Sonnet pour implémentation, Opus ou extended thinking pour les cas durs.
 
 ---
 
@@ -100,6 +101,21 @@ Le modèle de chat back-and-forth préserve davantage l'esprit critique.
 | **github** | Issues, PRs |
 | **playwright** | Browser automation |
 | **slack** | Messages |
+
+---
+
+## Parsing documentaire local
+
+Quand vous avez des PDF de référence (OWASP, RGAA, guides internes) :
+
+| Outil | Usage | Installation |
+|-------|-------|-------------|
+| **pdftotext** | PDF → texte brut, rapide | `apt install poppler-utils` |
+| **pandoc** | PDF/Word/Excel → markdown | `apt install pandoc` |
+| **ripgrep** | Chercher dans le markdown extrait | `apt install ripgrep` |
+| **Docling** (IBM) | PDF complexes avec tableaux/images | `pip install docling` |
+
+Le pattern : `pdftotext doc.pdf doc.md` → `rg "mot-clé" doc.md -A 15` → contexte donné à l'agent. Ça fonctionne offline, sans serveur, en une ligne de shell. Pour des corpus > 500 pages, regarder **Qdrant** pour du RAG vectoriel.
 
 ---
 

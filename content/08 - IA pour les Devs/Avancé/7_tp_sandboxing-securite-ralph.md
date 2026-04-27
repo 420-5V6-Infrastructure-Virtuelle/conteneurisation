@@ -509,6 +509,8 @@ export GITHUB_TOKEN="github_pat_read_only_xxx"
 
 ---
 
-# Prochain module
+# Application directe
 
-Module 8 : Debugging IA — reconnaître et corriger les échecs.
+Les principes de ce module s'appliquent directement dans **TP11 — Frontend & Skills documentaires** : le skill `/security-review` que vous allez créer utilise exactement cette architecture (agent non-privilégié pour fetch/parse, agent privilégié pour l'analyse, réseau coupé avec `--network none`).
+
+La sécu ce n'est pas un module isolé — c'est la contrainte qui structure tous les patterns d'autonomie.
