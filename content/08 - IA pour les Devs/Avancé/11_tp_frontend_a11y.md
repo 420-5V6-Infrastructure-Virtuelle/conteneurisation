@@ -84,7 +84,8 @@ Crée un skill a11y-review qui :
 - utilise search-pdf pour extraire les critères RGAA pertinents :
   images → critères 1.x, formulaires → 11.x, couleurs → 3.x, liens → 6.x/12.x, médias → 4.x
 - pour chaque critère extrait, évalue le composant : ✅ ❌ ⚠️ N/A
-- produit un rapport : tableau critère / statut + liste des fixes concrets avec références de lignes
+- écrit le rapport dans docs/a11y-report.md :
+  tableau critère / statut + liste des fixes concrets avec références de lignes
 ```
 
 ## Étape 2 : Tester sur le composant exemple
@@ -115,15 +116,19 @@ Prenez un composant réel de votre projet : formulaire, navigation, carte, page 
 /a11y-review mon-vrai-composant.tsx
 ```
 
-Une fois le rapport généré, demandez les fixes :
+Le skill écrit le rapport dans `docs/a11y-report.md`. C'est intentionnel : **un fichier markdown est le moyen le plus simple pour qu'un agent communique avec un autre**.
+
+Ouvrez un second terminal et demandez les fixes dans une nouvelle session :
 
 ```
-@mon-vrai-composant.tsx
+@mon-vrai-composant.tsx @docs/a11y-report.md
 
-Apply the required fixes from the a11y review.
-Make the minimum changes to pass the failing criteria.
+Apply the required fixes listed in the report.
+Minimum changes to pass the failing criteria.
 Keep the existing structure and styling.
 ```
+
+Cet agent n'a pas fait la review — il lit le fichier produit par le premier. Chaque terminal est un agent indépendant, ils ne partagent pas de mémoire, seulement des fichiers. (tmux est pratique pour gérer plusieurs terminaux côte à côte, mais trois onglets font exactement la même chose.)
 
 Re-lancez le skill pour vérifier que les violations sont corrigées.
 
@@ -144,13 +149,21 @@ Même pattern. Générez le skill :
 ```
 Crée un skill security-review qui :
 - prend un fichier de code en argument ($ARGUMENTS)
-- utilise search-pdf pour interroger le bouquin de sécurité en docs/
+- utilise search-pdf pour interroger docs/owasp.md
 - identifie les catégories de risque pertinentes (auth, SQL, upload, etc.)
 - évalue le code contre chaque section extraite
-- produit un rapport : nom de la vulnérabilité, référence dans le doc, ligne, fix concret
+- écrit le rapport dans docs/security-report.md :
+  nom de la vulnérabilité, référence dans le doc, ligne, fix concret
 ```
 
-Testez-le sur le même bouquin de sécurité qu'à la partie 1 :
+Téléchargez le PDF de référence :
+
+```bash
+curl -L https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf \
+     -o docs/owasp.pdf
+```
+
+Lancez-le **dans un terminal séparé, en parallèle d'un `/a11y-review`** sur un autre composant — les deux agents écrivent chacun leur rapport sans se bloquer :
 
 ```
 /security-review src/api/routes/users.py
@@ -164,6 +177,7 @@ Testez-le sur le même bouquin de sécurité qu'à la partie 1 :
 - **Les skills sont versionnés** avec le repo : toute l'équipe a les mêmes outils
 - **Le contexte est précis** : l'agent reçoit exactement les critères qui s'appliquent, pas 250 pages
 - **Extensible** : n'importe quel PDF de référence (OWASP, PCI-DSS, guide interne, doc d'architecture) devient interrogeable via `search-pdf`
+- **Composable** : chaque agent écrit un fichier markdown, le suivant le lit — pas d'API, pas de mémoire partagée, juste des fichiers
 
 Pour des corpus vraiment larges (> 500 pages, plusieurs livres), regarder **Docling** (IBM, open source) ou **Qdrant** pour du vrai RAG vectoriel. Mais pour la majorité des cas, ripgrep suffit.
 
@@ -173,9 +187,8 @@ Pour des corpus vraiment larges (> 500 pages, plusieurs livres), regarder **Docl
 
 À la fin de ce TP :
 
-- [ ] `.codex/commands/search-pdf.md` créé et testé sur le RGAA et sur un bouquin de sécurité
-- [ ] `.codex/commands/a11y-review.md` créé et fonctionnel
-- [ ] `docs/rgaa.md` généré par le skill (pas manuellement)
+- [ ] `.codex/commands/search-pdf.md` testé sur le RGAA et sur l'OWASP Testing Guide
+- [ ] `.codex/commands/a11y-review.md` qui écrit dans `docs/a11y-report.md`
 - [ ] Rapport a11y sur le composant exemple avec au moins 3 violations identifiées
-- [ ] Fixes appliqués et vérifiés avec un 2ème run du skill
-- [ ] (Bonus) `.codex/commands/security-review.md` créé et testé
+- [ ] Fixes appliqués depuis `docs/a11y-report.md` dans un second terminal et vérifiés avec un 2ème run
+- [ ] (Bonus) `.codex/commands/security-review.md` lancé en parallèle dans un terminal séparé
