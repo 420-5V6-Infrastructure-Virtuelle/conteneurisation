@@ -12,7 +12,11 @@ En fait, la qualité de la réponse dépend de la structure de votre demande. Su
 
 ---
 
-# Les 4 principes
+![](../../images/ai/agile.jpeg)
+
+---
+
+# Les principes
 
 ## 1. Contexte explicite
 
