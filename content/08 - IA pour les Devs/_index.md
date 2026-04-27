@@ -5,7 +5,6 @@ weight: 300
 chapter: true
 ---
 
-### Module 8
 
 # IA pour les devs
 
