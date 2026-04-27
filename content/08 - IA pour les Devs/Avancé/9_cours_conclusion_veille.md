@@ -80,10 +80,9 @@ Le modèle de chat back-and-forth préserve davantage l'esprit critique.
 
 | Modèle | Coût/1M input tokens | Notes |
 |--------|---------------------|-------|
-| Gemini Flash 2.0 | $0.07 | Gratuit sur AI Studio |
-| GLM-4.7 | ~$0.05 | Via OpenRouter |
-| MiniMax 2.5 | ~$0.10 | Bon rapport qualité/prix |
-| Claude Haiku | $0.25 | Rapide, cohérent |
+| Gemini Flash 3 Preview | $0.50 | Quota gratuit généreux |
+| GLM-4.7 | ~$0.38 | Via OpenRouter |
+| gpt-4o-mini | $0.15 | Rapide, cohérent |
 | Claude Sonnet | $3.00 | Le sweet spot qualité |
 
 Routage intelligent selon la tâche : Haiku/Flash pour exploration et questions rapides, Sonnet pour implémentation, Opus ou extended thinking pour les cas durs.
@@ -119,7 +118,7 @@ Le pattern : `pdftotext doc.pdf doc.md` → `rg "mot-clé" doc.md -A 15` → con
 
 ---
 
-## DeepWiki : Documentation structurée
+<!-- ## DeepWiki : Documentation structurée
 
 **DeepWiki** transforme n'importe quel repo GitHub en documentation navigable :
 
@@ -155,7 +154,7 @@ deepwiki_fetch:
 - Préparer un TP sur une techno inconnue (Rust, Elixir, etc.)
 - Documenter les decisions d'architecture
 
----
+--- -->
 # Annexe : Liens de veille à connaître
 
 ## Outils de monitoring et d'inspection
@@ -164,10 +163,10 @@ deepwiki_fetch:
 - **[codeburn](https://github.com/AgentSeal/codeburn)** — Visualise où vont vos tokens session par session (par type de tool call, fichiers lus, etc.). Utile pour identifier ce qui consomme inutilement.
 - **[rtk](https://github.com/rtk-ai/rtk)** — Proxy CLI qui réduit la consommation de tokens de 60-90% sur les commandes dev courantes.
 
-## Lectures importantes
+## Lectures
 
-- **[HN #47004712](https://news.ycombinator.com/item?id=47004712)** — Discussion HN à lire : retours d'expérience terrain sur l'usage des agents IA.
-- **[Reddit ExperiencedDevs — "An AI CEO finally said something honest"](https://www.reddit.com/r/ExperiencedDevs/comments/1r6olcv/an_ai_ceo_finally_said_something_honest/)** — Analyse critique sur le discours des entreprises IA.
+<!-- - **[HN #47004712](https://news.ycombinator.com/item?id=47004712)** — Discussion HN à lire : retours d'expérience terrain sur l'usage des agents IA. -->
+<!-- - **[Reddit ExperiencedDevs — "An AI CEO finally said something honest"](https://www.reddit.com/r/ExperiencedDevs/comments/1r6olcv/an_ai_ceo_finally_said_something_honest/)** — Analyse critique sur le discours des entreprises IA. -->
 - **[Agentic Coding Trends Report 2026](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf)** — Rapport Anthropic sur les tendances du coding agentique.
 - **[AI Fluency Index](https://www.anthropic.com/research/AI-fluency-index)** — Recherche Anthropic sur l'usage réel de l'IA et le biais des artefacts.
 

@@ -3,13 +3,13 @@ title: "9 - Effort & Autonomie : choisir son niveau"
 weight: 2028
 ---
 
-## _Quand faire le full patate ?_
+## _Quand utiliser un effort de réflexion maximal ?_
 
 ---
 
 # Le problème
 
-Tout le monde utilise le même réglage pour tout. Sonnet + interactif + vérification à chaque fichier pour corriger un typo. Opus + full-auto + Docker pour écrire un `console.log`. C'est soit trop lent, soit trop risqué.
+Tout le monde utilise le même réglage pour tout. Sonnet + interactif + vérification à chaque fichier pour corriger un typo. 
 
 L'effort doit être proportionnel à la complexité et à l'impact de la tâche.
 
@@ -22,7 +22,7 @@ L'effort doit être proportionnel à la complexité et à l'impact de la tâche.
 | **Low** | Haiku / Flash | Aucun | N/A | ~$0.01 |
 | **Mid** | Sonnet | read, grep, edit | Active | ~$0.10–0.50 |
 | **High** | Sonnet + extended thinking | Tous | Intermittente | ~$1–5 |
-| **Full patate** | Opus + `--dangerously-skip-permissions` | Tous | Sandbox + tmux | ~$5–20 |
+| **Max** | Opus + `--dangerously-skip-permissions` | Tous | Sandbox + tmux | ~$5–20 |
 
 ---
 
@@ -30,7 +30,7 @@ L'effort doit être proportionnel à la complexité et à l'impact de la tâche.
 
 ```bash
 # Pas d'agent, juste une question
-claude "Quel est le bon code HTTP pour 'resource already exists' ?"
+gemini "Quel est le bon code HTTP pour 'resource already exists' ?"
 # 409 Conflict. $0.001. 3 secondes.
 ```
 
@@ -84,7 +84,7 @@ Extended thinking = le modèle raisonne avant de répondre. Tokens invisibles, m
 
 ---
 
-# Full patate — L'autonomie surveillée
+# Recherche en autonomie surveillée / async
 
 ```bash
 # Dans un worktree isolé, dans Docker, dans tmux
@@ -125,7 +125,7 @@ C'est un bug ?
 C'est une feature ?
 ├── < 5 fichiers → Mid
 ├── > 10 fichiers, logique complexe → High pour l'architecture, Mid pour l'implémentation
-└── Refacto de masse, migration → Full patate en sandbox
+└── Refacto de masse, migration →  en sandbox en autonomie
 
 C'est une question ?
 ├── Syntaxe / API standard → Low
@@ -142,7 +142,7 @@ Un cas documenté : debugging d'un race condition sur une API Node.js.
 |-----------|--------|--------|------|----------|
 | 1 | Mid (Sonnet) | 12k | $0.06 | Mauvaise piste |
 | 2 | Mid (Sonnet) | 18k | $0.09 | Mauvaise piste |
-| 3 | High (Sonnet + thinking) | 45k | $0.90 | Fix correct |
+| 3 | High (Sonnet ou Opus) | 45k | $0.90 | Fix correct |
 
 **Total : $1.05 pour résoudre quelque chose qui aurait pris 3h à la main.**
 
@@ -158,4 +158,4 @@ Le coût n'est pas le sujet. Le sujet c'est de choisir le bon niveau au bon mome
 
 **High** = problème dur, raisonnement profond, 3ème tentative. Intentionnel, pas par défaut.
 
-**Full patate** = autonomie maximale, sandbox obligatoire, résultats au matin.
+**Async** = autonomie maximale, sandbox obligatoire, résultats au matin.

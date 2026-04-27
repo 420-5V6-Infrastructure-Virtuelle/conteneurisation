@@ -508,9 +508,3 @@ export GITHUB_TOKEN="github_pat_read_only_xxx"
 **Question sécurité :** Si votre agent fait des `WebFetch` dans le cadre de son travail, quelle combinaison de défenses contre la prompt injection allez-vous mettre en place ?
 
 ---
-
-# Application directe
-
-Les principes de ce module s'appliquent directement dans **TP11 — Frontend & Skills documentaires** : le skill `/security-review` que vous allez créer utilise exactement cette architecture (agent non-privilégié pour fetch/parse, agent privilégié pour l'analyse, réseau coupé avec `--network none`).
-
-La sécu ce n'est pas un module isolé — c'est la contrainte qui structure tous les patterns d'autonomie.

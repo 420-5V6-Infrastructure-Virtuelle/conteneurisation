@@ -32,66 +32,34 @@ mkdir -p .claude/commands
 touch .claude/commands/a11y-review.md
 ```
 
-## Étape 2 : Écrire le skill
+## Étape 2 : Générer le skill avec $skill-creator
 
-```markdown
-# .claude/commands/a11y-review.md
+Le skill qui sait lire un PDF et en extraire des critères — c'est exactement le genre de chose que l'IA génère mieux que vous ne l'écrivez à la main.
 
-Review the accessibility (RGAA 4.1) of the component passed as argument: $ARGUMENTS
-
-## Steps
-
-1. If `docs/rgaa.md` does not exist:
-   - Run `pdftotext docs/RGAA_4.1.pdf docs/rgaa.md`
-   - If pdftotext is not available, run `pip install pdfminer.six` then
-     `python3 -m pdfminer.high_level docs/RGAA_4.1.pdf > docs/rgaa.md`
-
-2. Read the component to understand its nature (image, form, navigation, interactive element, etc.)
-
-3. Identify which RGAA criteria apply. Common mappings:
-   - Images → Critères 1.x
-   - Forms / inputs → Critères 11.x
-   - Colors / contrast → Critères 3.x
-   - Navigation / links → Critères 6.x, 12.x
-   - Multimedia → Critères 4.x
-
-4. For each applicable criterion family, extract the relevant text:
-   `rg "critère [NUMBER]" docs/rgaa.md -A 20 -i`
-
-5. For each criterion extracted, evaluate the component:
-   - ✅ PASS — criterion is met
-   - ❌ FAIL — criterion is not met (explain what's missing)
-   - ⚠️ PARTIAL — partially met
-   - N/A — criterion does not apply
-
-6. Output a structured report:
-
-## A11y Review — [Component name]
-
-### Summary
-[One sentence on overall state]
-
-### Criteria evaluated
-
-| Critère | Intitulé | Status | Note |
-|---------|----------|--------|------|
-| 1.1 | Chaque image décorative... | ✅ | alt="" présent |
-| 11.1 | Chaque champ... | ❌ | Label manquant sur #email |
-
-### Required fixes
-[Concrete list of what needs to change, with line references]
-
-### Code suggestions
-[Modified code snippets for the failing criteria]
+```bash
+/skill-creator
 ```
 
-## Étape 3 : Préparer le PDF
+Décrivez ce que vous voulez en langage naturel :
 
-Mettez le PDF RGAA dans `docs/RGAA_4.1.pdf` (fourni ou téléchargeable sur accessibilite.numerique.gouv.fr).
+```
+Crée un skill a11y-review qui :
+- prend un composant en argument ($ARGUMENTS)
+- si docs/rgaa.md n'existe pas, convertit docs/RGAA_4.1.pdf avec pdftotext
+  (fallback : pdfminer.six si pdftotext absent)
+- identifie la nature du composant (image, formulaire, navigation…)
+- extrait les critères RGAA pertinents avec ripgrep (images → 1.x, forms → 11.x,
+  couleurs → 3.x, liens → 6.x/12.x, médias → 4.x)
+- produit un rapport avec tableau critère / statut (✅ ❌ ⚠️ N/A) et les fixes concrets
+```
+
+`$skill-creator` génère le fichier `.claude/commands/a11y-review.md` directement. Relisez-le, ajustez si besoin.
+
+## Étape 3 : Télécharger le PDF RGAA
 
 ```bash
 mkdir -p docs
-# Placer RGAA_4.1.pdf dans docs/
+curl -L https://accessibilite.numerique.gouv.fr/doc/RGAA-v4.1.pdf -o docs/RGAA_4.1.pdf
 ```
 
 ## Étape 4 : Tester le skill
@@ -154,45 +122,36 @@ git diff mon-vrai-composant.tsx
 
 Re-lancer le skill pour vérifier que les violations sont corrigées.
 
-## Si vous avez des tokens de design (Figma ou design system)
+## Optionnel : MCP Figma
 
-Si votre équipe a un design system avec des tokens de couleur, vérifiez le contraste :
-
-```
-@design-tokens.json @mon-vrai-composant.tsx
-
-Check if the colors used in this component meet WCAG AA contrast ratio (4.5:1 for text).
-Use the color values from the design tokens.
-Flag any combination that fails.
-```
-
-Le MCP Figma (si configuré) expose les tokens de design en JSON — couleurs, espacements, typographie. L'agent peut les lire directement et vérifier la conformité sans screenshot.
+Si le MCP Figma est configuré dans votre projet, l'agent peut lire directement les tokens de design (couleurs, typographie) et vérifier les contrastes WCAG sans screenshot ni copier-coller.
 
 ---
 
 # Bonus : même pattern pour la sécurité
 
-Le même principe fonctionne avec n'importe quel référentiel documentaire.
-
-```markdown
-# .claude/commands/security-review.md
-
-Review the security of the code passed as argument: $ARGUMENTS
-
-1. If `docs/owasp.md` does not exist:
-   Run `pdftotext docs/OWASP_Testing_Guide.pdf docs/owasp.md`
-
-2. Identify the risk categories relevant to this code (auth, SQL, file upload, etc.)
-
-3. Extract the relevant OWASP sections:
-   `rg "SQL injection|input validation" docs/owasp.md -A 15 -i`
-
-4. Review the code against each applicable guideline.
-
-5. Output: vulnerability name, OWASP reference, line number, concrete fix.
-```
+Le même principe fonctionne avec n'importe quel référentiel documentaire. Générez le skill de la même façon :
 
 ```bash
+/skill-creator
+```
+
+```
+Crée un skill security-review qui :
+- prend un fichier de code en argument ($ARGUMENTS)
+- si docs/security.md n'existe pas, convertit le PDF de référence avec pdftotext
+- identifie les catégories de risque pertinentes (auth, SQL, upload, etc.)
+- extrait les sections applicables avec ripgrep
+- produit un rapport : nom de la vulnérabilité, référence dans le doc, ligne, fix concret
+```
+
+Puis testez-le sur un vrai bouquin de sécurité en PDF (OWASP Testing Guide, The Web Application Hacker's Handbook, etc.) :
+
+```bash
+# Télécharger un PDF de référence, ex. l'OWASP Testing Guide
+curl -L https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf \
+     -o docs/owasp.pdf
+
 /security-review src/api/routes/users.py
 ```
 
