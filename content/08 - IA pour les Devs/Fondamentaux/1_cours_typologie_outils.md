@@ -46,7 +46,7 @@ Ne choisissez pas un outil individuel - comprenez les **catégories**.
 | **Codex CLI** | OpenAI, récent |
 | **Gemini CLI** | Google, récent |
 
-**PourquoiOpenCode ?**
+**Pourquoi OpenCode ?**
 - Tool calling **transparent** : vous voyez chaque action
 - **Open source** : vous contrôlez
 - **Agnostique** : pas lié à un provider
@@ -58,15 +58,10 @@ Ne choisissez pas un outil individuel - comprenez les **catégories**.
 ## Type 2 : Assistants IDE (VSCode et apparentés)
 
 **Autocomplete intelligent + agents légers.**
-
-| Outil | Caractéristiques |
-|-------|------------------|
-| **Cursor** | Fork VSCode avec IA intégrée, très populaire |
-| **GitHub Copilot** | L'autocomplete historique |
-| **Cline** | Extension VSCode plus agentique |
-| **Roo Code** | Fork de Cline avec plus de flexibilité |
-
-**Usage :** Autocomplete inline, Chat intégré, contexte du projet.
+- **Cursor** 
+- **GitHub Copilot**
+- **Cline**
+- **Roo Code**: Fork de Cline
 
 ---
 
@@ -78,13 +73,14 @@ Ne choisissez pas un outil individuel - comprenez les **catégories**.
 |-------|------------------|
 | **Jules** | Google, travaille en background |
 | **GitHub Copilot for PR** | Revue automatique |
-| **Others** | Écosystème en croissance rapide |
+| **Manuellement** | ex: Avec Github Actions |
+| **Autres** | Écosystème en croissance rapide |
 
 **Usage :** Créez une PR, le bot commente et propose des fixes.
 
 ---
 
-#Choisir son outil
+Choisir son outil
 
 **Question clé : quel est votre workflow ?**
 
@@ -92,7 +88,7 @@ Ne choisissez pas un outil individuel - comprenez les **catégories**.
 - **VSCode habituel, autocomplete suffisant** → Cursor / Copilot
 - **Équipe établie, CI/CD mature** → Bots PR
 
-**La vraie liberté : OpenRouter**
+## Openrouter
 
 ```bash
 # Configuration OpenRouter dans OpenCode
@@ -116,6 +112,9 @@ export OPENROUTER_API_KEY="sk-or-v1-..."
 
 Commencez frugal, passez premium pour les décisions critiques.
 **Pour le cours :** il est intéressant d'opérer avec des modèles suboptimaux pour observer les comportements erratiques principaux des agents, causés par les modèles LLM qui sont derrière.
+
+
+## Tour rapide des modèles du moment
 
 ---
 
