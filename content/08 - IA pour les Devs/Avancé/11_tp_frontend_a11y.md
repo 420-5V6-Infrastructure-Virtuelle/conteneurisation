@@ -15,6 +15,17 @@ Un skill Codex est un fichier markdown dans `.codex/commands/`. Quand vous tapez
 
 Ce qui change ici : on va créer des skills qui **donnent à l'agent les instructions pour aller chercher le contexte lui-même** dans des documents locaux (PDF de référence, guides internes). L'agent fait le travail de conversion et d'extraction — pas vous.
 
+## Skills vs slash commands
+
+Skills et slash commands sont le même mécanisme — un fichier markdown dans `.codex/commands/` ou `.codex/skills/`. La distinction est une convention d'usage :
+
+- **Slash commands** (`/a11y-review`, `/security-review`) : déclenchés par un humain depuis le terminal
+- **Skills** (`search-pdf`) : conçus pour être appelés par d'autres skills ou par l'agent lui-même dans le cadre d'une tâche plus large
+
+Un skill peut appeler un autre skill exactement comme vous le feriez : en écrivant `/search-pdf ...` dans ses instructions. C'est ce qu'on va faire ici — `a11y-review` et `security-review` appellent `search-pdf` en interne.
+
+> La distinction skills/commands est susceptible de disparaître : les deux formats pourraient être fusionnés. Pour l'instant, traitez-les comme interchangeables.
+
 ---
 
 # Partie 1 : Skill générique search-pdf — 20 min
@@ -38,28 +49,28 @@ Crée un skill search-pdf qui :
 - retourne les passages pertinents avec leur contexte
 ```
 
-## Étape 2 : Tester sur le RGAA
+## Étape 2 : Préparer le dossier de sources
+
+Mettez tous vos PDFs de référence dans `docs/pdfs/` — c'est ce dossier que les skills spécialisés sauront interroger.
 
 ```bash
-mkdir -p docs
-curl -L https://accessibilite.numerique.gouv.fr/doc/RGAA-v4.1.pdf -o docs/RGAA_4.1.pdf
+mkdir -p docs/pdfs
+curl -L https://accessibilite.numerique.gouv.fr/doc/RGAA-v4.1.pdf -o docs/pdfs/rgaa.pdf
+curl -L https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf \
+     -o docs/pdfs/owasp.pdf
+```
+
+## Étape 3 : Tester search-pdf
+
+```
+/search-pdf docs/pdfs/rgaa.pdf "critère 1.1"
 ```
 
 ```
-/search-pdf docs/RGAA_4.1.pdf "critère 1.1"
+/search-pdf docs/pdfs/owasp.pdf "SQL injection"
 ```
 
-Vérifiez que l'agent extrait bien les bons passages. Relisez le skill généré, ajustez si besoin.
-
-## Étape 3 : Tester sur un bouquin de sécurité
-
-Placez un PDF de sécurité dans `docs/` (OWASP Testing Guide, The Web Application Hacker's Handbook, ou tout autre livre en PDF).
-
-```
-/search-pdf docs/mon-bouquin-secu.pdf "SQL injection"
-```
-
-Le skill doit fonctionner sur n'importe quel PDF sans modification.
+Vérifiez que l'agent extrait les bons passages sur les deux PDFs. Le skill doit fonctionner sur n'importe quel fichier sans modification.
 
 ---
 
@@ -81,8 +92,10 @@ Le RGAA (Référentiel Général d'Amélioration de l'Accessibilité) est le sta
 Crée un skill a11y-review qui :
 - prend un composant en argument ($ARGUMENTS)
 - lit le composant pour identifier sa nature (image, formulaire, navigation…)
-- utilise search-pdf pour extraire les critères RGAA pertinents :
+- appelle /search-pdf docs/pdfs/rgaa.pdf pour extraire les critères pertinents :
   images → critères 1.x, formulaires → 11.x, couleurs → 3.x, liens → 6.x/12.x, médias → 4.x
+- si d'autres PDFs dans docs/pdfs/ semblent pertinents (ex. guide WCAG),
+  les interroger aussi via /search-pdf
 - pour chaque critère extrait, évalue le composant : ✅ ❌ ⚠️ N/A
 - écrit le rapport dans docs/a11y-report.md :
   tableau critère / statut + liste des fixes concrets avec références de lignes
@@ -149,21 +162,16 @@ Même pattern. Générez le skill :
 ```
 Crée un skill security-review qui :
 - prend un fichier de code en argument ($ARGUMENTS)
-- utilise search-pdf pour interroger docs/owasp.md
+- appelle /search-pdf docs/pdfs/owasp.pdf pour interroger l'OWASP Testing Guide
+- si d'autres PDFs dans docs/pdfs/ semblent pertinents (ex. guide de durcissement),
+  les interroger aussi via /search-pdf
 - identifie les catégories de risque pertinentes (auth, SQL, upload, etc.)
 - évalue le code contre chaque section extraite
 - écrit le rapport dans docs/security-report.md :
   nom de la vulnérabilité, référence dans le doc, ligne, fix concret
 ```
 
-Téléchargez le PDF de référence :
-
-```bash
-curl -L https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf \
-     -o docs/owasp.pdf
-```
-
-Lancez-le **dans un terminal séparé, en parallèle d'un `/a11y-review`** sur un autre composant — les deux agents écrivent chacun leur rapport sans se bloquer :
+Lancez-le **dans un terminal séparé, en parallèle d'un `/a11y-review`** — les deux agents écrivent chacun leur rapport sans se bloquer :
 
 ```
 /security-review src/api/routes/users.py
