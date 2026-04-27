@@ -11,6 +11,12 @@ schéma tool calling
 
 - rajouter vittascience + gemma scope neuronpedia
 
+- revoir partie Reasoning => confus entre effort max et mode thinking
+
+- pour tp mcp / tools : juste évoquer les autres mais aller direct sur playwright, parler du sandboxing codex qi fait bugger le mcp playwright, parler du mode headless à désac, puis faire se créer un compte à l'ia via playwright, et enfin tester mode vision vs. mode DOM desc.
+
+
+
 ---
 ## Workflow for Github PRs
 
