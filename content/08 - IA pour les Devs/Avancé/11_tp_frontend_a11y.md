@@ -44,7 +44,7 @@ Décrivez ce que vous voulez :
 Crée un skill search-pdf qui :
 - prend deux arguments : le chemin vers un PDF et une requête de recherche
 - si le fichier .md correspondant n'existe pas, convertit le PDF avec pdftotext
-  (fallback : pdfminer.six si pdftotext absent)
+  (fallback : pdfminer)
 - cherche la requête dans le texte extrait avec ripgrep (-A 20 -i)
 - retourne les passages pertinents avec leur contexte
 ```
@@ -181,7 +181,7 @@ Lancez-le **dans un terminal séparé, en parallèle d'un `/a11y-review`** — l
 
 # Pourquoi ce pattern est puissant
 
-- **Pas de RAG, pas de serveur** : pdftotext + ripgrep + l'agent. Ça marche en offline.
+- **Pas de RAG, pas de serveur** : pdftotext (ou pandoc, qui convertit aussi des .docx, .epub, .html…) + ripgrep + l'agent. Ça marche en offline.
 - **Les skills sont versionnés** avec le repo : toute l'équipe a les mêmes outils
 - **Le contexte est précis** : l'agent reçoit exactement les critères qui s'appliquent, pas 250 pages
 - **Extensible** : n'importe quel PDF de référence (OWASP, PCI-DSS, guide interne, doc d'architecture) devient interrogeable via `search-pdf`
