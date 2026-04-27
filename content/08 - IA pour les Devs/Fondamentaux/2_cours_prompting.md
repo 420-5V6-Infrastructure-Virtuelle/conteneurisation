@@ -7,11 +7,8 @@ weight: 1030
 
 ---
 
-# Ce que les gens croient
 
-> "Il suffit d'être clair et l'IA comprendra."
-
-**Réalité :** La qualité de la réponse dépend de la structure de votre demande.
+En fait, la qualité de la réponse dépend de la structure de votre demande. Surtout pour des modèles plus frugaux.
 
 ---
 
@@ -19,17 +16,11 @@ weight: 1030
 
 ## 1. Contexte explicite
 
-```markdown
-#❌Prompt vague
-"Fix the bug in my code"
-
-#✅Prompt structuré
-"Contexte: API FastAPI avec endpoints REST.
-Problème: Le endpoint POST /users retourne 500.
-Fichier: src/api/routes/users.py, ligne 42.
-Erreur: IntegrityError sur email duplicata.
-Objectif: Ajouter une validation avant l'insertion."
-```
+- Contexte: API FastAPI avec endpoints REST.
+- Problème: Le endpoint POST /users retourne 500.
+- Fichier: src/api/routes/users.py, ligne 42.
+- Erreur: IntegrityError sur email duplicata.
+- Objectif: Ajouter une validation avant l'insertion.
 
 ---
 
@@ -46,21 +37,11 @@ Objectif: Ajouter une validation avant l'insertion."
 Étape 4: Ajouter les tests"
 ```
 
----
-
-## 3. Spécifier le format de sortie
-
-```markdown
-#✅Format demandé
-"Réponds en format tableau:
-
-| Fichier | Changement | Complexité |
-|---------|------------|------------|"
-```
+En général les agents ont un outil de TODO (tâches).
 
 ---
 
-## 4. Contraintes explicites
+## 3. Contraintes explicites
 
 ```markdown
 #✅Contraintes claires
@@ -144,7 +125,6 @@ class UserService:
     def __init__(self, db: Session):
         self.db = db
 ```
-```
 
 ---
 
@@ -220,10 +200,8 @@ Ce que ça ne fait **pas** :
 
 `/clear` vide complètement le contexte. À réserver aux sessions vraiment bloquées — l'agent perd tout ce qu'il savait du projet. Préparez un résumé court à lui redonner avant de reprendre.
 
-**Claude Code uniquement :**
 ```bash
-claude -c          # Reprend la dernière session compactée
-claude -r <id>     # Reprend une session spécifique par son ID
+opencode --continue          # Reprend la dernière session compactée
 ```
 
 ## Seuils de contexte

@@ -49,7 +49,7 @@ export OPENROUTER_API_KEY="sk-or-v1-..."
 
 **Pourquoi OpenRouter ?**
 - Accès à 200+ modèles via une seule clé
-- Frugal (Gemini Flash ~$0.10/1M) comme premium (Claude Sonnet ~$3/1M)
+- Frugal (Gemini Flash ~$0.10/1M) comme premium (Claude Opus ~$15/1M)
 - Pas de vendor lock-in
 
 ---
