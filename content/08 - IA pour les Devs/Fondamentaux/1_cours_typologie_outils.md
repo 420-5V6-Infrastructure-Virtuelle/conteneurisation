@@ -78,6 +78,9 @@ Ne choisissez pas un outil individuel - comprenez les **catégories**.
 
 **Usage :** Créez une PR, le bot commente et propose des fixes.
 
+## Type 4 : Antigravity
+Un mélange de type 2 et 3.
+
 ---
 
 Choisir son outil
