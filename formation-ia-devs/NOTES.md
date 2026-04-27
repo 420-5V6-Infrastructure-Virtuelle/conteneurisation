@@ -9,6 +9,7 @@ schéma TUI <=> provider
 schéma tool calling
 
 
+- rajouter vittascience + gemma scope neuronpedia
 
 ---
 ## Workflow for Github PRs
