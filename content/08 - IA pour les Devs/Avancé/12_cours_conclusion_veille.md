@@ -1,5 +1,5 @@
 ---
-title: "11 - Veille et Écosystème"
+title: "12 - Veille et Écosystème"
 weight: 2040
 ---
 
@@ -8,6 +8,11 @@ weight: 2040
 
 **L'écosystème IA évolue très vite :**
 
+Evolution des outils :
+- Emergence d'outils asynchrones comme Jules de Google
+- De plus en plus d'outils conscients des problématiques design
+- Une optimisation des coûts et de l'alternance réflexion / exécution
+- Des budgets par rapport à des objectifs
 
 ---
 

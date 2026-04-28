@@ -72,6 +72,7 @@ low tu perds des infos
 - pour tp frontend : https://skills.sh/anthropics/skills/frontend-design + https://skills.sh/vercel-labs/agent-skills/web-design-guidelines
 - https://supports.uptime-formation.fr/08-ia-pour-les-devs/avanc%C3%A9/00_cours_workflow/ => pas ouf
 - parler des Jules.google.com + Ex: https://github.com/besimple-oss/broccoli
+- bien s'assurer dans tp a11y que c'est vraiment lighthouse qui a été lancé / que le pdf a bien été lu
 
 ---
 ## Workflow for Github PRs
