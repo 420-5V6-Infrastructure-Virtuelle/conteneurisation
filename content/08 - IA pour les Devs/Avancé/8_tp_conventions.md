@@ -117,7 +117,7 @@ Mermaid est un langage de diagrammes en texte — rendu nativement par GitHub, G
 Générez le skill :
 
 ```
-/skill-creator
+$skill-creator
 ```
 
 ```

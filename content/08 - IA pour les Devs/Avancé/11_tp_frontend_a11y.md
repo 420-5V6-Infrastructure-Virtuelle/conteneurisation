@@ -35,7 +35,7 @@ Avant de créer des skills spécialisés, il faut un skill de base qui sait inte
 ## Étape 1 : Générer le skill avec $skill-creator
 
 ```
-/skill-creator
+$skill-creator
 ```
 
 Décrivez ce que vous voulez :
@@ -43,8 +43,8 @@ Décrivez ce que vous voulez :
 ```
 Crée un skill search-pdf qui :
 - prend deux arguments : le chemin vers un PDF et une requête de recherche
-- si le fichier .md correspondant n'existe pas, convertit le PDF avec pdftotext
-  (fallback : pdfminer)
+- si le fichier .md correspondant n'existe pas, convertit le PDF avec markitdown
+  (fallback : pdftotext)
 - cherche la requête dans le texte extrait avec ripgrep (-A 20 -i)
 - retourne les passages pertinents avec leur contexte
 ```
@@ -85,7 +85,7 @@ Le RGAA (Référentiel Général d'Amélioration de l'Accessibilité) est le sta
 ## Étape 1 : Générer le skill
 
 ```
-/skill-creator
+$skill-creator
 ```
 
 ```
@@ -119,7 +119,7 @@ Crée un skill a11y-review qui :
 /a11y-review composant-exemple.html
 ```
 
-**Ce composant a au moins 3 violations RGAA.** Le skill doit les trouver.
+**Ce composant a au moins 2 violations RGAA.** Le skill doit les trouver.
 
 ## Étape 3 : Appliquer sur votre vrai code
 
@@ -134,14 +134,8 @@ Le skill écrit le rapport dans `docs/a11y-report.md`. C'est intentionnel : **un
 Ouvrez un second terminal et demandez les fixes dans une nouvelle session :
 
 ```
-@mon-vrai-composant.tsx @docs/a11y-report.md
-
-Apply the required fixes listed in the report.
-Minimum changes to pass the failing criteria.
-Keep the existing structure and styling.
+Applique les conseils de ce rapport @docs/a11y-report.md
 ```
-
-Cet agent n'a pas fait la review — il lit le fichier produit par le premier. Chaque terminal est un agent indépendant, ils ne partagent pas de mémoire, seulement des fichiers. (tmux est pratique pour gérer plusieurs terminaux côte à côte, mais trois onglets font exactement la même chose.)
 
 Re-lancez le skill pour vérifier que les violations sont corrigées.
 
@@ -151,12 +145,12 @@ Si le MCP Figma est configuré, l'agent peut lire directement les tokens de desi
 
 ---
 
-# Partie 3 (bonus) : Skill security-review — 20 min
+# Partie 3 : Skill security-review — 20 min
 
 Même pattern. Générez le skill :
 
 ```
-/skill-creator
+$skill-creator
 ```
 
 ```
@@ -171,17 +165,22 @@ Crée un skill security-review qui :
   nom de la vulnérabilité, référence dans le doc, ligne, fix concret
 ```
 
-Lancez-le **dans un terminal séparé, en parallèle d'un `/a11y-review`** — les deux agents écrivent chacun leur rapport sans se bloquer :
+Lancez-le :
 
 ```
 /security-review src/api/routes/users.py
 ```
 
+## Bonus : appliquer des skills externes
+
+- Sécurité : **[Claude Code Security Review](https://github.com/anthropics/claude-code-security-review)** — Skill de review sécurité pour Claude Code.
+- Design : <https://github.com/vercel-labs/web-interface-guidelines>
+
 ---
 
-# Pourquoi ce pattern est puissant
+##  Conclusions
 
-- **Pas de RAG, pas de serveur** : pdftotext (ou pandoc, qui convertit aussi des .docx, .epub, .html…) + ripgrep + l'agent. Ça marche en offline.
+- **Pas de RAG, pas de serveur** : markitdown (ou pandoc, qui convertit aussi des .docx, .epub, .html…) + ripgrep + l'agent. Ça marche en offline.
 - **Les skills sont versionnés** avec le repo : toute l'équipe a les mêmes outils
 - **Le contexte est précis** : l'agent reçoit exactement les critères qui s'appliquent, pas 250 pages
 - **Extensible** : n'importe quel PDF de référence (OWASP, PCI-DSS, guide interne, doc d'architecture) devient interrogeable via `search-pdf`

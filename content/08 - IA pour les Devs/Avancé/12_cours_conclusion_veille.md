@@ -3,9 +3,6 @@ title: "11 - Veille et Écosystème"
 weight: 2040
 ---
 
-## _Rester à jour dans un écosystème en mouvement_
-
----
 
 # Le rythme effréné
 
@@ -20,7 +17,6 @@ weight: 2040
 
 Les modèles closed-source peuvent se dégrader silencieusement entre deux versions — sans changelog, sans notification. Un modèle qui était bon à l'implémentation peut devenir médiocre sur vos cas d'usage sans que vous le sachiez.
 
-Ex: https://github.com/besimple-oss/broccoli
 
 ## AI Fluency Index
 
@@ -63,8 +59,6 @@ Le modèle de chat back-and-forth préserve davantage l'esprit critique.
 ---
 
 # Les Providers et leurs produits
-
----
 
 ## Tendances à surveiller
 
@@ -109,6 +103,7 @@ Quand vous avez des PDF de référence (OWASP, RGAA, guides internes) :
 
 | Outil | Usage | Installation |
 |-------|-------|-------------|
+| **markdownit** | PDF/Word/Excel/Powerpoint → texte brut, rapide | `uvx markitdown` |
 | **pdftotext** | PDF → texte brut, rapide | `apt install poppler-utils` |
 | **pandoc** | PDF/Word/Excel → markdown | `apt install pandoc` |
 | **ripgrep** | Chercher dans le markdown extrait | `apt install ripgrep` |
