@@ -60,7 +60,17 @@ low tu perds des infos
 - ticket ?
 
 - génération de documentation mermaid => skills
+---
+# feedbacks jour 2
 
+- https://github.com/microsoft/markitdown
+- Ralph loop avec max retry et budget pour chaque tache
+- Avec fallbacks de quel plan de conso (async ou non)
+- Gandalf + deepseek tiananmen qui s'arrête (as a judge)
+- (ou pas) Parler des guardrails : comment bien architecturer un chatbot qui va pas avoir des accès API plus que juste aider a remplir des formulaires exemple
+- Montrer system prompts + openrouter observability + karaphty guidelines (https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md) ou plutot  Skills.sh
+- pour tp frontend : https://skills.sh/anthropics/skills/frontend-design + https://skills.sh/vercel-labs/agent-skills/web-design-guidelines
+- https://supports.uptime-formation.fr/08-ia-pour-les-devs/avanc%C3%A9/00_cours_workflow/ => pas ouf
 ---
 ## Workflow for Github PRs
 
