@@ -161,7 +161,3 @@ Une fois installé, la compression se déclenche en arrière-plan — vous n'ave
 **Pattern retenu :** Phase Plan = raisonnement fort. Phase Act = modèle frugal.
 
 ---
-
-# Prochain module
-
-Module 6 : Multimodal - screenshots, images, et au-delà.

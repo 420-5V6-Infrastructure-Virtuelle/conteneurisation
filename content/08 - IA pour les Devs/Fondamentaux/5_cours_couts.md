@@ -132,7 +132,7 @@ Un agent qui reçoit "Refactor the auth service" fait en réalité deux choses t
 
 #  Configurer les phases par outil
 
-**Codex CLI** — switcher de modèle entre les phases :
+<!-- **Codex CLI** — switcher de modèle entre les phases :
 
 ```bash
 # Phase Plan : modèle avec forte capacité de raisonnement
@@ -140,7 +140,7 @@ OPENAI_MODEL="anthropic/claude-3.5-sonnet" codex "Analyse l'architecture auth et
 
 # Phase Act : modèle frugal pour l'implémentation
 OPENAI_MODEL="google/gemini-flash-1.5" codex "Implémente ce plan : [coller le plan]"
-```
+``` -->
 
 **OpenCode** — deux profils dans config.yaml :
 
@@ -155,7 +155,7 @@ models:
 
 Sélectionnez le profil selon la phase en cours.
 
-**Claude Code** — Plan mode et switch de modèle :
+<!-- **Claude Code** — Plan mode et switch de modèle :
 
 ```
 Shift+Tab   # Active le Plan mode : l'agent réfléchit avant d'agir
@@ -164,7 +164,7 @@ Shift+Tab   # Active le Plan mode : l'agent réfléchit avant d'agir
 ```bash
 # Changer de modèle en cours de session :
 /model claude-haiku-4-5   # Passer en frugal pour l'implémentation
-```
+``` -->
 
 ---
 
@@ -226,20 +226,6 @@ Sur **OpenRouter**, configurez des limites avant de lancer un agent autonome :
 - **Limite par requête** : force l'agent à rester concis
 
 > Réglage dans le dashboard OpenRouter → Settings → Limits. Fixez une limite quotidienne dès l'installation — pas après le premier incident.
-
-## Token limit par requête
-
-Certains outils permettent de limiter les tokens de sortie par appel :
-
-```bash
-# Codex CLI — via variable d'environnement
-export OPENAI_MAX_TOKENS=4096
-
-# OpenCode — dans config.yaml
-max_tokens: 4096
-```
-
-Un token limit trop bas casse les réponses longues. Un token limit absent laisse l'agent produire 10 000 tokens pour une réponse de 50 lignes.
 
 ## Le cache de prompt
 

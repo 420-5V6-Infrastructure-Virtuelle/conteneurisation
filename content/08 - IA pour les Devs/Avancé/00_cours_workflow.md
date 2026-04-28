@@ -440,17 +440,3 @@ AGENT: "Based on the search results, NextAuth.js v5 with OAuth
 - [ ] Branche mergée dans main (ou PR créée)
 
 ---
-
-# Références Transversales
-
-Ce module est référencé dans :
-
-- **Module 7** : Sandboxing & Exécution Autonome
-- **Module 8** : Debugging
-- **Module 9** : Tests
-- **Module 10** : Conventions
-- **Module 11** : Unknown Tech (Rust/Bevy)
-- **Module 12** : Projet Final
-
-**Appliquez ce workflow partout.**  
-**C'est votre filet de sécurité.**

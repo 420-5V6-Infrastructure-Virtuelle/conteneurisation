@@ -188,7 +188,7 @@ Workers A et B tournent en parallèle sans conflit de fichiers.
 - Le reviewer est plus pertinent qu'un agent qui a fait le code lui-même — moins d'angle mort
 - La qualité du `TASKS.md` détermine 80% du résultat final
 
----
+<!-- ---
 
 # Livrable
 
@@ -198,4 +198,4 @@ Workers A et B tournent en parallèle sans conflit de fichiers.
 - [ ] `STATUS.md` rempli par le worker après implémentation
 - [ ] `REVIEW.md` rempli par le reviewer avec un verdict
 - [ ] `git diff --stat` montre des changements cohérents avec la tâche
-- [ ] Les 3 sessions tmux ont tourné (`tmux ls`)
+- [ ] Les 3 sessions tmux ont tourné (`tmux ls`) -->
