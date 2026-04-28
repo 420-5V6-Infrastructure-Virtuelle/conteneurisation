@@ -80,10 +80,19 @@ low tu perds des infos
 - parler des Jules.google.com + Ex: https://github.com/besimple-oss/broccoli
 - bien s'assurer dans tp a11y que c'est vraiment lighthouse qui a été lancé / que le pdf a bien été lu
 
+- exercise sur optimization
+
+- remplacer "tp" par "exercice"
+
+- comment on contribue / travaille en groupe / mutualiser
 
 ---
 
+
 - WSL2 !!!
+- mettre dès le début du J1 le TP AGENTS.md et "comment parler à un llm" 
+- pré-installer uvx / npx, voire Docker
+
 
 ---
 ## Workflow for Github PRs
