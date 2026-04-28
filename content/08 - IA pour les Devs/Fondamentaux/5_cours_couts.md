@@ -199,10 +199,13 @@ L'idée : utiliser un modèle **gratuit** pour la phase Plan, puis fournir ce pl
 
 **Phase Act — modèle frugal sur OpenRouter**
 
+**Pour Codex, les modèles frugaux sont cachés dans la doc d'OpenAI** :
+<https://developers.openai.com/api/docs/models/all>
+
 Copiez le plan dans votre agent configuré sur un modèle cheap :
 
 ```bash
-OPENAI_MODEL="google/gemini-flash-1.5" codex "Voici le plan validé : [coller le plan]. Implémente étape par étape."
+codex -m "gpt-5.4-nano" "Voici le plan validé : [coller le plan]. Implémente étape par étape." # ou gpt-4o-mini
 ```
 
 **Résultat :** la partie coûteuse (raisonnement, architecture) est gratuite ; la partie mécanique coûte quasi-rien.
@@ -252,7 +255,7 @@ Session 2 (même contexte) : 10 000 tokens → $0.003 (cache hit)
 **Pattern retenu :** Phase Plan = raisonnement fort. Phase Act = modèle frugal.
 
 ---
-
+<!-- 
 # Prochain module
 
-Module 6 : Multimodal - screenshots, images, et au-delà.
+Module 6 : Multimodal - screenshots, images, et au-delà. -->
