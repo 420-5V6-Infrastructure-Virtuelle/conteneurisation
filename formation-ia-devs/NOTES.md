@@ -59,7 +59,13 @@ low tu perds des infos
 
 - ticket ?
 
-- génération de documentation mermaid => skills
+- génération de documentation mermaid => skills avec docs/ png (+ ou sans vision)
+
+- supprimer toute ref aux slash commands à par pour dire de les abandonner
+
+- /statusline !!!
+
+- dire "!" pour lancer une commande shell
 ---
 # feedbacks jour 2
 
@@ -73,6 +79,11 @@ low tu perds des infos
 - https://supports.uptime-formation.fr/08-ia-pour-les-devs/avanc%C3%A9/00_cours_workflow/ => pas ouf
 - parler des Jules.google.com + Ex: https://github.com/besimple-oss/broccoli
 - bien s'assurer dans tp a11y que c'est vraiment lighthouse qui a été lancé / que le pdf a bien été lu
+
+
+---
+
+- WSL2 !!!
 
 ---
 ## Workflow for Github PRs
