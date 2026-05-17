@@ -35,132 +35,25 @@ orchestrateur (agent A)
 
 ---
 
-# Pourquoi pas a2a ?
-
-Le protocole Agent-to-Agent de Google existe, mais c'est encore du vaporware en production en 2025-2026. Pas de support natif dans Claude Code ou Codex. Ce pattern fichiers+tmux est ce que les équipes font vraiment aujourd'hui — et ça marche.
-
----
-
 # Mise en place
 
 ## Prérequis
 
 Un projet avec du code à refactorer ou une feature à implémenter. Utilisez votre propre projet ou le projet exemple fourni.
 
-## Étape 1 : Créer les 3 sessions tmux
+## Étape 1 : Ajouter le skill "smux"
 
-```bash
-tmux new -s orchestrateur
-# Dans orchestrateur, on lancera l'agent A
-
-# Ctrl+B C pour créer une nouvelle fenêtre
-# ou dans un autre terminal :
-tmux new -s worker
-tmux new -s reviewer
-```
-
-Vérifier que les sessions existent :
-```bash
-tmux ls
-# orchestrateur: 1 windows
-# worker: 1 windows
-# reviewer: 1 windows
-```
-
-## Étape 2 : L'agent orchestrateur
-
-Dans la session `orchestrateur` :
-
-```bash
-claude -p "
-Analyse le code dans src/ et décompose le travail à faire en tâches atomiques.
-
-Écris le résultat dans TASKS.md avec ce format exact :
-
-# TASKS.md
-
-## Tâche 1 : [titre court]
-**Fichiers concernés :** src/...
-**Objectif :** [une phrase]
-**Critère de succès :** [comment savoir que c'est fait]
-
-## Tâche 2 : ...
-
-Chaque tâche doit être indépendante et réalisable en moins de 15 minutes.
-Maximum 3 tâches.
-"
-```
-
-Lire le résultat :
-```bash
-cat TASKS.md
-```
-
-Ajuster si nécessaire (les tâches doivent être vraiment indépendantes).
-
-## Étape 3 : L'agent worker
-
-Dans la session `worker`, lancer en mode autonome dans Docker :
-
-```bash
-docker run -it --rm \
-  -v $(pwd):/app \
-  -w /app \
-  --network none \
-  node:20 bash
-
-# Dans le container :
-npm install -g @anthropic-ai/claude-code
-claude --dangerously-skip-permissions -p "$(cat TASKS.md)
-
-Implémente uniquement la Tâche 1.
-Quand tu as fini, écris dans STATUS.md :
-- Ce que tu as fait
-- Les fichiers modifiés
-- Les points d'attention pour le reviewer
-"
-```
-
-Pendant que le worker tourne (Ctrl+B D pour détacher) :
-
-```bash
-# Surveiller depuis l'extérieur
-tmux attach -t worker   # pour reattacher
-watch -n 5 cat STATUS.md   # voir la progression
-```
-
-## Étape 4 : L'agent reviewer
-
-Quand STATUS.md indique que la tâche est terminée :
-
-```bash
-# Dans la session reviewer :
-git diff | claude -p "
-Tu es un senior developer qui review du code.
-
-Voici le diff à reviewer :
-$(git diff)
-
-Et voici les notes du développeur :
-$(cat STATUS.md)
-
-Écris ton review dans REVIEW.md avec :
-## Verdict
-✅ OK / ⚠️ Points d'attention / ❌ À revoir
-
-## Observations
-(bugs potentiels, edge cases manqués, qualité du code)
-
-## Suggestions
-(max 3, concrètes et actionnables)
-"
-
-cat REVIEW.md
-```
+<https://github.com/ShawnPana/smux>
 
 ---
 
-# Variante : worktrees pour vraiment paralléliser
+## Etape 2 : demander à un premier agent de déléguer
+- soit avec smux
+- soit avec les subagents de Codex
+
+---
+
+# Worktrees pour vraiment paralléliser
 
 Si les tâches sont indépendantes, lancer workers A et B en simultané sur des worktrees différents :
 

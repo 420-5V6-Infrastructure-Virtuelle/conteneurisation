@@ -143,12 +143,12 @@ Signal d'alarme : si l'agent propose des solutions déjà essayées, oublie des 
 - **Une session = un problème.** Ne mélangez pas deux bugs ou deux features dans la même session.
 - **Plusieurs sessions courtes > une longue session.** Des sessions ciblées donnent de meilleurs résultats qu'une session marathon.
 - **Commencez propre régulièrement.** Plutôt que continuer une session qui accumule trop, ouvrez-en une nouvelle — ou utilisez `/compact` (résume sans perdre le fil) quand le contexte dépasse 70%, `/clear` quand il dépasse 85%.
-
+<!-- 
 ## Le cas particulier du "reasoning"
 
 Certains modèles (o3, Claude avec extended thinking…) génèrent une chaîne de réflexion interne avant de répondre. Ces tokens de raisonnement sont invisibles dans la réponse mais comptent dans la facture — et peuvent multiplier le coût par 5 sur une tâche complexe.
 
-C'est une **feature propriétaire et opaque** : chaque provider l'implémente différemment (`thinking_budget`, `reasoning_effort`, mode automatique…), vous ne voyez pas ce qui a été raisonné, et certains outils l'activent silencieusement. À utiliser intentionnellement pour des problèmes qui le méritent, pas comme réglage par défaut.
+C'est une **feature propriétaire et opaque** : chaque provider l'implémente différemment (`thinking_budget`, `reasoning_effort`, mode automatique…), vous ne voyez pas ce qui a été raisonné, et certains outils l'activent silencieusement. À utiliser intentionnellement pour des problèmes qui le méritent, pas comme réglage par défaut. -->
 
 ---
 

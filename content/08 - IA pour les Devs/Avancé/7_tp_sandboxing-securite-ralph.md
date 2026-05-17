@@ -17,12 +17,12 @@ Pour qu'un agent tourne sans cliquer "oui" à chaque action, il faut lui donner 
 
 | Incident | Impact |
 |----------|--------|
-| Deux agents LangChain qui se chattaient en boucle | **$47 000** sur 11 jours |
+| Deux agents LangChain qui chattaient en boucle | **$47 000** sur 11 jours |
 | Agent qui ignore la commande STOP | 9,6 M emails supprimés |
 | Copilot crée des worktrees en boucle | 1 526 worktrees, 800 Go sur disque |
 | Agent Terraform sans supervision | 2,5 ans de données perdues |
 
-Dans chaque cas : l'agent avait trop de permissions et pas de cage.
+Dans chaque cas : l'agent avait trop de permissions.
 
 ---
 
@@ -486,7 +486,7 @@ export GITHUB_TOKEN="github_pat_read_only_xxx"
 **Pattern recommandé pour CI/CD :** token read-only pour analyse, PR ouverte automatiquement, merge manuel obligatoire.
 
 ---
-
+<!-- 
 # Livrable
 
 À la fin de ce TP :
@@ -495,7 +495,7 @@ export GITHUB_TOKEN="github_pat_read_only_xxx"
 - [ ] Avoir testé le pattern tmux pour superviser un agent longue durée
 - [ ] Avoir un `AGENTS.md` avec des contraintes de scope claires
 - [ ] Savoir choisir le bon niveau de sandbox pour un use case donné
-- [ ] Comprendre le mécanisme d'une prompt injection et au moins 3 défenses concrètes
+- [ ] Comprendre le mécanisme d'une prompt injection et au moins 3 défenses concrètes -->
 
 ---
 

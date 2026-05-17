@@ -61,6 +61,8 @@ low tu perds des infos
 
 - génération de documentation mermaid => skills
 
+- rajout de la commande qui personalise sidebar de codex 
+
 ---
 ## Workflow for Github PRs
 
