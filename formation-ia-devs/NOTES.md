@@ -26,7 +26,6 @@ Pour jour 2 :
 - prompt engineering / mieux écrire, raccourcis à prendre, contexte, blagues sur formulaires de politesse
 - profils : dev ou manager ? agents spé / pour gestion de projet, sur mon poste j'ai un agents.md qui décrit mon équipe et ce que je sais faire
 
-- faire du tmxu et du openclaw like ?
 
 - d'autres outils de base à install sur sa machine, génération de docs lecture d'excel / (pandoc)
 
@@ -41,9 +40,6 @@ Pour jour 2 :
 - connexion avec figma => créer à partir d'une maquette
 
 - sécu : améliorer sécu, pentest TP dans microblog, mais écosystème d'outil pour renforcer la sécu avec PR review, et autres tools
-
-- capacité d'effort extra high / low / mid : quand faire le full patate ?
-low tu perds des infos
 
 - worfklow deep research, avec couts et markdown en cache
 
@@ -61,7 +57,6 @@ low tu perds des infos
 
 - génération de documentation mermaid => skills avec docs/ png (+ ou sans vision)
 
-- supprimer toute ref aux slash commands à par pour dire de les abandonner
 
 - /statusline !!!
 
@@ -71,7 +66,7 @@ low tu perds des infos
 
 - https://github.com/microsoft/markitdown
 - Ralph loop avec max retry et budget pour chaque tache
-- Avec fallbacks de quel plan de conso (async ou non)
+<!-- - Avec fallbacks de quel plan de conso (async ou non) -->
 - Gandalf + deepseek tiananmen qui s'arrête (as a judge)
 - (ou pas) Parler des guardrails : comment bien architecturer un chatbot qui va pas avoir des accès API plus que juste aider a remplir des formulaires exemple
 - Montrer system prompts + openrouter observability + karaphty guidelines (https://github.com/forrestchang/andrej-karpathy-skills/blob/main/skills/karpathy-guidelines/SKILL.md) ou plutot  Skills.sh

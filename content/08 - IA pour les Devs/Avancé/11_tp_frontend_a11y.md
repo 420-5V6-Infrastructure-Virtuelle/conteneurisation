@@ -11,22 +11,10 @@ weight: 2036
 
 # Principe
 
-Un skill Codex est un fichier markdown dans `.codex/commands/`. Quand vous tapez `/nom-du-skill`, l'agent exécute les instructions du fichier.
+Un skill Codex est un fichier markdown dans `.codex/skills/`. Quand vous tapez `/nom-du-skill`, l'agent exécute les instructions du fichier.
 
 Ce qui change ici : on va créer des skills qui **donnent à l'agent les instructions pour aller chercher le contexte lui-même** dans des documents locaux (PDF de référence, guides internes). L'agent fait le travail de conversion et d'extraction — pas vous.
 
-## Skills vs slash commands
-
-Skills et slash commands sont le même mécanisme — un fichier markdown dans `.codex/commands/` ou `.codex/skills/`. La distinction est une convention d'usage :
-
-- **Slash commands** (`/a11y-review`, `/security-review`) : déclenchés par un humain depuis le terminal
-- **Skills** (`search-pdf`) : conçus pour être appelés par d'autres skills ou par l'agent lui-même dans le cadre d'une tâche plus large
-
-Un skill peut appeler un autre skill exactement comme vous le feriez : en écrivant `/search-pdf ...` dans ses instructions. C'est ce qu'on va faire ici — `a11y-review` et `security-review` appellent `search-pdf` en interne.
-
-> La distinction skills/commands est susceptible de disparaître : les deux formats pourraient être fusionnés. Pour l'instant, traitez-les comme interchangeables.
-
----
 
 # Partie 1 : Skill générique search-pdf — 20 min
 
