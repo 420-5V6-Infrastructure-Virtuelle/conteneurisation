@@ -78,11 +78,11 @@ Le modèle de chat back-and-forth préserve davantage l'esprit critique.
 ## La guerre des prix
 | Modèle | Coût/1M input tokens | Notes |
 |--------|---------------------|-------|
-| Gemini Flash 3 Preview | $0.50 | Quota gratuit généreux |
-| GLM-4.7 | ~$0.38 | Via OpenRouter |
-| gpt-4o-mini | $0.15 | Rapide, cohérent |
-| Claude Sonnet | $3.00 | De qualité |
-
+| Gemini Flash 2.0 | $0.07 | Gratuit sur AI Studio |
+| GLM-4.7 | ~$0.05 | Via OpenRouter |
+| MiniMax 2.5 | ~$0.10 | Bon rapport qualité/prix |
+| Claude Haiku | $0.25 | Rapide, cohérent |
+| Claude Sonnet | $3.00 | Le sweet spot qualité | -->
 
 - Routage intelligent selon la tâche : Haiku/Flash pour exploration et questions rapides, Sonnet pour implémentation, Opus ou extended thinking pour les cas durs.
 - Tester les derniers modèles open source, souvent moins chers et largement suffisants hors cas limite

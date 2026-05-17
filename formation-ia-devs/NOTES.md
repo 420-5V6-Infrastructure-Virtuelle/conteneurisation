@@ -96,6 +96,8 @@ low tu perds des infos
 
 - rajout de la commande qui personalise sidebar de codex 
 
+- rajout de la commande qui personalise sidebar de codex 
+
 ---
 ## Workflow for Github PRs
 

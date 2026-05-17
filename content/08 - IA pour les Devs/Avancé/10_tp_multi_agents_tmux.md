@@ -40,7 +40,7 @@ orchestrateur (Claude / gros modèle)  ← réflexion, plan, review
 - L'humain ne crée aucune fenêtre tmux à la main.
 - L'orchestrateur (gros modèle) **réfléchit** : découpe, planifie, review.
 - Les workers (petit modèle) **exécutent** : pas de réflexion globale, juste appliquer une tâche cadrée.
-- Communication uniquement par fichiers.
+**Règle principale :** la communication se fait uniquement par fichiers. Chaque agent a un rôle, un contexte minimal, et une sortie définie.
 
 ---
 
