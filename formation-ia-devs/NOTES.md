@@ -94,6 +94,8 @@ low tu perds des infos
 - pré-installer uvx / npx, voire Docker
 
 
+- rajout de la commande qui personalise sidebar de codex 
+
 ---
 ## Workflow for Github PRs
 
