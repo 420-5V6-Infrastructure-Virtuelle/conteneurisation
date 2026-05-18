@@ -107,6 +107,16 @@ Vous pouvez aussi appliquer les mêmes exercices à votre propre projet.
 
 ---
 
+> **Tip — lancer une commande shell directement :** dans OpenCode et Claude Code, préfixez n'importe quelle ligne par `!` pour l'exécuter dans le shell sans créer de message.
+> ```
+> !git status
+> !ls -la
+> !make test
+> ```
+> Utile pour vérifier l'état du projet sans quitter l'agent.
+
+---
+
 # Étape 4 : Cloner et faire marcher Microblog
 
 ```bash

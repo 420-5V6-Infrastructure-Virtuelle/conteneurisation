@@ -31,6 +31,26 @@ Ce qui compte : **apporter votre propre clé API** (via OpenRouter, OpenAI, Anth
 
 ---
 
+# Le flux complet
+
+Ce qui se passe réellement quand vous tapez un prompt :
+
+```
+┌─────────────────┐        ┌───────────────────────┐        ┌─────────────────────┐
+│  Vous           │──────▶ │  Agent CLI            │──────▶ │  API Provider       │
+│  (terminal /    │        │  (OpenCode, Codex,    │        │  (OpenRouter,       │
+│   éditeur)      │◀────── │   Claude Code…)       │◀────── │   Anthropic, OpenAI)│
+└─────────────────┘        └───────────────────────┘        └─────────────────────┘
+        │                           │                                   │
+   Vous écrivez              Exécute les                        Le modèle LLM
+   un prompt                 tool calls                         génère les tokens
+                             localement
+```
+
+L'agent CLI est le seul à toucher votre machine. Le provider ne voit que du texte.
+
+---
+
 # Typologie par catégorie
 
 Ne choisissez pas un outil individuel - comprenez les **catégories**.

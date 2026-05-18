@@ -21,9 +21,10 @@ L'effort doit être proportionnel à la complexité et à l'impact de la tâche.
 |--------|--------|-------|-------------|----------------|
 | **Low** | Haiku / Flash | Aucun | N/A | ~$0.01 |
 | **Mid** | Sonnet | read, grep, edit | Active | ~$0.10–0.50 |
-| **High** | Sonnet + extended thinking | Tous | Intermittente | ~$1–5 |
+| **High** | Sonnet (effort élevé) | Tous | Intermittente | ~$1–5 |
 | **Max** | Opus + `--dangerously-skip-permissions` | Tous | Sandbox + tmux | ~$5–20 |
 
+> **"Effort élevé" ≠ mode thinking.** Le *reasoning effort* est un paramètre qui dit au modèle de prendre plus ou moins de temps avant de répondre. Le "mode thinking" est plus général: il génère des tokens de raisonnement internes facturés comme des tokens de sortie. 
 ---
 
 # Matrice de décision rapide
@@ -32,7 +33,7 @@ L'effort doit être proportionnel à la complexité et à l'impact de la tâche.
 C'est un bug ?
 ├── Isolé, fichier connu → Mid
 ├── Intermittent, multi-système → High
-└── "Je ne sais même pas d'où ça vient" → High + extended thinking
+└── "Je ne sais même pas d'où ça vient" → High (effort élevé)
 
 C'est une feature ?
 ├── < 5 fichiers → Mid
@@ -46,7 +47,7 @@ C'est une question ?
 
 ---
 
-# Le coût réel de l'extended thinking
+# Le coût réel de l'effort élevé
 
 Un cas documenté : debugging d'un race condition sur une API Node.js.
 

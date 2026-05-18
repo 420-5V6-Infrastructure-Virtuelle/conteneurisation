@@ -13,7 +13,7 @@ schéma tool calling
 
 - revoir partie Reasoning => confus entre effort max et mode thinking
 
-- feature simple : supprimer tweets, a t il pensé a la protection misclick? est il en train de fix l'env et les tests sur le même commit ?
+- poru tp feature simple : supprimer tweets, a t il pensé a la protection misclick? est il en train de fix l'env et les tests sur le même commit ?
 
 - pour tp mcp / tools : juste évoquer les autres mais aller direct sur playwright, parler du sandboxing codex qi fait bugger le mcp playwright, parler du mode headless à désac, puis faire se créer un compte à l'ia via playwright, et enfin tester mode vision vs. mode DOM desc.
 
@@ -52,8 +52,6 @@ Pour jour 2 :
 - bouquins ux : Qdrant 
 
 - design system boursorama
-
-- ticket ?
 
 - génération de documentation mermaid => skills avec docs/ png (+ ou sans vision)
 

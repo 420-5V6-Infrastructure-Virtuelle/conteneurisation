@@ -182,6 +182,11 @@ Lisez le plan, questionnez les choix. Validez ou demandez des ajustements avant 
   Commits atomiques.
 ```
 
+**Observations à faire pendant l'implémentation :**
+
+- L'agent a-t-il pensé à la **protection misclick** ? (confirmation avant action destructive, bouton désactivé pendant le chargement, double-submit impossible…)
+<!-- - Est-il en train de corriger l'environnement et les tests **dans le même commit** ? Si oui, les commits ne sont pas atomiques. -->
+
 ---
 
 # Phase 3 — Cleanup

@@ -52,9 +52,14 @@ opencode --verbose
 ```
 Tokens et coût apparaissent dans les logs après chaque échange.
 
-**Claude Code** — statusline en temps réel (configurée en TP1) + verbose :
+**Claude Code** — statusline en temps réel + verbose :
 ```bash
 claude --verbose
+```
+
+La statusline s'affiche en bas du terminal et montre en continu tokens consommés, coût estimé et modèle actif. Pour la configurer ou la réactiver :
+```
+/statusline
 ```
 
 **Pour aller plus loin — outils tiers :**

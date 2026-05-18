@@ -7,6 +7,64 @@ weight: 1040
 
 ---
 
+
+# Rappel : un LLM ne fait que prédire le token suivant
+
+Un LLM seul est une fonction : `texte` → `token suivant`, appelée en boucle.
+
+Pour visualiser concrètement comment les tokens sont prédits (probabilités, top-k, température), voir le simulateur pédagogique de **Vittascience** : <https://fr.vittascience.com/ia/>
+
+Sans outils, le modèle ne peut **rien faire d'autre que générer du texte** : pas de lecture de fichier, pas d'appel réseau, pas d'exécution de code.
+
+---
+
+# Le tool calling : les bases
+
+Le **tool calling** est le mécanisme qui permet au LLM de sortir de sa boîte. Le principe :
+
+1. On décrit des **outils** au LLM (nom, description, paramètres) dans le prompt
+2. Au lieu de répondre du texte, le LLM peut émettre un **appel d'outil** structuré (JSON)
+3. L'agent CLI (Claude Code, Codex, OpenCode…) exécute l'outil dans l'environnement
+4. Le résultat est réinjecté dans le contexte, et le LLM continue
+
+```
+  Utilisateur      Agent CLI             Environnement       Modèle LLM
+                (OpenCode/Claude)      (fichiers, shell)      (via API)
+      │                │                      │                   │
+      │ "Combien de    │                      │                   │
+      │  routes ?"     │                      │                   │
+      │───────────────>│                      │                   │
+      │                │ prompt + outils       │                   │
+      │                │──────────────────────────────────────────>│
+      │                │                      │  tool_call:        │
+      │                │                      │  read_file(...)    │
+      │                │<──────────────────────────────────────────│
+      │                │ open("routes.py")    │                   │
+      │                │─────────────────────>│                   │
+      │                │  contenu du fichier  │                   │
+      │                │<─────────────────────│                   │
+      │                │ tool_result: "<contenu>"                  │
+      │                │──────────────────────────────────────────>│
+      │                │                      │  tool_call:        │
+      │                │                      │  bash("grep -c")  │
+      │                │<──────────────────────────────────────────│
+      │                │ exec(...)            │                   │
+      │                │─────────────────────>│                   │
+      │                │        "12"          │                   │
+      │                │<─────────────────────│                   │
+      │                │ tool_result: "12"                         │
+      │                │──────────────────────────────────────────>│
+      │                │                      │  "Il y a 12        │
+      │                │                      │   routes."         │
+      │                │<──────────────────────────────────────────│
+      │ "Il y a        │                      │                   │
+      │  12 routes."   │                      │                   │
+      │<───────────────│                      │                   │
+      │                │                      │                   │
+```
+
+**Le LLM ne touche jamais directement l'environnement.** C'est l'agent CLI qui exécute, demande confirmation si nécessaire, et renvoie les résultats sous forme de texte. Tout ce que voit le modèle, c'est du texte qui entre et du texte qui sort — y compris les "actions".
+
 # La boîte noire
 
 **Avec Claude Code sur TUI (moins sur VSCode ):** Vous ne voyez pas ce que l'agent fait.

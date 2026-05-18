@@ -183,6 +183,16 @@ Avec Microblog qui tourne en local, demandez à l'agent d'interagir avec la page
 [TOOL] playwright_click(ref="button[type=submit]")
 [TOOL] playwright_snapshot()
 ```
+
+> **⚠️ Codex CLI + sandbox + Playwright :** Le mode sandbox de Codex (`--approval-mode full-auto`) empêche le lancement de Playwright. Si le MCP Playwright ne répond pas sous Codex, désactivez le sandbox ou passez en mode `auto-edit`.
+
+> **Mode headless :** Par défaut, Playwright tourne sans ouvrir de fenêtre (headless). Pour voir le navigateur s'animer en temps réel, ajoutez `"headless": false` dans la config du MCP :
+> ```json
+> {
+>   "command": ["npx", "-y", "@playwright/mcp", "--headless=false"]
+> }
+> ```
+> Utile pour déboguer ou montrer ce que l'agent fait visuellement.
 <!-- 
 # Étape 6 : LSP — navigation sémantique du code
 
