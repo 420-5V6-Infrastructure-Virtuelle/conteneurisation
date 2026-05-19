@@ -89,7 +89,7 @@ codex
 Opencode :
 ```
 {
-"mcp: [
+"mcp: {
 "ddg_search": {
       "type": "local",
       "enabled": true,
@@ -99,7 +99,7 @@ Opencode :
         "@oevortex/ddg_search"
       ]
     }
-]
+}
 }
 ```
 ---
@@ -113,7 +113,7 @@ Quand l'agent travaille avec une librairie dont il peut avoir une connaissance p
 Opencode :
 ```
 {
-"mcp: [
+"mcp: {
 "context7": {
       "type": "local",
       "enabled": true,
@@ -123,7 +123,7 @@ Opencode :
         "@upstash/context7-mcp"
       ]
     }
-]
+}
 }
 ```
 
@@ -173,7 +173,7 @@ codex mcp add playwright -- npx -y @playwright/mcp
 Opencode :
 ```
 {
-"mcp: [
+"mcp: {
 "playwright": {
       "type": "local",
       "enabled": true,
@@ -183,7 +183,7 @@ Opencode :
         "@playwright/mcp"
       ]
     }
-]
+}
 }
 ```
 
