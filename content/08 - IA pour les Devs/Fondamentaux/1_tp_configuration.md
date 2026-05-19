@@ -56,7 +56,7 @@ export OPENROUTER_API_KEY="sk-or-v1-..."
 
 # Étape 2 : Installation
 
-- **OpenCode :** <https://github.com/opencode-ai/opencode>
+- **OpenCode :** <https://opencode.ai/>
 
 - **Roo Code :** extension VSCode — chercher "Roo Code" dans le marketplace VSCode
 

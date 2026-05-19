@@ -84,6 +84,24 @@ codex
 **Claude Code et Codex** ont la recherche web intégrée nativement — rien à faire.
 
 **OpenCode** ou **Roo Code** n'ont pas de recherche intégrée. Il faut ajouter un MCP comme `ddg_search`.
+
+
+Opencode :
+```
+{
+"mcp: [
+"ddg_search": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "npx",
+        "-y",
+        "@oevortex/ddg_search"
+      ]
+    }
+]
+}
+```
 ---
 
 # Étape 4 : context7 — ancrer l'agent dans la vraie doc
@@ -96,13 +114,13 @@ Opencode :
 ```
 {
 "mcp: [
-"playwright": {
+"context7": {
       "type": "local",
       "enabled": true,
       "command": [
         "npx",
         "-y",
-        "@playwright/mcp"
+        "@upstash/context7-mcp"
       ]
     }
 ]
