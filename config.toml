@@ -8,7 +8,7 @@ theme = ["hugo-theme-learn", "reveal-hugo"]
 home = [ "HTML", "RSS", "JSON" ]
 
 [params]
-editURL = "https://github.com/420-5V6-Infrastructure-Virtuelle/conteneurisation"
+editURL = "https://github.com/Uptime-Formation/supports-hugo/blob/supports.uptime-formation.fr/content/"
 globalTitle = "Supports"
 [params.reveal_hugo]
 custom_theme = "reveal-hugo/themes/robot-lung.css"
