@@ -9,7 +9,7 @@ home = [ "HTML", "RSS", "JSON" ]
 
 [params]
 editURL = "https://github.com/Uptime-Formation/supports-hugo/blob/supports.uptime-formation.fr/content/"
-globalTitle = "Supports"
+globalTitle = "420-5v6 Infrastructure Virtuel"
 [params.reveal_hugo]
 custom_theme = "reveal-hugo/themes/robot-lung.css"
 
