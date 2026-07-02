@@ -1,6 +1,6 @@
 ---
 title: Bibliographie
-draft: true
+draft: false
 ---
 
 ## Linux
