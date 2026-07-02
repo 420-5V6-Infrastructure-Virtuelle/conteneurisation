@@ -4,7 +4,7 @@ title: Uptime Formation
 
 # {{< param globalTitle >}}
 
-Vous trouverez rassemblés sur ce site les supports de formations pour une bonne partie des modules technique du cursus DevOps Uptime Formation.
+Vous trouverez rassemblés sur ce site les supports de formations pour une bonne partie de la deuxième moitié du cours.
 
 Conçus initialement dans le cadre d'un cursus [Uptime Formation](https://uptime-formation.fr)</a>.</br>
 
