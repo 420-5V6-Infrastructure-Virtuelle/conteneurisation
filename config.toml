@@ -9,6 +9,7 @@ home = [ "HTML", "RSS", "JSON" ]
 
 [params]
 editURL = "https://github.com/420-5V6-Infrastructure-Virtuelle/conteneurisation/blob/2026/content/"
+themeVariant = "blue" # Essaye "blue", "green", ou "red" pour tester
 globalTitle = "420-5v6 Infrastructure Virtuel"
 [params.reveal_hugo]
 custom_theme = "reveal-hugo/themes/robot-lung.css"
