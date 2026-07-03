@@ -44,6 +44,58 @@ L'imaginer comme une "boîte" est donc une allégorie un peu trompeuse, car ce n
 # Docker Origins : genèse du concept de **conteneur**
 
 Les conteneurs mettent en œuvre un vieux concept d'isolation des processus permis par la philosophie Unix du "tout est fichier".
+--------------------------------
+
+Dans Unix, presque tout (processus, périphériques, sockets, mémoire, configuration) est exposé comme un fichier.
+
+Grâce à cette abstraction, Unix a pu développer des mécanismes d’isolation des processus : chroot, permissions, namespaces, cgroups.
+
+Les conteneurs modernes (Docker, LXC, Kubernetes) réutilisent ces mécanismes pour créer des environnements isolés, légers et reproductibles.
+
+Les conteneurs sont une évolution moderne de ce concept : isoler ce qu’un processus peut “voir” du système.
+
+# Concept de la conteneurisation
+
+1. Isolation sans virtualisation lourde
+
+Grâce à l’idée que tout est fichier, on peut montrer à un processus une version limitée du système :
+
+- un système de fichiers isolé
+- un réseau isolé
+- des processus isolés
+- des ressources limitées
+
+Un conteneur n’est pas une VM : c’est un processus isolé qui croit être seul.
+
+2. Reproductibilité et portabilité
+
+Comme tout est fichier :
+
+- un conteneur = un ensemble de fichiers (image + configuration)
+- on peut reconstruire exactement le même environnement sur n’importe quelle machine
+- on peut versionner ces fichiers (Dockerfile, YAML Kubernetes)
+
+Même environnement partout, même comportement partout.
+
+3. Sécurité et contrôle
+
+L’isolation des fichiers permet :
+
+- de limiter ce qu’un conteneur peut lire ou écrire
+- de restreindre son accès au réseau
+- de contrôler ses ressources (CPU, RAM, I/O)
+
+On maîtrise précisément ce que chaque conteneur peut faire.
+
+En résumé, Le succès des conteneurs découle directement du design d'Unix, où chaque ressource (processus, réseau, disque) est représentée par un fichier. En isolant ce qu'un processus peut voir dans l'arborescence du système, on crée un environnement étanche et reproductible. Docker a modernisé ce concept en créant un format d'image standard, et Kubernetes s'occupe de déployer ces conteneurs sur des parcs de serveurs.
+
+----------------------------------
+
+
+
+
+
+
 
 ## `chroot`, `jail`, les 6 `namespaces` et les `cgroups`
 
