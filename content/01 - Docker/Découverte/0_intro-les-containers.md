@@ -55,21 +55,67 @@ Les conteneurs modernes (Docker, LXC, Kubernetes) réutilisent ces mécanismes p
 
 Les conteneurs sont une évolution moderne de ce concept : isoler ce qu’un processus peut “voir” du système.
 
+Voici quelques un de ces concept d’isolation :
+
+**1. chroot**
+
+- Implémenté principalement par le programme `chroot` [*change root* : changer de racine], permet l'isolation du système de fichiers
+  
+  L'utilitaire chroot (change root) modifie le répertoire racine d'un processus en cours.
+  - Rôle : Restreindre l'accès disque.
+  - Fonctionnement : Le processus croit que le dossier assigné est la racine / du système.
+
+**2. Les _namespaces_ (espaces de noms)**
+
+- Les **_namespaces_**, un concept informatique pour parler simplement de…
+  - groupes séparés auxquels on donne un nom, d'ensembles de choses sur lesquelles on colle une étiquette
+  - on parle aussi de **contextes**
+  - Les _namespaces_ sont inventés en 2002
+  - popularisés lors de l'inclusion des 6 types de _namespaces_ dans le **noyau Linux** (3.8) en **2013**
+
+- Les _namespaces_ correspondent à autant de types de **compartiments** nécessaires dans l'architecture Linux pour isoler des processus, il y 6 types de _namespaces_ :
+  - PID : Isole les identifiants de processus (le conteneur possède son propre processus numéro 1).
+  - NET : Fournit des interfaces réseau, des tables de routage et des ports indépendants.
+  - MNT (Mount) : Permet de créer sont propre volume avec sont propre systèmes de fichiers.
+  - IPC : isole la communication inter-processus entre les espaces de nommage.
+  - UTS : Permet d'avoir un nom d'hôte (hostname).
+  - USER : Isole l'utilisateur ID entre les namespace. Permet d'être root (UID 0) à l'intérieur du conteneur tout en étant un utilisateur standard sans privilèges sur l'hôte.
+
+---
+
+**3. Les _cgroups_ : derniers détails pour une vraie isolation**
+
+- Après, il reste à s'occuper de limiter la capacité d'un conteneur à agir sur les ressources matérielles :
+
+  - usage de la mémoire
+  - du disque
+  - du réseau
+  - des appels système
+  - du processeur (CPU)
+
+
+Alors que les namespaces masquent ce que le processus peut voir, les cgroups restreignent ce que le processus peut consommer.
+- Rôle : Répartition et contrôle du matériel.
+- Fonctionnement : Le noyau applique des barrières physiques strictes sur un groupe de processus.
+- Ressources bridées : Allocation du temps processeur (CPU), quantité maximale de mémoire vive (RAM), bande passante réseau et accès aux disques (I/O). Cela empêche un conteneur de saturer l'hôte (attaque par déni de service).
+
+---
+
 
 # Concept de la conteneurisation
 
-1. Isolation sans virtualisation lourde
+**1. Isolation sans virtualisation lourde**
 
-  Grâce à l’idée que tout est fichier, on peut montrer à un processus une version limitée du système :
+Grâce à l’idée que tout est fichier, on peut montrer à un processus une version limitée du système :
 
 - un système de fichiers isolé
 - un réseau isolé
 - des processus isolés
 - des ressources limitées
 
-  Un conteneur n’est pas une VM : c’est un processus isolé qui croit être seul.
+Un conteneur n’est pas une VM : c’est un processus isolé qui croit être seul.
 
-2. Reproductibilité et portabilité
+**2. Reproductibilité et portabilité**
 
 Comme tout est fichier :
 
@@ -79,7 +125,7 @@ Comme tout est fichier :
 
 Même environnement partout, même comportement partout.
 
-3. Sécurité et contrôle
+**3. Sécurité et contrôle**
 
 L’isolation des fichiers permet :
 
@@ -98,10 +144,10 @@ En résumé, Le succès des conteneurs découle directement du design d'Unix, o�
 
 On revient à notre définition d'un **conteneur** :
 
-### **Un conteneur est un groupe de _processus_ associé à un ensemble de permissions sur le système**.
+**Un conteneur est un groupe de _processus_ associé à un ensemble de permissions sur le système**.
 
 > 1 container
-> = 1 groupe de _process_ Linux
+> = 1 groupe de processus
 >
 > - des _namespaces_ (séparation entre ces groups)
 > - des _cgroups_ (quota en ressources matérielles)
@@ -110,7 +156,7 @@ On revient à notre définition d'un **conteneur** :
 
 # LXC (LinuX Containers)
 
-- En 2008 démarre le projet LXC qui chercher à rassembler :
+- En 2008 démarre le projet LXC qui chercher à rassembler les concepts d'isolation de processus de linux :
 
   - les **cgroups**
   - le **chroot**
