@@ -55,7 +55,7 @@ Les conteneurs modernes (Docker, LXC, Kubernetes) réutilisent ces mécanismes p
 
 Les conteneurs sont une évolution moderne de ce concept : isoler ce qu’un processus peut “voir” du système.
 
-Voici quelques un de ces concept d’isolation :
+**Voici quelques un de ces concept d’isolation :**
 
 **1. chroot**
 
@@ -73,13 +73,13 @@ Voici quelques un de ces concept d’isolation :
   - Les _namespaces_ sont inventés en 2002
   - popularisés lors de l'inclusion des 6 types de _namespaces_ dans le **noyau Linux** (3.8) en **2013**
 
-- Les _namespaces_ correspondent à autant de types de **compartiments** nécessaires dans l'architecture Linux pour isoler des processus, il y 6 types de _namespaces_ :
-  - PID : Isole les identifiants de processus (le conteneur possède son propre processus numéro 1).
-  - NET : Fournit des interfaces réseau, des tables de routage et des ports indépendants.
-  - MNT (Mount) : Permet de créer sont propre volume avec sont propre systèmes de fichiers.
-  - IPC : isole la communication inter-processus entre les espaces de nommage.
-  - UTS : Permet d'avoir un nom d'hôte (hostname).
-  - USER : Isole l'utilisateur ID entre les namespace. Permet d'être root (UID 0) à l'intérieur du conteneur tout en étant un utilisateur standard sans privilèges sur l'hôte.
+- Ceux-ci correspondent à des **compartiments** nécessaires dans l'architecture Linux pour isoler des processus, il y 6 types de _namespaces_ :
+  - **PID** : Isole les identifiants de processus (le conteneur possède son propre processus numéro 1).
+  - **NET** : Fournit des interfaces réseau, des tables de routage et des ports indépendants.
+  - **MNT** (Mount) : Permet de créer sont propre volume avec sont propre systèmes de fichiers.
+  - **IPC** : isole la communication inter-processus entre les espaces de nommage.
+  - **UTS** : Permet d'avoir un nom d'hôte (hostname).
+  - **USER** : Isole l'utilisateur ID entre les namespace. Permet d'être root (UID 0) à l'intérieur du conteneur tout en étant un utilisateur standard sans privilèges sur l'hôte.
 
 ---
 
