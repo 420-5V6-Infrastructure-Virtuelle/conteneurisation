@@ -11,10 +11,12 @@ weight: 1010
 
 # Introduction
 
-- ## La métaphore docker : "box it, ship it"
+## La métaphore docker : "box it, ship it"
+
+![](../../../images/enVrac.jpg)
 
 - Une abstraction qui ouvre de nouvelles possibilités pour la manipulation logicielle.
-- Permet de standardiser et de contrôler la livraison et le déploiement.
+- Permet de standardiser, industrialiser et de contrôler la livraison et le déploiement.
 
 # Retour sur les technologies de virtualisation
 
