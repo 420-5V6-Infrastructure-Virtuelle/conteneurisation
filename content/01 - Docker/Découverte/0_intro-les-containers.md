@@ -43,10 +43,9 @@ L'imaginer comme une "boîte" est donc une allégorie un peu trompeuse, car ce n
 
 ---
 
-# Docker Origins : genèse du concept de **conteneur**
+# L'origine du Docker : concept de **conteneur**
 
 Les conteneurs mettent en œuvre un vieux concept d'isolation des processus permis par la philosophie Unix du "tout est fichier".
---------------------------------
 
 Dans Unix, presque tout (processus, périphériques, sockets, mémoire, configuration) est exposé comme un fichier.
 
@@ -55,6 +54,7 @@ Grâce à cette abstraction, Unix a pu développer des mécanismes d’isolation
 Les conteneurs modernes (Docker, LXC, Kubernetes) réutilisent ces mécanismes pour créer des environnements isolés, légers et reproductibles.
 
 Les conteneurs sont une évolution moderne de ce concept : isoler ce qu’un processus peut “voir” du système.
+
 
 # Concept de la conteneurisation
 
