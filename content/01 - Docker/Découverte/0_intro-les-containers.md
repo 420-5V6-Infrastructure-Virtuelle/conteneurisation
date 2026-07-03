@@ -43,7 +43,7 @@ L'imaginer comme une "boîte" est donc une allégorie un peu trompeuse, car ce n
 
 ---
 
-# L'origine du Docker : concept de **conteneur**
+# L'origine du Docker : concept du **conteneur**
 
 Les conteneurs mettent en œuvre un vieux concept d'isolation des processus permis par la philosophie Unix du "tout est fichier".
 
@@ -60,14 +60,14 @@ Les conteneurs sont une évolution moderne de ce concept : isoler ce qu’un pro
 
 1. Isolation sans virtualisation lourde
 
-Grâce à l’idée que tout est fichier, on peut montrer à un processus une version limitée du système :
+  Grâce à l’idée que tout est fichier, on peut montrer à un processus une version limitée du système :
 
 - un système de fichiers isolé
 - un réseau isolé
 - des processus isolés
 - des ressources limitées
 
-Un conteneur n’est pas une VM : c’est un processus isolé qui croit être seul.
+  Un conteneur n’est pas une VM : c’est un processus isolé qui croit être seul.
 
 2. Reproductibilité et portabilité
 
