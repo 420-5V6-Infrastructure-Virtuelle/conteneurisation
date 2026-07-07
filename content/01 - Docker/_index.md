@@ -5,7 +5,7 @@ weight: 2
 chapter: true
 ---
 
-### Module 2
+### Module 1
 
 # Docker
 
