@@ -1,133 +1,139 @@
 ---
-title: Images et conteneurs
-weight: 1020
+title: DockerFiles
+weight: 2070
 ---
 
-# Créer une image en utilisant un Dockerfile
+## Qu'est-ce qu'un Dockerfile ?
+Un Dockerfile est simplement un fichier texte qui enchaîne des instructions destinées à installer tout ce dont notre application a besoin pour fonctionner.
+
+La liste d’instructions disponibles est assez courte, voire une dizaine d'instructions, mais c’est suffisant pour construire une image complète.
+
+On peut (je dirais, "On doit") y ajouter des commentaires pour documenter ce que l’on fait.
+
+## Créer une image en utilisant un Dockerfile
 
 - Jusqu'ici nous avons utilisé des images toutes prêtes.
 
 - Une des fonctionnalités principales de Docker est de pouvoir facilement construire des images à partir d'un simple fichier texte : **le Dockerfile**.
 
-# Le processus de build Docker
+## Le processus de build Docker avec un Dockerfile
 
-- Un image Docker ressemble un peu à une VM car on peut penser à un Linux "freezé" dans un état.
+- Une image Docker ressemble un peu à un template de VM, car on peut penser à un Linux figé dans un état.<!-- - En réalité c'est assez différent : il s'agit uniquement d'un système de fichier (par couches ou _layers_) et d'un manifeste JSON (des métadonnées). -->
+- On construit les images à partir d'un fichier `Dockerfile` en décrivant procéduralement (étape par étape) la construction.
 
-- En réalité c'est assez différent : il s'agit uniquement d'un système de fichier (par couches ou _layers_) et d'un manifeste JSON (des méta-données).
+- Les images sont créées en empilant de nouvelles couches sur une image existante grâce à un système de fichiers qui fait du _union mount_.
 
-- Les images sont créés en empilant de nouvelles couches sur une image existante grâce à un système de fichiers qui fait du _union mount_.
-
----
+  - On empile les couches, chacune résultant d’une instruction, à partir d’une image de base.
+![](../../../images/docker/docker-image-layers.CYawgeO-_4okP.svg)
 
 - Chaque nouveau build génère une nouvelle image dans le répertoire des images (`/var/lib/docker/images`) (attention ça peut vite prendre énormément de place)
 
-- On construit les images à partir d'un fichier `Dockerfile` en décrivant procéduralement (étape par étape) la construction.
+- Privilégiez les images slim ou alpine pour réduire la taille finale. (Contiens une version très légère de Linux)
 
 ![](../../../images/ops-images-dockerfile.svg)
 
 ### Exemple de Dockerfile :
 
 ```Dockerfile
-FROM debian:latest
-
-RUN apt update && apt install -y htop
-
-CMD ['sleep 1000']
+FROM python:3.11-slim
+COPY . /app
+RUN pip install -r /app/requirements.txt
 ```
+Voici ce que fait Docker :
 
-- La commande pour construire l'image est :
+  - 1re couche : image de base python:3.11-slim
+  - 2e couche : copie de vos fichiers dans /app
+  - 3e couche : installation des dépendances Python
+
+  Chaque couche est immutabilité et cacheable. Si on relance le build sans changer les fichiers copiés, Docker réutilisera les couches précédentes.
+
+### Le cache, votre allié pour des builds rapides
+
+L'ordre des instructions dans le Dockerfile impacte directement le cache. Placez les instructions qui changent rarement (installation de dépendances système) en haut, et celles qui changent souvent (copie du code source) en bas. Ainsi, le cache est réutilisé au maximum.
+
+
+### Comment construire l'image
+
+- La commande pour construire l'image est à partir d'un Dockerfile :
 
 ```
 docker build [-t tag] [-f dockerfile] <build_context>
 ```
 
-- généralement pour construire une image on se place directement dans le dossier avec le `Dockerfile` et les élements de contexte nécessaire (programme, config, etc), le contexte est donc le caractère **`.`**, il est obligatoire de préciser un contexte.
+- généralement pour construire une image on se place directement dans le dossier avec le `Dockerfile` et les éléments de contexte nécessaire (programme, config, etc), le contexte est donc le caractère **`.`**, il est obligatoire de préciser un contexte.
 
-- exemple : `docker build -t mondebian .`
+- exemple : `docker build -t mon-debian .`
 
 ---
 
-- Le **Dockerfile** est un fichier procédural qui permet de décrire l'installation d'un logiciel (la configuration d'un container) en enchaînant des instructions Dockerfile (en MAJUSCULE).
-
-- Exemple:
+Voici un exemple complet de l'installation d'un projet python
 
 ```Dockerfile
-# our base image
+# Image de base : on utilise une distribution Alpine légère
 FROM alpine:3.5
 
-# Install python and pip
-RUN apk add --update py2-pip
+# Définition du répertoire de travail pour centraliser l'application
+WORKDIR /usr/src/app
 
-# upgrade pip
-RUN pip install --upgrade pip
+# Installation de Python 2 et de pip, puis mise à jour de pip
+# (Regrouper les installations permet de limiter le nombre de couches de l'image)
+RUN apk add --update py2-pip && \
+    pip install --upgrade pip
 
-# install Python modules needed by the Python app
-COPY requirements.txt /usr/src/app/
-RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
+# Installation des dépendances Python
+# On copie d'abord uniquement le fichier requirements.txt pour mettre en cache 
+# C'est le fichier des dépendances Python
+COPY requirements.txt ./
 
-# copy files required for the app to run
-COPY app.py /usr/src/app/
-COPY templates/index.html /usr/src/app/templates/
+# Installation des dépendances Python sans cache pour réduire la taille de l'image
+RUN pip install --no-cache-dir -r requirements.txt
 
-# tell the port number the container should expose
+# Copie des fichiers de l'application
+# Ce sont les sources et les templates nécessaires à l'application python qui a été développé
+COPY app.py ./
+COPY templates/index.html ./templates/
+
+# Indication du port sur lequel l'application écoute à l'intérieur du conteneur
 EXPOSE 5000
 
-# run the application
-CMD ["python", "/usr/src/app/app.py"]
+# Commande de démarrage pour lancer l'application Python
+CMD ["python", "app.py"]
 ```
-<!-- ```Dockerfile
-FROM ruby:2.5
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
-WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
-RUN bundle install
-COPY . /myapp
-
-# Add a script to be executed every time the container starts.
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
-
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
-``` -->
 
 ---
 
-## Instruction `FROM`
+### Instruction `FROM`
 
 - L'image de base à partir de laquelle est construite l'image actuelle.
 
-## Instruction `RUN`
+### Instruction `RUN`
 
-- Permet de lancer une commande shell (installation, configuration).
+- Permets de lancer une commande shell (installation, configuration).
 
-## Instruction `ADD` ou `COPY`
+### Instruction `ADD` ou `COPY`
 
-- Permet d'ajouter des fichier depuis le contexte de build à l'intérieur du conteneur.
+- Permets d'ajouter des fichiers depuis le contexte de build à l'intérieur du conteneur.
 - Généralement utilisé pour ajouter le code du logiciel en cours de développement et sa configuration au conteneur.
-- Ces deux instructions ont des petites différences subtiles : les options de `COPY` sont plus complètes, et `ADD` permet de télécharger et dézipper un fichier disponible à une URL distante.
+- Ces deux instructions ont des petites différences subtiles : les options de `COPY` sont plus complètent, et `ADD` permettent de télécharger et dézipper un fichier disponible à une URL distante.
 ---
 
-## Instruction `CMD`
+### Instruction `CMD`
 
-- Généralement à la fin du `Dockerfile` : elle permet de préciser la commande par défaut lancée à la création d'une instance du conteneur avec `docker run`. on l'utilise avec une liste de paramètres
+- Généralement à la fin du `Dockerfile` : elle permet de préciser la commande par défaut lancé à la création d'une instance du conteneur avec `docker run`. on l'utilise avec une liste de paramètres
 
 ```Dockerfile
 CMD ["echo 'Conteneur démarré'"]
 ```
 
-## Instruction `ENTRYPOINT`
+### Instruction `ENTRYPOINT`
 
-- Précise le programme de base avec lequel sera lancé la commande
+- Précise le programme de base avec lequel sera lancée la commande
 
 ```Dockerfile
 ENTRYPOINT ["/usr/bin/python3"]
 ```
 
-## `CMD` et `ENTRYPOINT`
+### `CMD` et `ENTRYPOINT`
 
 * Ne surtout pas confondre avec `RUN` qui exécute une commande Bash uniquement pendant la construction de l'image.
 
@@ -141,13 +147,13 @@ Si l'on souhaite que notre container lance le même exécutable à chaque fois, 
 
 ---
 
-## Instruction `ENV`
+### Instruction `ENV`
 
 - Une façon recommandée de configurer vos applications Docker est d'utiliser les variables d'environnement UNIX, ce qui permet une configuration "au _runtime_".
 
 ---
 
-## Instruction `HEALTHCHECK`
+### Instruction `HEALTHCHECK`
 
 `HEALTHCHECK` permet de vérifier si l'app contenue dans un conteneur est en bonne santé.
 
@@ -157,7 +163,7 @@ HEALTHCHECK CMD curl --fail http://localhost:5000/health
 
 ---
 
-## Les variables
+### Les variables
 On peut utiliser des variables d'environnement dans les Dockerfiles. La syntaxe est `${...}`.
 Exemple :
 ```Dockerfile
@@ -175,7 +181,7 @@ Se référer au [mode d'emploi](https://docs.docker.com/engine/reference/builder
 
 ---
 
-# Lancer la construction
+## Lancer la construction
 
 - La commande pour lancer la construction d'une image est :
 
@@ -194,40 +200,41 @@ docker build [-t <tag:version>] [-f <chemin_du_dockerfile>] <contexte_de_constru
 
 ---
 
+<!-- 
 # Les layers et la mise en cache
 
 - **Docker construit les images comme une série de "couches" de fichiers successives.**
 
-- On parle d'**Union Filesystem** car chaque couche (de fichiers) écrase la précédente.
+- On parle d'**Union Filesystem,** car chaque couche (de fichiers) écrase la précédente.
 
 ![](../../../images/overlay_constructs.jpg)
-<!-- ![](../../../images/OverlayFS_Image.png) -->
+![](../../../images/OverlayFS_Image.png) 
 
-<!-- In order to understand the relationship between images and containers, we need to explain a key piece of technology that enables Docker—the UFS (sometimes simply called a union mount). Union file systems allow multiple file systems to be overlaid, appearing to the user as a single filesytem. Folders may contain files from multiple filesystems, but if two files have the exact same path, the last mounted file will hide any previous files. Docker supports several different UFS implentations, including AUFS, Overlay, devicemapper, BTRFS, and ZFS. Which implementation is used is system dependent and can be checked by running docker info where it is listed under “Storage Driver.” It is possible to change the filesystem, but this is only recom‐ mended if you know what you are doing and are aware of the advantages and disad‐ vantages.
-Docker images are made up of multiple layers. Each of these layers is a read-only fil‐ eystem. A layer is created for each instruction in a Dockerfile and sits on top of the previous layers. When an image is turned into a container (from a docker run or docker create command), the Docker engine takes the image and adds a read-write filesystem on top (as well as initializing various settings such as the IP address, name, ID, and resource limits). -->
 
 - Chaque couche correspond à une instruction du Dockerfile.
 
 - `docker image history <conteneur>` permet d'afficher les layers, leur date de construction et taille respectives.
 
-- Ce principe est au coeur de l'**immutabilité** des images Docker.
+- Ce principe est au cœur de l'**immutabilité** des images Docker.
 
 - Au lancement d'un container, le Docker Engine rajoute une nouvelle couche de filesystem "normal" read/write par dessus la pile des couches de l'image.
 
 - `docker diff <container>` permet d'observer les changements apportés au conteneur depuis le lancement.
 
-<!-- ![](../../../images/overlay.jpeg) -->
 
 ---
+-->
 
-# Optimiser la création d'images
+
+
+## Optimiser la création d'images
 
 - Les images Docker ont souvent une taille de plusieurs centaines de **mégaoctets** voire parfois **gigaoctets**. `docker image ls` permet de voir la taille des images.
 - Or, on construit souvent plusieurs dizaines de versions d'une application par jour (souvent automatiquement sur les serveurs d'intégration continue).
 
   - L'espace disque devient alors un sérieux problème.
 
-- Le principe de Docker est justement d'avoir des images légères car on va créer beaucoup de conteneurs (un par instance d'application/service).
+- Le principe de Docker est justement d'avoir des images légères, car on va créer beaucoup de conteneurs (un par instance d'application/service).
 
 - De plus on télécharge souvent les images depuis un registry, ce qui consomme de la bande passante.
 
@@ -235,31 +242,30 @@ Docker images are made up of multiple layers. Each of these layers is a read-onl
 
 ---
 
-# Limiter la taille d'une image
+## Limiter la taille d'une image
 
 - Choisir une image Linux de base **minimale**:
 
   - Une image `ubuntu` complète pèse déjà presque une soixantaine de mégaoctets.
-  - mais une image trop rudimentaire (`busybox`) est difficile à débugger et peu bloquer pour certaines tâches à cause de binaires ou de bibliothèques logicielles qui manquent (compilation par exemple).
+  - mais une image trop rudimentaire (`busybox`) est difficile à déboguer et peu bloquer pour certaines tâches à cause de binaires ou de bibliothèques logicielles qui manquent (compilation par exemple).
   - Souvent on utilise des images de base construites à partir de `alpine` qui est un bon compromis (6 mégaoctets seulement et un gestionnaire de paquets `apk`).
   - Par exemple `python3` est fourni en version `python:alpine` (99 Mo), `python:3-slim` (179 Mo) et `python:latest` (918 Mo).
 
 <!-- - Limiter le nombre de commandes de modification du conteneur :
   -  -->
 
----
+<!-- 
+## Les multistages builds
 
-## Les multi-stage builds
-
-Quand on tente de réduire la taille d'une image, on a recours à un tas de techniques. Avant, on utilisait deux `Dockerfile` différents : un pour la version prod, léger, et un pour la version dev, avec des outils en plus. Ce n'était pas idéal.
+Quand on tente de réduire la taille d'une image, on a recours à un tas de techniques. Avant, on utilisait deux `Dockerfile` différents : un pour la version prod, légère, et un pour la version dev, avec des outils en plus. Ce n'était pas idéal.
 Par ailleurs, il existe une limite du nombre de couches maximum par image (42 layers). Souvent on enchaînait les commandes en une seule pour économiser des couches (souvent, les commandes `RUN` et `ADD`), en y perdant en lisibilité.
 
 Maintenant on peut utiliser les multistage builds.
 
-Avec les multi-stage builds, on peut utiliser plusieurs instructions `FROM` dans un Dockerfile. Chaque instruction `FROM` utilise une base différente.
+Avec les multistages builds, on peut utiliser plusieurs instructions `FROM` dans un Dockerfile. Chaque instruction `FROM` utilise une base différente.
 On sélectionne ensuite les fichiers intéressants (des fichiers compilés par exemple) en les copiant d'un stage à un autre.
 
-Exemple de `Dockerfile` utilisant un multi-stage build :
+Exemple de `Dockerfile` utilisant un multistage build :
 
 ```Dockerfile
 FROM golang:1.7.3 AS builder
@@ -274,10 +280,10 @@ WORKDIR /root/
 COPY --from=builder /go/src/github.com/alexellis/href-counter/app .
 CMD ["./app"]
 ```
-
+-->
 ---
 
-# Créer des conteneurs personnalisés
+## Créer des conteneurs personnalisés
 
 - Il n'est pas nécessaire de partir d'une image Linux vierge pour construire un conteneur.
 
@@ -293,7 +299,7 @@ CMD ["./app"]
 - On peut également prendre une sorte de snapshot du conteneur (de son système de fichiers, pas des processus en train de tourner) sous forme d'image avec `docker commit <image>` et `docker push`.
 
 ---
-
+<!-- 
 # Publier des images vers un registry privé
 
 - Généralement les images spécifiques produites par une entreprise n'ont pas vocation à finir dans un dépôt public.
@@ -303,12 +309,12 @@ CMD ["./app"]
 - On utilise alors `docker login <adresse_repo>` pour se logger au registry et le nom du registry dans les `tags` de l'image.
 
 - Exemples de registries :
-  - **Gitlab** fournit un registry très intéressant car intégré dans leur workflow DevOps.
-  <!-- - **Docker Trusted Registry (DTR)** fait partie de **Docker Enterprise** et pratique des tests de sécurité sur les images. -->
+  - **Gitlab** fournit un registry très intéressant, car intégré dans leur workflow DevOps.
 
----
 
-## Le design pattern de l'architecture "microservice" (multi-conteneurs) : [12factor.net](https://12factor.net)
+
+
+## Le design pattern de l'architecture "microservice" (multiconteneurs) : [12factor.net](https://12factor.net)
 
 [12factor.net](https://12factor.net)
 
@@ -320,3 +326,5 @@ CMD ["./app"]
   - log bien via son process principal
   - se lance vite et s'éteint proprement rapidement
   - basé sur la même image pour la prod et le dev (ou au mieux)
+
+-->

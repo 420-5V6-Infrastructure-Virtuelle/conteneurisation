@@ -1,3 +1,3 @@
 # Supports
 
-https://supports.uptime-formation.fr
+https://420-5v6.org/

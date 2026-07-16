@@ -1,21 +1,20 @@
 ---
 title: Utiliser les commandes Docker
-weight: 1012
+weight: 2030
 ---
 
-# Les images et conteneurs
 
 
-![](../../../images/docker-cycle.jpg)
+![](../../../images/ops-basics-isolation.svg) 
 
-Docker fonctionne avec un CLI et propose de grandes quantités d'options pour chaque commande.
+#### Docker fonctionne avec un CLI et propose de grandes quantités d'options pour chaque commande.
 
 **Docker** possède à la fois un module pour lancer les applications (runtime) et un **outil de build** d'application.
 
 - Une image est le **résultat** d'un build :
   - on peut la voir un peu comme un "modèle" de conteneur, nous allons voir plus loin comment "builder une image"
 
-Pour lister les images on utilise :
+Pour lister tous les images, on utilise :
 
 ```bash
 docker images
@@ -24,13 +23,13 @@ docker image ls
 
 ---
 
-## Les conteneurs
+#### Help !!!
 
 ```bash
 docker image --help
 ```
 
-Utilisez `--help` après chaque commande, sous-commande ou sous-sous-commandes pour voir les options et possiblités
+Utilisez `--help` après chaque commande, sous-commande ou sous-sous-commandes pour voir les options et possibilités
 
 ---
 
@@ -43,22 +42,20 @@ docker info  # affiche plein d'information sur l'engine avec lequel vous êtes e
 docker ps    # affiche les conteneurs en train de tourner
 docker ps -a # affiche  également les conteneurs arrêtés
 ```
+---
 
 ### Créer et lancer un conteneur
 
-![](../../../images/ops-basics-isolation.svg)
+<!-- ![](../../../images/ops-basics-isolation.svg) -->
 
 ```bash
 docker run [-d] [-p port_h:port_c] [-v dossier_h:dossier_c] <image> <commande>
 ```
 
-> créé et lance le conteneur
-
 - **L'ordre des arguments est important !**
 - **Un nom est automatiquement généré pour le conteneur à moins de fixer le nom avec `--name`**
 - On peut facilement lancer autant d'instances que nécessaire tant qu'il n'y a **pas de collision** de **nom** ou de **port**.
 
----
 
 ### Options docker run
 
@@ -68,7 +65,7 @@ docker run [-d] [-p port_h:port_c] [-v dossier_h:dossier_c] <image> <commande>
   - `-v` permet de monter un _volume_ partagé entre l'hôte et le conteneur.
   - `--rm` (comme _remove_) permet de supprimer le conteneur dès qu'il s'arrête.
   - `-it` permet de lancer une commande en mode _interactif_ (un terminal comme `bash`).
-  - `-a` (ou `--attach`) permet de se connecter à l'entrée-sortie du processus dans le container.
+  - `-a` (ou `--attach`) permets de se connecter à l'entrée-sortie du processus dans le conteneur.
 
 ---
 
@@ -124,9 +121,9 @@ Une des forces de Docker vient de la distribution d'images :
 
 - pas besoin de multiples versions en fonction des OS
 
-Dans ce contexte un élément qui a fait le succès de Docker est le Docker Hub : [hub.docker.com](https://hub.docker.com)
+Dans ce contexte, un élément qui a fait le succès de Docker est le Docker Hub : [hub.docker.com](https://hub.docker.com)
 
-Il s'agit d'un répertoire public et souvent gratuit d'images (officielles ou non) pour des milliers d'applications pré-configurées.
+Il s'agit d'un répertoire public et souvent gratuit d'images (officielles ou non) pour des milliers d'applications préconfigurées.
 
 ---
 
@@ -136,7 +133,7 @@ Il s'agit d'un répertoire public et souvent gratuit d'images (officielles ou no
 
 - Il suffit pour cela de chercher l'identifiant et la version de l'image désirée.
 
-- Puis utiliser `docker run [<compte>/]<id_image>:<version>`
+- Puis utilisé `docker run [<compte>/]<id_image>:<version>`
 
 - La partie `compte` est le compte de la personne qui a poussé ses images sur le Docker Hub. Les images Docker officielles (`ubuntu` par exemple) ne sont pas liées à un compte : on peut écrire simplement `ubuntu:focal`.
 
