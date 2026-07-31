@@ -40,8 +40,9 @@ Le mode bridge est utilisé automatiquement lorsque tu crées un conteneur sans 
   - Un réseau bridge, c'est comme un switch réseau virtuel installé sur votre machine. Chaque conteneur connecté reçoit une adresse IP privée et peut parler aux autres conteneurs du même commutateur.
 
 > ##### ⚠️ Attention - Réseau *bridge* par défaut
-> Le bridge par défaut (docker0) ne permet pas la résolution DNS par nom. Vous devez utiliser les adresses IP, ce qui rend votre configuration fragile. 
-> 
+> Le bridge par défaut (docker0) ne permet pas la résolution DNS par nom parce qu'il n'a pas de DNS interne. Vous devez utiliser les adresses IP, ce qui rend votre configuration fragile. 
+> Les réseaux bridge personnalisés créés avec docker network create ont un DNS interne permettant la résolution par nom.
+>
 > Créez toujours un bridge personnalisé pour vos applications
 
 
@@ -127,7 +128,7 @@ docker run --network my-macvlan nginx
 
 Pour overlay, macvlan, ipvlan, tu dois créer le réseau avant :
 ```bash
-docker network create -d macvlan my-macvlan
+docker network create -d macvlan my-macvlan -o parent=eth0
 docker run --network my-macvlan nginx
 ```
 
@@ -154,8 +155,8 @@ docker exec webapp ping -c 3 db
 docker inspect -f '{{json .NetworkSettings.Networks}}' mon_conteneur | jq  # jq est la commande pour indenter le retour json
 
 # Tester la connectivité depuis un conteneur
-docker exec mon_conteneur ping -c 3 autre_conteneur
-docker exec mon_conteneur nslookup autre_conteneur
+docker exec mon_conteneur ping -c 3 autre_conteneur 
+docker exec mon_conteneur nslookup autre_conteneur # attention, l'image doit contenir l'application nslookup, sinon il faut l'installer sur le conteneur
 
 # Voir les règles iptables Docker
 sudo iptables -L -n -t nat | grep -i docker

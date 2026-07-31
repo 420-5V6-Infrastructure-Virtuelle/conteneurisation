@@ -9,7 +9,7 @@ weight: 2030
 
 #### Docker fonctionne avec un CLI et propose de grandes quantités d'options pour chaque commande.
 
-**Docker** possède à la fois un module pour lancer les applications (runtime) et un **outil de build** d'application.
+**Docker** possède à la fois un module pour lancer les applications (runtime) et un **outil de build (BuildKit)** d'application.
 
 - Une image est le **résultat** d'un build :
   - on peut la voir un peu comme un "modèle" de conteneur, nous allons voir plus loin comment "builder une image"
@@ -17,8 +17,8 @@ weight: 2030
 Pour lister tous les images, on utilise :
 
 ```bash
-docker images
-docker image ls
+docker images # ancienne syntaxe
+docker image ls # syntaxe moderne et recommandée
 ```
 
 ---
@@ -82,7 +82,7 @@ docker run debian # s'arrête tout de suite
 - Pour utiliser une commande on peut simplement l'ajouter à la fin de la commande run.
 
 ```bash
-docker run debian echo 'attendre 10s' && sleep 10 # s'arrête après 10s
+docker run debian bash -c "echo 'attendre 10s'; sleep 10" # s'arrête après 10s
 ```
 
 ---
@@ -107,8 +107,9 @@ docker start --attach <nom_ou_id_conteneur> # lance le conteneur et s'attache à
 
 - Une utilisation typique est d'introspecter un conteneur en lançant `bash` (ou `sh`).
 
-```
-docker exec -it <conteneur> /bin/bash
+
+```bash
+docker exec -it <conteneur> /bin/bash  # fonctionne si bash est présent dans le conteneur
 ```
 
 ---

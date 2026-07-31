@@ -119,7 +119,7 @@ docker run --mount type=tmpfs,destination=/tmp,tmpfs-mode=1777 nginx
 docker run --mount type=tmpfs,destination=/app/cache,tmpfs-size=200m,tmpfs-mode=1755 nginx
 ```
 
-### Volumes Réseau : NFS et CIFS
+### Volumes Réseau : NFS et CIFS (Common Internet File System)
 
 Les volumes réseau permettent à Docker de stocker des données hors de l’hôte local, sur un serveur externe. 
 
@@ -132,6 +132,10 @@ Quand utiliser les volumes réseau ?
   - Données partagées entre applications sur différents serveurs
   - Stockage centralisé sur NAS (Synology, QNAP, TrueNAS)
   - Migration de conteneurs entre hôtes sans perte de données
+
+> **Attention** 
+> 
+> NFS et CIFS ne sont pas recommandés pour les bases de données (risque de corruption).
 
 #### Volumes NFS (Network File System)
 

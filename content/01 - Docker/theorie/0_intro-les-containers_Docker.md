@@ -23,6 +23,8 @@ weight: 2010
 On compare souvent les conteneurs aux machines virtuelles. Mais ce sont de grosses simplifications parce qu'on en a un usage similaire : isoler des programmes dans des "contextes".
 Une chose essentielle à retenir sur la différence technique : **les conteneurs utilisent les mécanismes internes du \_kernel de l'OS **Linux**\_ tandis que les VM tentent de communiquer avec l'OS (quel qu'il soit) pour directement avoir accès au matériel de l'ordinateur.**
 
+Docker Desktop utilise une machine virtuelle Linux pour exécuter les conteneurs sur Windows/macOS, car les conteneurs reposent sur des mécanismes du noyau Linux.
+
 <!-- ![](../../../images/hyperv-vs-containers.png) -->
 
 ![](../../../images/vm_vs_containers.png)
@@ -52,7 +54,7 @@ Comme toutes les ressources du système sont représentées sous forme de fichie
 
 En contrôlant cette visibilité, Unix peut créer des environnements isolés où chaque processus perçoit une version limitée du système.
 
-Les conteneurs modernes s’appuient sur les mécanismes d’isolation que cette philosophie a permis de développer, afin de fournir à chaque processus une vision réduite, indépendante et reproductible du système.
+Les conteneurs modernes s’appuient sur les mécanismes d’isolation qui fournir à chaque processus une vision réduite, indépendante et reproductible du système.
 
 **Voici quelques-uns de ces concepts d’isolation repris de Unix:**
 

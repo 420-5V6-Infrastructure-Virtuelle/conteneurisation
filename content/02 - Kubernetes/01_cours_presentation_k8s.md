@@ -1,7 +1,7 @@
 ---
 title: 01 - Cours - Présentation de Kubernetes
 draft: false
-weight: 2010
+weight: 3010
 ---
 
 - Kubernetes est une solution d'orchestration de conteneurs extrêmement populaire.

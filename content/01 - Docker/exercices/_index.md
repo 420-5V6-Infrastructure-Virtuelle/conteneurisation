@@ -1,7 +1,7 @@
 ---
 title: "Exercices"
 chapter: true
-weight: 2300
+weight: 2100
 ---
 
 ### Docker

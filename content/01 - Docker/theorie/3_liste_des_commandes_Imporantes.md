@@ -41,7 +41,8 @@ weight: 2040
 | **Statistiques** | `docker stats` | Affiche l'utilisation CPU/RAM en temps réel |
 | **Inspection globale** | `docker inspect <nom/id>` | Affiche toutes les métadonnées techniques en JSON |
 | **Trouver l'IP** | `docker inspect <nom/id> \| grep -i ipaddress` | Extrait rapidement l'adresse IP du conteneur |
-| **Nettoyage complet** | `docker system prune -a` | Supprime conteneurs arrêtés, réseaux et images orphelines |
+| **Trouver l'IP** | `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <nom/id>` | Extrait rapidement l'adresse IP du conteneur depuis docker 20+ |
+| **Nettoyage complet** | `docker system prune -a` | supprime toutes les images inutilisées, même celles non dangling |
 
 ### Docker Compose (Multi-conteneurs)
 

@@ -50,7 +50,7 @@ Pour cette partie du cours, nous allons utiliser Docker comme plateforme de cont
 
 Il permet d’emballer une application et toutes ses dépendances dans une image, puis de l’exécuter de manière uniforme sur n’importe quel **système**. 
 
-Docker s'installe sur tous les OS actuels, ce qui permet d'élimine le fameux « ça marche sur ma machine », puisque l’environnement d’exécution est entièrement standardisé et autonome.
+Docker desktop s'installe sur tous les OS actuels, ce qui permet d'élimine le fameux « ça marche sur ma machine », puisque l’environnement d’exécution est entièrement standardisé et autonome.
 
 # Architecture de Docker 
 

@@ -1,12 +1,12 @@
 ---
 title: 'Kubernetes'
 draft: false
-weight: 204
+weight: 300
 pre: "<i class='fas fa-dharmachakra'></i> "
 chapter: true
 ---
 
-### Module 3
+### Module 2
 
 # Kubernetes
 
