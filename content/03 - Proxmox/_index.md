@@ -2,7 +2,7 @@
 title: 'Proxmox'
 draft: false
 weight: 400
-pre: "<i class='fas fa-dharmachakra'></i> "
+pre: "<i class='fas fa-server'></i> "
 chapter: true
 ---
 
