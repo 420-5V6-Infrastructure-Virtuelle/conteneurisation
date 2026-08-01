@@ -223,7 +223,7 @@ Kubernetes peut fonctionner sur des serveurs bare‑metal, mais dans la majorit�
 
   - les **cgroups**
   - le **chroot**
-  - les **namespaces**.
+  - les **namespaces**
 
 - Originellement, Docker était basé sur **LXC**. Il a depuis développé son propre assemblage de ces 3 mécanismes.
 
