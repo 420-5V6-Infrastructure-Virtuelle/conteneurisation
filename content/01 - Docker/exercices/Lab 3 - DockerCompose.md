@@ -210,8 +210,7 @@ services:
   backend:
     build: ./backend        # IMPORTANT : on utilise un Dockerfile
     # Ajouter la ligne : Le nom de ce conteneur doit être api-backend
-    ports:
-      - "5000:5000"
+    # Ajouter la ligne : Ajouter le # de port d'entrée et de sortie qui est le même. (Vous devez trouver le # du port ... l'information est dans le lab ;-P )
     # Ajouter la ligne : Ce conteneur dépend du conteneur database
 
   # -------------------------
@@ -260,28 +259,33 @@ docker compose exec database mongosh
 > db.etudiants.find()
 ```
 
+## Partie 6 — Vérifier et tester la solution
+
+Vérifier que les conteneurs sont démarrés
+
+```bash
+docker compose ps
+```
+Tester les Rest Api avec curl et faite une capture d'écran
+
+```bash
+curl http://localhost:5000/
+curl http://localhost:5000/etudiants
+```
+
+Tester la page du frontend dans chrome ou avec curl
+
+http://localhost:3000
+
+
 ---
 
-## 🧠 Questions à remettre dans votre fichier Word
+## Questions à remettre dans votre fichier Word
 
 1. Quelle commande permet de démarrer un environnement Docker Compose ?
 2. Quelle commande permet d’exécuter un script dans un conteneur ?
 3. Expliquez comment les services communiquent entre eux dans Docker Compose.
 4. Quelle est la différence entre `image:` et `build:` dans docker-compose ?
-5. Montrez une capture d’écran de vos trois conteneurs en cours d’exécution.
-6. Montrez une capture d’écran de vos données MongoDB insérées via `seed.js`.
-
+5. Montrez les captures d’écrans demandées plus haut
 ---
-
-## ❓ Est-ce qu’il existe des images avec des données de test ?
-
-Oui, mais **elles ne sont pas officielles**.
-
-- Il existe des images MongoDB pré-remplies sur Docker Hub, mais elles sont créées par la communauté.
-- Elles ne sont **pas recommandées** pour un cours, car :
-  - elles ne sont pas maintenues ;
-  - elles peuvent contenir des données douteuses ;
-  - elles ne sont pas pédagogiques.
-
-👉 **La meilleure pratique est de fournir ton propre script `seed.js`**, comme dans ce lab.
 
