@@ -13,7 +13,7 @@ weight: 2130
 2. Utiliser `docker-compose.yml` pour orchestrer les trois services.
 3. Injecter des données dans MongoDB via un script Node.js.
 4. Vérifier que les conteneurs communiquent entre eux.
-5. Utiliser VS Code pour vous faciliter la tâche, installer les features docker et YAML
+5. Utiliser VS Code pour vous faciliter la tâche, installer les fonctionnalités Docker et YAML
 
 ---
 
@@ -40,14 +40,14 @@ compose-lab/
 
 ## Partie 1 — Préparer le backend Node.js
 
-#### 1. Créez le dossier
+#### 1. Créer le dossier
 
 ```bash
 mkdir -p compose-lab/backend
 cd compose-lab/backend
 ```
 
-#### 2. Créez `package.json`
+#### 2. Créer `package.json`
 
 ```json
 {
@@ -65,7 +65,7 @@ cd compose-lab/backend
 }
 ```
 
-#### 3. Créez `index.js` (API simple)
+#### 3. Créer `index.js` (API simple)
 
 ```js
 const express = require("express");
@@ -97,7 +97,7 @@ async function main() {
 main();
 ```
 
-#### 4. Créez `seed.js` (injection de données)
+#### 4. Créer `seed.js` (injection de données)
 
 ```js
 const { MongoClient } = require("mongodb");
@@ -125,7 +125,7 @@ async function run() {
 run();
 ```
 
-#### 5. Créez le `Dockerfile` du backend
+#### 5. Créer le `Dockerfile` du backend
 
 ```Dockerfile
 # Image Node officielle
@@ -183,9 +183,9 @@ export default App;
 
 ---
 
-## Partie 3 — Créer et complété le fichier docker-compose.yml
+## Partie 3 — Créer et compléter le fichier docker-compose.yml
 
-Dans `compose-lab/`, créez ce fichier componse
+Dans `compose-lab/`, créez ce fichier Docker Compose
 
 compléter les lignes où il est écrit *"Ajouter la ligne :"*
 
@@ -266,7 +266,7 @@ Vérifier que les conteneurs sont démarrés
 ```bash
 docker compose ps
 ```
-Tester les Rest Api avec curl et faite une capture d'écran
+Tester les Rest Api avec curl et faites une capture d'écran
 
 ```bash
 curl http://localhost:5000/
@@ -285,7 +285,7 @@ http://localhost:3000
 1. Quelle commande permet de démarrer un environnement Docker Compose ?
 2. Quelle commande permet d’exécuter un script dans un conteneur ?
 3. Expliquez comment les services communiquent entre eux dans Docker Compose.
-4. Quelle est la différence entre `image:` et `build:` dans docker-compose ?
+4. Qu’elle est la différence entre `image:` et `build:` dans Docker Compose ?
 5. Montrez les captures d’écrans demandées plus haut
 ---
 
