@@ -1,6 +1,7 @@
 ---
 title: Idées de TP
-weight: 2110
+weight: 2101
+draft: true
 ---
 
 https://roparst.gricad-pages.univ-grenoble-alpes.fr/cloud-tutorials/docker/

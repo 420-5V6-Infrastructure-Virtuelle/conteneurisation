@@ -24,7 +24,7 @@ Si quelque chose ne fonctionne pas ou si une notion n’est pas claire, venez no
 
 **Remerciement spécial pour leur contribution**
 
-Nous tenons à remercier Gabriel Gaudrault (enseignant au Cégep), qui a généreusement partagé le contenu de son cours sur Proxmox. Son apport nous a permis d’enrichir cette section et d’offrir un matériel plus complet.
+Nous tenons à remercier **Gabriel Gaudrault** (enseignant au Cégep), qui a généreusement partagé le contenu de son cours sur Proxmox. Son apport nous a permis d’enrichir cette section et d’offrir un matériel plus complet.
 
 Nous souhaitons également remercier les créateurs de contenu qui ont publié leur travail sous licence Creative Commons (CC BY‑NC‑SA 4.0). 
 
