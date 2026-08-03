@@ -187,7 +187,7 @@ export default App;
 
 Dans `compose-lab/`, créez ce fichier Docker Compose
 
-compléter les lignes où il est écrit *"Ajouter la ligne :"*
+compléter les lignes où il est écrit *"Ajouter la ou les lignes :"*
 
 ```yaml
 version: "3.8"
@@ -197,9 +197,9 @@ services:
   # Base de données MongoDB
   # -------------------------
   database:
-    # Ajouter la ligne : l'image est mongo version 6
+    # Ajouter la ou les lignes : l'image est mongo version 6
     container_name: mongo-db
-    # Ajouter la ligne : Expose MongoDB au host. Le port d'entrée et de sortie est 27017
+    # Ajouter la ou les lignes : Expose MongoDB au host. Le port d'entrée et de sortie est 27017
     volumes:
       - mongo-data:/data/db  # Persistance des données
 
@@ -208,10 +208,10 @@ services:
   # Utilise un Dockerfile
   # -------------------------
   backend:
-    build: ./backend        # IMPORTANT : on utilise un Dockerfile
-    # Ajouter la ligne : Le nom de ce conteneur doit être api-backend
-    # Ajouter la ligne : Ajouter le # de port d'entrée et de sortie qui est le même. (Vous devez trouver le # du port ... l'information est dans le lab ;-P )
-    # Ajouter la ligne : Ce conteneur dépend du conteneur database
+    build: ./backend        # IMPORTANT : on utilise un Dockerfile créer plus haut
+    # Ajouter la ou les lignes : Le nom de ce conteneur doit être api-backend
+    # Ajouter la ou les lignes : Ajouter le # de port d'entrée et de sortie qui est le même. (Vous devez trouver le # du port ... l'information est dans le lab ;-P )
+    # Ajouter la ou les lignes : Ce conteneur dépend du conteneur database
 
   # -------------------------
   # Frontend React
@@ -220,7 +220,7 @@ services:
   frontend:
     image: node:18
     container_name: react-frontend
-    # Ajouter la ligne : le nome du répertoire de travail est "/app"
+    # Ajouter la ou les lignes : le nome du répertoire de travail est "/app"
     volumes:
       - ./frontend:/app     # Monte le code React
     ports:
