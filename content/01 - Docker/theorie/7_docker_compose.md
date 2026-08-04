@@ -91,7 +91,7 @@ Chaque service peut définir :
 # ==============================================================================
 # EXEMPLE : ARCHITECTURE MULTI-CONTENEURS AVEC DOCKER COMPOSE
 # ==============================================================================
-
+version: "3.8"
 services:
 
   # ----------------------------------------------------------------------------
@@ -191,10 +191,8 @@ services:
       - frontend-network             
       
     depends_on:
-      db:
-        # Ordonnancement intelligent. Ne démarre pas Node.js tant que le service 'db' 
-        # n'a pas passé son test 'healthcheck' avec succès. Fini les erreurs "Connection refused" !
-        condition: service_healthy   
+      - db
+
 
   # ----------------------------------------------------------------------------
   # 3. LE SERVEUR WEB / REVERSE PROXY (Couche Présentation - Nginx)

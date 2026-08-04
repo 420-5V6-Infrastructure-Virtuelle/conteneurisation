@@ -210,7 +210,7 @@ services:
   backend:
     build: ./backend        # IMPORTANT : on utilise un Dockerfile créer plus haut
     # Ajouter la ou les lignes : Le nom de ce conteneur doit être api-backend
-    # Ajouter la ou les lignes : Ajouter le # de port d'entrée et de sortie qui est le même. (Vous devez trouver le # du port ... l'information est dans le lab ;-P )
+    # Ajouter la ou les lignes : Ajouter le # de port d'entrée et de sortie qui est le même. (L'information sur le # du port est dans le lab ;-P )
     # Ajouter la ou les lignes : Ce conteneur dépend du conteneur database
 
   # -------------------------
