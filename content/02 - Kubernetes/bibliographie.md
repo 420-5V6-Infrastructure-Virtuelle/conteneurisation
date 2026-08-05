@@ -13,4 +13,5 @@ weight: 3999
 
 - Doc officielle : https://kubernetes.io/fr/docs/home/
 - Référence Cloud Native Computing Foundation : https://fr.wikipedia.org/wiki/Cloud_Native_Computing_Foundatio
+- Découverte de l'orchestration de conteneurs : https://blog.stephane-robert.info/docs/conteneurs/orchestrateurs/
 

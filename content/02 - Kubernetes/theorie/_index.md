@@ -4,6 +4,6 @@ chapter: true
 weight: 3000
 ---
 
-### Docker
+### Kubernetes
 
 {{% children /%}}
