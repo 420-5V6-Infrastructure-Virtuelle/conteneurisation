@@ -84,6 +84,11 @@ Chaque service peut définir :
 | **Compose File** | Fichier YAML décrivant l’architecture multiconteneurs. | `docker-compose.yml` |
 | **Commandes Compose** | Gestion du cycle de vie des conteneurs. | `docker compose up`, `down`, `logs` |
 
+</br>
+
+Référence de Docker Compose : [la documentation du langage (DSL) des compose-files](https://docs.docker.com/compose/compose-file/)
+
+</br>
 
 #### Exemple complet d'un Docker compose
 
@@ -263,12 +268,7 @@ cegep-nginx-web   nginx:alpine    "/docker-entrypoint.…"   web       running  
 
 ```
 
-Le "langage" de Docker Compose : [la documentation du langage (DSL) des compose-files](https://docs.docker.com/compose/compose-file/) est essentielle.
-
-**Rappel**
-
-Faire un exemple complet et le mettre sur git hub un peu comme https://tech-insider.org/fr/docker-compose-tutoriel-stack-production-13-etapes-2026/
-
+</br>
 
 ### Commandes Docker Compose (CLI)
 
@@ -289,8 +289,6 @@ docker compose up -d
 docker compose up --build
 ```
 
----
-
 `docker compose down`
 Arrête et supprime les conteneurs.  
 Ne supprime pas les volumes.
@@ -305,7 +303,7 @@ docker compose down
 docker compose down --volumes
 ```
 
----
+</br>
 
 #### 2. Gestion des conteneurs
 
@@ -316,7 +314,6 @@ Affiche les conteneurs de la stack, leurs ports et leur état.
 docker compose ps
 ```
 
----
 
 `docker compose restart`
 Redémarre un service ou toute la stack.
@@ -326,7 +323,6 @@ docker compose restart
 docker compose restart backend
 ```
 
----
 
  `docker compose stop` / `docker compose start`
 Arrête ou démarre les conteneurs sans les supprimer.
@@ -336,7 +332,7 @@ docker compose stop
 docker compose start
 ```
 
----
+</br>
 
 #### 3. Logs et débogage
 
@@ -352,7 +348,6 @@ docker compose logs
 docker compose logs -f backend
 ```
 
----
 
 `docker compose exec`
 Exécute une commande dans un conteneur en cours d’exécution.
@@ -362,7 +357,6 @@ docker compose exec backend bash
 docker compose exec db psql -U postgres
 ```
 
----
 
 `docker compose run`
 Lance un conteneur temporaire basé sur un service.
@@ -371,7 +365,7 @@ Lance un conteneur temporaire basé sur un service.
 docker compose run --rm backend ls /app
 ```
 
----
+</br>
 
 #### 4. Construction et images
 
@@ -383,7 +377,7 @@ docker compose build
 docker compose build backend
 ```
 
----
+
 
 `docker compose pull`
 Télécharge les images depuis un registre.
@@ -392,7 +386,7 @@ Télécharge les images depuis un registre.
 docker compose pull
 ```
 
----
+</br>
 
 #### 5. Inspection de la configuration
 
@@ -403,7 +397,7 @@ Valide le fichier YAML et affiche la configuration finale.
 docker compose config
 ```
 
----
+</br>
 
 #### 6. Commandes avancées (optionnelles)
 
@@ -419,4 +413,17 @@ Affiche les événements Docker en temps réel.
 ---
 
 
+### Dépannage
 
+Votre premier réflexe face à un problème : consulter les logs avec `docker compose logs`, ils contiennent souvent la réponse.
+
+| Symptôme | Cause probable | Solution |
+| :--- | :--- | :--- |
+| `port is already allocated` | Un autre service utilise déjà le port | Changez le port dans `ports:` ou arrêtez l'autre service |
+| "Error establishing database connection" | La BDD n'est pas encore prête | Ajoutez un `healthcheck` + `condition: service_healthy` |
+| Les données disparaissent après `down` | Vous avez utilisé `down -v` qui supprime les volumes | Utilisez `down` sans `-v` |
+| `network not found` | Le réseau a été supprimé manuellement | Relancez `docker compose up` |
+| Conteneur en restart loop | L'application plante au démarrage | Consultez `docker compose logs <service>` |
+| `pre_start` ignoré | Compose antérieur à v5.3 | Mettez à jour Compose ( `docker compose version` ) |
+| Init container `No such image` | L'image du `pre_start` n'est pas disponible | Tirez-la ( `docker pull` ) ou réutilisez l'image du service |
+| Changements non appliqués | Compose utilise l'ancienne image/config | `docker compose up -d --build --force-recreate` |

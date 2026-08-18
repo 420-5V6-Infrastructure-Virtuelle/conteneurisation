@@ -71,6 +71,18 @@ Docker Compose est un autre client : il permet de gérer des applications compos
 ![](../../../images/docker/architecture_docker.jpg)
 
 
+# Docker Engine (L'écosystème global)
+
+C'est le moteur qui exécute les conteneurs. C'est le cœur du système qui gère la création, l'exécution et la surveillance des containers.
+
+Docker Engine est la suite logicielle complète installée sur votre machine. 
+Elle comprend trois éléments principaux :
+
+- Le démon Docker (dockerd) : Le serveur qui gère tout en arrière-plan.
+- L'API REST : L'interface qui permet aux programmes d'interagir avec le démon.
+- Le CLI (docker) : L'interface en ligne de commande avec laquelle vous interagissez dans votre terminal.
+
+
 # Le Docker daemon (dockerd)
 
 Le démon Docker (dockerd) écoute les requêtes envoyées via l’API Docker et gère tous les objets Docker :
@@ -88,7 +100,7 @@ Le client utilise l’API Docker et peut communiquer avec plusieurs démons simu
 
 # Docker Desktop
 
-Docker Desktop est une application simple à installer pour macOS, Windows et certaines distributions Linux.
+Docker Desktop est une application simple à installer pour macOS et Windows.
 Elle regroupe tout ce qu’il faut pour développer et exécuter des applications conteneurisées :
 - le démon Docker (dockerd)
 - le client Docker (Docker)
@@ -97,7 +109,7 @@ Elle regroupe tout ce qu’il faut pour développer et exécuter des application
 - Kubernetes (optionnel)
 - Credential Helper
 
-C’est l’environnement le plus pratique pour les étudiants et les développeurs qui travaillent sur poste de travail.
+C’est l’environnement le plus pratique pour les étudiants et les développeurs qui travaillent sur poste de travail Windows.
 
 # Les registres d’images Docker
 

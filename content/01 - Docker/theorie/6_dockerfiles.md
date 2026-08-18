@@ -10,11 +10,15 @@ La liste d’instructions disponibles est assez courte, voire une dizaine d'inst
 
 On peut (je dirais, "On doit") y ajouter des commentaires pour documenter ce que l’on fait afin aussi de facilité.
 
+</br>
+
 ## Créer une image en utilisant un Dockerfile
 
 - Jusqu'ici nous avons utilisé des images toutes prêtes téléchargées sur Docker Hub
 
 - Une des fonctionnalités principales de Docker est de pouvoir facilement construire des images à partir d'un simple fichier texte : **le Dockerfile**.
+
+</br>
 
 ## Le processus de build Docker avec un Dockerfile
 
@@ -64,7 +68,6 @@ docker build [-t tag] [-f dockerfile] <build_context>
 
 - exemple : `docker build -t mon-debian .`
 
----
 
 Voici un exemple complet de l'installation d'un projet Python
 
@@ -103,13 +106,19 @@ CMD ["python", "app.py"]
 
 ---
 
-### Instruction `FROM`
+## Les Instructions 
+
+</br>
+
+### `FROM`
 
 - L'image de base à partir de laquelle est construite l'image actuelle.
 ```Dockerfile
 FROM [--platform=<platform>] <image>[:<tag>] [AS <name>]
 ```
-### Instruction `RUN`
+</br>
+
+### `RUN`
 
 - Permets de lancer une commande shell (installation, configuration).
 ```Dockerfile
@@ -117,7 +126,9 @@ RUN apk update
 RUN apk add nginx
 ```
 
-### Instruction `ADD` ou `COPY`
+</br>
+
+###  `ADD` ou `COPY`
 
 - Permets d'ajouter des fichiers depuis le contexte de build à l'intérieur du conteneur.
 - Généralement utilisé pour ajouter le code du logiciel en cours de développement et sa configuration au conteneur.
@@ -132,9 +143,10 @@ ADD [--chown=<user>:<group>] [--chmod=<perms>] [--checksum=<checksum>] <src>... 
 # ou
 ADD [--chown=<user>:<group>] [--chmod=<perms>] ["<src>",... "<dest>"]
 ```
----
 
-### Instruction `CMD`
+</br>
+
+###  `CMD`
 
 - Généralement à la fin du `Dockerfile` : elle permet de préciser la commande par défaut lancé à la création d'une instance du conteneur avec `docker run`. on l'utilise avec une liste de paramètres
 
@@ -146,8 +158,9 @@ L'instruction `CMD` a trois formes :
 ```Dockerfile
 CMD ["echo 'Conteneur démarré'"]
 ```
+</br>
 
-### Instruction `ENTRYPOINT`
+### `CMD` et `ENTRYPOINT`
 
 - Précise le programme de base avec lequel sera lancée la commande
 - La principale différence entre CMD et ENTRYPOINT est que les commandes fournies par CMD peuvent être remplacées, alors que celles fournies par ENTRYPOINT ne le peuvent pas
@@ -159,7 +172,6 @@ ENTRYPOINT ["executable", "param1", "param2"]
 
 ```
 
-### `CMD` et `ENTRYPOINT`
 
 * Ne surtout pas confondre avec `RUN` qui exécute une commande Dockerfile uniquement pendant la construction de l'image.
 * La différence entre `CMD` et `ENTRYPOINT` c'est que cmd peut avoir des paramètres dynamiques et entrepoint doit avoir des paramètres statiques
@@ -176,9 +188,10 @@ docker build -t demo .
 docker run demo # résultat : Bonjour Docker!
 docker run demo "Yo patate !" # résultat : Yo patate !
 ```
----
 
-### Instruction `ARG` 
+</br>
+
+###  `ARG` 
 - L'instruction `ARG`  est la seule instruction qui peut précéder l'instruction FROM. 
 - Elle permet de définir des variables qui peuvent être transmises au moment de la construction de l'image.
 ```Dockerfile
@@ -189,14 +202,7 @@ ARG version=1.15.3-alpine@sha256:829a63ad2b1389e393e5decf5df25860347d09643c335d1
 RUN echo ${version}
 ```
 
-### Instruction `ENV`
-
-- Une façon recommandée de configurer vos applications Docker est d'utiliser les variables d'environnement UNIX, ce qui permet une configuration "au _runtime_".
-```Dockerfile
-ENV <key>=<value> ...
-#exemple
-ENV PGDATA=/data
-```
+</br>
 
 ### Les variables
 On peut utiliser des variables d'environnement dans les Dockerfiles. La syntaxe est `${...}`.
@@ -209,11 +215,22 @@ ADD . $FOO        # ADD . /bar
 COPY \$FOO /quux  # COPY $FOO /quux
 ```
 
-Se référer au [mode d'emploi](https://docs.docker.com/engine/reference/builder/#environment-replacement) pour la logique plus précise de fonctionnement des variables.
-
 ---
 
-### Instruction `USER`
+###  `ENV`
+
+- Une façon recommandée de configurer vos applications Docker est d'utiliser les variables d'environnement UNIX, ce qui permet une configuration "au _runtime_".
+```Dockerfile
+ENV <key>=<value> ...
+#exemple
+ENV PGDATA=/data
+```
+
+Se référer au [mode d'emploi](https://docs.docker.com/engine/reference/builder/#environment-replacement) pour la logique plus précise de fonctionnement des variables.
+
+</br>
+
+### `USER`
 
 - L'instruction USER définit l'utilisateur ou l'UID et éventuellement le groupe d'utilisateurs ou le GID à utiliser pour le reste de l'étape en cours. 
 - L'utilisateur spécifié est utilisé pour les instructions RUN et, au moment de l'exécution de l'image de conteneur.
@@ -247,18 +264,18 @@ RUN groupadd --gid $USER_GID $USERNAME \        # Crée un groupe avec le GID fo
 # Définit l’utilisateur par défaut pour les prochaines instructions
 USER $USERNAME
 ```
----
+</br>
 
-### Instruction `WORKDIR`
+### `WORKDIR`
 
 L'instruction `WORKDIR` définit le répertoire de travail pour toutes les instructions qui la suivent dans le Dockerfile. Si le répertoire n'existe pas, il sera créé.
 
 ```Dockerfile
 WORKDIR /path/to/workdir
 ```
----
+</br>
 
-### Instruction `HEALTHCHECK`
+### `HEALTHCHECK`
 
 `HEALTHCHECK` permet de vérifier si l'app contenue dans un conteneur est en bonne santé.
 
@@ -266,13 +283,19 @@ WORKDIR /path/to/workdir
 HEALTHCHECK CMD curl --fail http://localhost:5000/health
 ```
 
----
-## Instruction `VOLUME` 
+</br>
+
+###  `VOLUME` 
 
 - L'instruction [VOLUME](../4_volumes/#les-volumes-docker-via-la-sous-commande-volume) crée un point de montage 
 
+```Dockerfile
+VOLUME ["/data"]
+```
 
-## Instruction `EXPOSE` 
+</br>
+
+### `EXPOSE` 
 
 - L'instruction [EXPOSE] informe le moteur de conteneur que le conteneur écoute sur les ports réseau spécifiés au moment de l'exécution. 
 - Vous pouvez spécifier le protocole TCP ou UDP, TCP étant la valeur par défaut.
@@ -280,9 +303,9 @@ HEALTHCHECK CMD curl --fail http://localhost:5000/health
 ```Dockerfile
 EXPOSE <port> [<port>/<protocol>...]
 ```
----
+</br>
 
-## Instruction `BUILD` - Lancer la construction
+### `BUILD` - Lancer la construction
 
 - La commande pour lancer la construction d'une image est :
 
@@ -443,3 +466,17 @@ WORKDIR /home/$USERNAME
 # Le conteneur exécutera ce script au démarrage
 CMD ["/usr/local/bin/start.sh"]
 ```
+
+## Valider son dockerfile
+
+https://blog.stephane-robert.info/docs/conteneurs/outils/hadolint/
+
+https://blog.stephane-robert.info/docs/securiser/outils/dockle/
+
+## Bonne pratique
+
+https://blog.stephane-robert.info/docs/conteneurs/images-conteneurs/dockerfile-bonnes-pratiques/
+
+https://blog.stephane-robert.info/docs/conteneurs/images-conteneurs/optimiser-taille-image/
+
+

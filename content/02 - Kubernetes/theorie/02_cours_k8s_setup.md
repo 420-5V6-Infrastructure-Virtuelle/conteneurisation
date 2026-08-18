@@ -1,22 +1,23 @@
 ---
 title: 02-Mettre en place un cluster Kubernetes
-draft: true
-weight: 3020
+draft: false
+weight: 3025
 ---
 
 ## Architecture de Kubernetes - Partie 1 
 
-##### Kubernetes master
+![](../../../images/kubernetes/kubernetes-architecture.Bt6A7dS2_Z1SuSta.svg)
 
-- Le Kubernetes master est responsable du maintien de l’état souhaité pour votre cluster. Lorsque vous interagissez avec Kubernetes, par exemple en utilisant l’interface en ligne de commande kubectl, vous communiquez avec le master Kubernetes de votre cluster.
 
-- Le “master” fait référence à un ensemble de processus gérant l’état du cluster. Le master peut également être répliqué pour la disponibilité et la redondance.
+#### Cluster
+
+Un cluster Kubernetes se divise en deux type de noeud distinctes qui ne font pas du tout le même travail :
+- Control plan
+- Worker
 
 ##### Noeuds Kubernetes
 
 Les nœuds d’un cluster sont les machines (serveurs physiques, machines virtuelles, etc.) qui exécutent vos applications et vos workflows. Le master node Kubernetes contrôle chaque noeud; vous interagirez rarement directement avec les nœuds.
-
-![](../../images/kubernetes/k8s_archi1.png)
 
 - Pour utiliser Kubernetes, vous utilisez les objets de l’API Kubernetes pour décrire l’état souhaité de votre cluster: quelles applications ou autres processus que vous souhaitez exécuter, quelles images de conteneur elles utilisent, le nombre de réplicas, les ressources réseau et disque que vous mettez à disposition, et plus encore.
 
@@ -24,25 +25,38 @@ Les nœuds d’un cluster sont les machines (serveurs physiques, machines virtue
 
 - Une fois que vous avez défini l’état souhaité, le plan de contrôle Kubernetes (control plane) permet de faire en sorte que l’état actuel du cluster corresponde à l’état souhaité. Pour ce faire, Kubernetes effectue automatiquement diverses tâches, telles que le démarrage ou le redémarrage de conteneurs, la mise à jour du nombre de *replicas* d’une application donnée, etc.
 
-### Le Kubernetes Control Plane
+
+### Le Kubernetes Control Plane (Master)
+
+
+Le Control Plane (plan de contrôle) est la partie "intelligente" de Kubernetes. Il prend toutes les décisions du cluster : où déployer vos applications, comment réagir si quelque chose tombe en panne, comment répartir la charge... Mais attention : il ne fait jamais tourner vos conteneurs applicatifs. Son seul travail, c'est d'orchestrer.
+
+Le control plane est responsable du maintien de l’état souhaité pour votre cluster. Lorsque vous interagissez avec Kubernetes, par exemple en utilisatant le cli kubectl, vous communiquez avec le control plane de votre cluster.
+
+Le Control Plane décide et coordonne, il n'exécute aucune charge applicative : vos conteneurs tournent sur les Worker Nodes, jamais sur lui
 
 - Le control plane Kubernetes comprend un ensemble de processus en cours d’exécution sur votre cluster:
 
-    - Le master Kubernetes est un ensemble de trois processus qui s’exécutent sur un seul nœud de votre cluster, désigné comme nœud maître (*master node* en anglais). Ces processus sont:
-      - `kube-apiserver`: expose l'API pour parler au cluster
-      - `kube-controller-manager`: basé sur une boucle qui controlle en permanence l'état des resources et essaie de le corriger s'il n'est plus conforme.
-      - `kube-scheduler`: monitore les resources des différents workers, décide et cartographie ou doivent être créé les conteneur(Pods)
+    - Le control plane est un ensemble de trois processus qui s’exécutent sur un seul nœud de votre cluster, désigné comme nœud maître (*master node* en anglais). Ces processus sont:
+      - `kube-apiserver`: expose l'API pour parler au cluster. C'est ce qui est intérogé lorsque vous utilisez la commandes kubectl
+      - `kube-controller-manager`: il surveille en permanence l'état réel du cluster et le compare à l'état souhaité (ce que vous avez défini dans vos fichiers YAML). S'il y a une différence, il agit pour corriger.
+      - `kube-scheduler`: monitore les resources des différents workers, décide et cartographie ou il décide sur quel worker créé un conteneur(Pods).
+      - `etcd`: Est la base de données clé-valeur distribuée, constante et hautement disponible de Kubernetes. Elle sert de « source unique de vérité » au cluster en stockant l'intégralité de son état, sa configuration, ses secrets et la description de toutes ses ressources. **Seul l'API Server y accède directement.**
+      - `Cloud Controller Manager (CCM)`: est le composant du Control Plane qui relie Kubernetes à l'API d'un fournisseur cloud (AWS, GCP, Azure), lorsque kubernetes est installer sur un fournisseur cloud. Si vous utilisez un cluster local, vous n'en avez pas besoin.
+
+
+      ![](../../../images/kubernetes/control-plane-flow.3AGv8Et1_16dNGH.svg)
   
     - Chaque nœud (master et worker) de votre cluster exécute deux processus :
-        `kubelet`, qui communique avec le Kubernetes master et controle la création et l'état des pods sur son noeud.
-        `kube-proxy`, un proxy réseau reflétant les services réseau Kubernetes sur chaque nœud.
+       - `kubelet`, qui communique avec le control plane et controle la création et l'état des pods sur son noeud.
+       - `kube-proxy`, un proxy réseau reflétant les services réseau Kubernetes sur chaque nœud.
+
+Le control plane conserve un enregistrement de tous les objets Kubernetes du système et exécute des boucles de contrôle continues pour gérer l’état de ces objets. À tout moment, les boucles de contrôle du control plane répondent aux modifications du cluster et permettent de faire en sorte que l’état réel de tous les objets du système corresponde à l’état souhaité.
 
 
-Les différentes parties du control plane Kubernetes, telles que les processus `kube-controller-manager` et `kubelet`, déterminent la manière dont Kubernetes communique avec votre cluster.
-
-Le control plane conserve un enregistrement de tous les objets Kubernetes du système et exécute des boucles de contrôle continues pour gérer l’état de ces objets. À tout moment, les boucles de contrôle du control plane répondent aux modifications du cluster et permettent de faire en sorte que l’état réel de tous les objets du système corresponde à l’état souhaité que vous avez fourni.
-
-Par exemple, lorsque vous utilisez l’API Kubernetes pour créer un objet `Deployment`, **vous fournissez un nouvel état souhaité pour le systèm**e. Le control plane Kubernetes enregistre la création de cet objet et exécute vos instructions en lançant les applications requises et en les planifiant vers des nœuds de cluster, afin que l’état actuel du cluster corresponde à l’état souhaité.
+```bash
+kubectl cluster-info
+```
 
 
 ## Le client `kubectl`

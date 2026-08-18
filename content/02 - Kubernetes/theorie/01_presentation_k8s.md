@@ -45,7 +45,7 @@ Il est un des projets qui symbolise et supporte techniquement ces transformation
 
 ![](../../../images/kubernetes/k8s_archi1.png?width=800px)
 
-- Kubernetes rassemble en un cluster et fait coopérer un groupe de serveurs appelés **noeuds**(nodes).
+- Kubernetes se construit en cluster et fait coopérer des serveurs appelés **noeuds**(nodes).
 
 - Kubernetes a une architecture **Master/workers** (cf. cours 2) composée d'un **control plane** et de nœuds de calculs (**workers**).
 
