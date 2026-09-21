@@ -24,6 +24,23 @@ Les contributions de divers acteurs de l’industrie comme IBM, Microsoft, Red H
 
 </br>
 
+### Qu'est-ce que Kubernetes ?
+Kubernetes, souvent abrégé K8s, est un système open‑source conçu pour superviser des applications exécutées dans des conteneurs. Son rôle est d’automatiser des tâches essentielles comme le déploiement, l’ajustement de la charge (scaling) et le maintien en fonctionnement des services. C'est une plateforme flexible et résiliente permettant d’orchestrer de grands ensembles de conteneurs. Grâce à cette orchestration, il devient beaucoup plus simple d’administrer des applications distribuées, même lorsqu’elles doivent évoluer à grande échelle
+
+**Orchestration** : Kubernetes automatise le déploiement, la gestion et l’ajustement des conteneurs, réduisant la charge opérationnelle des équipes.
+
+**Scalabilité** : Il adapte automatiquement le nombre de conteneurs selon la charge et optimise l’usage CPU/RAM pour maintenir la performance.
+
+**Résilience** : Grâce au redémarrage automatique, à la répartition de charge et à la reprise après incident, les applications restent disponibles même en cas de panne.
+
+**Portabilité** : Les applications peuvent être déployées de façon uniforme sur n’importe quelle infrastructure : local, sur site ou cloud.
+
+**Productivité** : L’automatisation des tâches répétitives accélère les cycles de développement et permet de livrer plus rapidement.
+
+**Écosystème** : Kubernetes s’appuie sur une vaste collection d’outils et d’extensions pour répondre à des besoins variés et spécialisés.
+
+</br>
+
 ### Trois transformations profondes actuelles de l'informatique
 
 Kubernetes se trouve au coeur de trois transformations profondes techniques, humaines et économiques de l'informatique:
@@ -41,46 +58,14 @@ Il est un des projets qui symbolise et supporte techniquement ces transformation
 
 </br>
 
-### Concrètement : Architecture de Kubernetes
-
-![](../../../images/kubernetes/k8s_archi1.png?width=800px)
-
-- Kubernetes se construit en cluster et fait coopérer des serveurs appelés **noeuds**(nodes).
-
-- Kubernetes a une architecture **Master/workers** (cf. cours 2) composée d'un **control plane** et de nœuds de calculs (**workers**).
-
-- Cette architecture permet essentiellement de rassembler les machines en un **cluster unique** sur lequel on peut faire tourner des **"charges de calcul" (workloads)** très diverses.
-
-- Sur un tel cluster le déploiement d'un workload prend la forme de **ressources (objets k8s)** qu'on **décrit sous forme de code** et qu'on crée ensuite effectivement via l'API Kubernetes.
-
-- Pour uniformiser les déploiement logiciel Kubernetes est basé sur le standard des **conteneurs** (défini aujourd'hui sous le nom **Container Runtime Interface**, Docker est l'implémentation la plus connue).
-
-- Plutôt que de déployer directement des conteneurs, Kubernetes crée des **aggrégats de un ou plusieurs conteneurs** appelés des **Pods**. Les pods sont donc l'unité de base de Kubernetes.
-
-</br>
-
-### Objets fondamentaux de Kubernetes
-
-- Les **pods** Kubernetes servent à grouper des conteneurs fortement couplés en unités d'application <!-- (microservices ou non) -->
-- Les **deployments** sont une abstraction pour **créer ou mettre à jour** (ex : scaler) des groupes de **pods**.
-- Enfin, les **services** sont des points d'accès réseau qui permettent aux différents workloads (deployments) de communiquer entre eux et avec l'extérieur.
-
-Au delà de ces trois éléments, l'écosystème d'objets de Kubernetes est vaste et complexe
-
-![](../../../images/kubernetes/k8s_objects_hierarchy.png?width=600px)
-
-</br>
-
-#### Kubernetes entre Cloud et auto-hébergement
+### Kubernetes entre Cloud et auto-hébergement
 
 Un des intérêts principaux de Kubernetes est de fournir un modèle de Plateform as a Service (PaaS) suffisamment versatile qui permet l'interopérabilité entre des fournisseurs de clouds différents et des solutions auto-hébergées (on premise).
 
 Cependant cette interopérabilité n'est pas automatique (pour les cas complexes) car Kubernetes permet beaucoup de variations. Concrètement il existe des variations entre les installations possibles de Kubernetes
 
-</br>
 
----
-
+--- 
 ### Distributions et "flavours" de Kubernetes
 
 Kubernetes est avant tout un ensemble de standards qui peuvent avoir des implémentations concurrentes. Il existe beaucoup de variétés (**flavours**) de Kubernetes, implémentant concrètement les solutions techniques derrière tout ce que Kubernetes ne fait que définir : solutions réseau, stockage (distribué ou non), loadbalancing, service de reverse proxy (Ingress), autoscaling de cluster (ajout de nouvelles VM au cluster automatiquement), monitoring…
@@ -90,14 +75,9 @@ Les **services gérés des Cloud Providers (Managed Kubernetes)** dominent très
 Une forte tendance à la hausse concerne les déploiements destinés à l'**Edge computing**, aux plateformes de dev (*Platform Engineering*) et aux **workloads IA/Machine Learning**.
 </br>
 </br>
-</br>
 
+### Voici les distributions les plus populaires & en forte hausse
 
-
-
-#### Voici les distributions les plus populaires & en forte hausse
-
-</br>
 
 #### A. Les géants du Cloud (Public Managed K8s)
 Elles représentent la majorité du marché global et continuent de croître à mesure que les entreprises migrent leurs applications vers le cloud.
@@ -120,7 +100,6 @@ C'est la catégorie dont la **tendance est la plus fortement à la hausse**, tir
 #### D. Développement local & Tests
 * **Kind (Kubernetes in Docker) :** En constante augmentation au détriment de Minikube pour les pipelines de CI/CD automatisés, car il fait tourner les nœuds K8s directement dans des conteneurs Docker.
 
----
 
 #### Synthèse des tendances du marché
 
