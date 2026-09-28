@@ -1,5 +1,5 @@
 ---
-title: "Cours 1 - Installer et explorer Docker sur Linux et Windows"
+title: "Lab 1 - Installer et explorer Docker sur Linux et Windows"
 weight: 2110
 ---
 

@@ -103,5 +103,3 @@ Les étudiants doivent inclure **deux captures d’écran** :
 Ces captures démontrent que les processus des conteneurs **roulent réellement sur le host**, et non dans une VM.
 
 ---
-
-Si tu veux, je peux aussi te préparer un **corrigé officiel en PDF**, ou un **corrigé version Hugo** pour ton site de cours.

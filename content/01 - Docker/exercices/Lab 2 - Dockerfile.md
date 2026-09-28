@@ -28,7 +28,7 @@ cd docker-linux-test
 #### 2. Créez un fichier `Dockerfile`
 
 ```Dockerfile
-FROM ubuntu:22.04
+FROM alpine:latest
 
 # Mettre à jour et installer des outils Linux
 RUN apt update && apt install -y \
@@ -70,7 +70,7 @@ vim --version
    ps aux | grep vim
    ```
 
-#### Quel est le résultat ?  (Faites une capture d'écran et collez l'image dans un fichier Word)
+#### Quel est le résultat ?  (Faites une capture d'écran et collez l'image dans votre journal)
 
 </br>
 
@@ -78,13 +78,14 @@ vim --version
 
 ## Dockerfile Windows (Windows Server Core)
 
-> Cette partie doit être faite dans votre VM Windows avec Docker Desktop configuré en mode *Windows Containers*.
+> Cette partie doit être faite dans votre VM Windows avec Docker Desktop configuré en mode *Windows Containers*. 
 
-#### 1. Créez un dossier de travail
+#### 1. Créez un dossier de travail et ouvrir VSCode
 
 ```powershell
 mkdir docker-windows-test
 cd docker-windows-test
+code
 ```
 
 #### 2. Créez un fichier `Dockerfile`
@@ -136,13 +137,13 @@ bash
    - Onglet **Processes**
    - Cherchez **notepad.exe**
 
-#### Quel est le résultat du point 5 et 6 ?  (Faites une capture d'écran et collez l'image dans un fichier Word)
+#### Quel est le résultat du point 5 et 6 ?  (Faites une capture d'écran et collez l'image dans votre journal)
 
 </br></br>
 
 ---
 
-## Questions à remettre dans votre fichier Word
+## Questions à remettre dans votre journal
 
 1. Quelle commande permet de construire une image Docker ?
 2. Pourquoi le conteneur Windows ne peut-il pas exécuter `bash` ?

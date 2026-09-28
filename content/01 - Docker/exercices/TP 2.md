@@ -1,11 +1,10 @@
 ---
-title: "Corrigé 3 - Docker Compose : Node + MongoDB + React"
-weight: 2131
-draft: true
+title: "TP 2 - Docker Compose : Node + MongoDB + React"
+weight: 2130
 ---
 </br>
 
-#### Dans ce laboratoire, vous allez :
+#### Dans ce TP, vous allez :
 
 1. Créer un projet contenant trois services :
    - **backend** : API Node.js (avec un Dockerfile)
@@ -14,7 +13,7 @@ draft: true
 2. Utiliser `docker-compose.yml` pour orchestrer les trois services.
 3. Injecter des données dans MongoDB via un script Node.js.
 4. Vérifier que les conteneurs communiquent entre eux.
-5. Utiliser VS Code pour vous faciliter la tâche, installer les features docker et YAML
+5. Utiliser VS Code pour vous faciliter la tâche, installer les fonctionnalités Docker et YAML
 
 ---
 
@@ -41,14 +40,14 @@ compose-lab/
 
 ## Partie 1 — Préparer le backend Node.js
 
-#### 1. Créez le dossier
+#### 1. Créer le dossier
 
 ```bash
 mkdir -p compose-lab/backend
 cd compose-lab/backend
 ```
 
-#### 2. Créez `package.json`
+#### 2. Créer `package.json`
 
 ```json
 {
@@ -66,7 +65,7 @@ cd compose-lab/backend
 }
 ```
 
-#### 3. Créez `index.js` (API simple)
+#### 3. Créer `index.js` (API simple)
 
 ```js
 const express = require("express");
@@ -98,7 +97,7 @@ async function main() {
 main();
 ```
 
-#### 4. Créez `seed.js` (injection de données)
+#### 4. Créer `seed.js` (injection de données)
 
 ```js
 const { MongoClient } = require("mongodb");
@@ -126,7 +125,7 @@ async function run() {
 run();
 ```
 
-#### 5. Créez le `Dockerfile` du backend
+#### 5. Créer le `Dockerfile` du backend
 
 ```Dockerfile
 # Image Node officielle
@@ -184,9 +183,11 @@ export default App;
 
 ---
 
-## Partie 3 — Créer le fichier docker-compose.yml
+## Partie 3 — Créer et compléter le fichier docker-compose.yml
 
-Dans `compose-lab/`, créez :
+Dans `compose-lab/`, créez ce fichier Docker Compose
+
+compléter les lignes où il est écrit *"Ajouter la ou les lignes :"*
 
 ```yaml
 version: "3.8"
@@ -196,10 +197,9 @@ services:
   # Base de données MongoDB
   # -------------------------
   database:
-    image: mongo:6
+    # Ajouter la ou les lignes : l'image est mongo version 6
     container_name: mongo-db
-    ports:
-      - "27017:27017"   # Expose MongoDB au host
+    # Ajouter la ou les lignes : Expose MongoDB au host. Le port d'entrée et de sortie est 27017
     volumes:
       - mongo-data:/data/db  # Persistance des données
 
@@ -208,12 +208,10 @@ services:
   # Utilise un Dockerfile
   # -------------------------
   backend:
-    build: ./backend        # IMPORTANT : on utilise un Dockerfile
-    container_name: api-backend
-    ports:
-      - "5000:5000"
-    depends_on:
-      - database            # Le backend attend que Mongo soit prêt
+    build: ./backend        # IMPORTANT : on utilise un Dockerfile créer plus haut
+    # Ajouter la ou les lignes : Le nom de ce conteneur doit être api-backend
+    # Ajouter la ou les lignes : Ajouter le # de port d'entrée et de sortie qui est le même. (L'information sur le # du port est dans le lab ;-P )
+    # Ajouter la ou les lignes : Ce conteneur dépend du conteneur database
 
   # -------------------------
   # Frontend React
@@ -222,7 +220,7 @@ services:
   frontend:
     image: node:18
     container_name: react-frontend
-    working_dir: /app
+    # Ajouter la ou les lignes : le nome du répertoire de travail est "/app"
     volumes:
       - ./frontend:/app     # Monte le code React
     ports:
@@ -261,18 +259,33 @@ docker compose exec database mongosh
 > db.etudiants.find()
 ```
 
+## Partie 6 — Vérifier et tester la solution
+
+Vérifier que les conteneurs sont démarrés
+
+```bash
+docker compose ps
+```
+Tester les Rest Api avec curl et faites une capture d'écran
+
+```bash
+curl http://localhost:5000/
+curl http://localhost:5000/etudiants
+```
+
+Tester la page du frontend dans chrome ou avec curl
+
+http://localhost:3000
+
+
 ---
 
-## 🧠 Questions à remettre dans votre fichier Word
+## Questions à remettre dans votre journal
 
 1. Quelle commande permet de démarrer un environnement Docker Compose ?
 2. Quelle commande permet d’exécuter un script dans un conteneur ?
 3. Expliquez comment les services communiquent entre eux dans Docker Compose.
-4. Quelle est la différence entre `image:` et `build:` dans docker-compose ?
-5. Montrez une capture d’écran de vos trois conteneurs en cours d’exécution.
-6. Montrez une capture d’écran de vos données MongoDB insérées via `seed.js`.
-
+4. Qu’elle est la différence entre `image:` et `build:` dans Docker Compose ?
+5. Montrez les captures d’écrans demandées plus haut
 ---
-
-
 
