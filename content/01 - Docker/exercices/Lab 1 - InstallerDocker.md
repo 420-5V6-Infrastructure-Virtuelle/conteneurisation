@@ -26,7 +26,7 @@ weight: 2110
 
 #### Autocomplétion
 
-- Pour vous faciliter la vie, ajoutez le plugin d’autocomplétion pour Docker et Docker Compose à `bash` en copiant les commandes suivantes :
+- Pour vous faciliter la vie, ajoutez le plugin d’autocomplétion pour Docker et Docker Compose a `bash` en copiant les commandes suivantes :
 
 ```bash
 sudo apt update
@@ -55,11 +55,11 @@ docker ps -a # affiche également les conteneurs arrêtés
 
 ### Installer Docker Desktop sur Windows
 
-- Accédez à votre serveur Proxmox et réutilisez ou créez un vm Windows **mise à jour**.
+- Accédez à votre serveur Proxmox et réutilisez ou créez un vm Windows **mis à jour**.
 
 <!-- - Vérifiez l'installation de Docker en lançant `sudo docker info`. -->
 
 - Pour installer Docker Desktop (avec l'utilisation de WSL)
    -  Suivez la [documentation officielle pour installer Docker sur Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
    -  Faites du début et arrêtez-vous à la section **(*Advanced system configuration and installation options*)**
-   -  Vérifiez l'installation et que toutes les [permissions Windows requises soient configurées](https://docs.docker.com/desktop/setup/install/windows-permission-requirements/)
+   -  Vérifiez l'installation et que toutes les [permissions Windows requis soient configurés](https://docs.docker.com/desktop/setup/install/windows-permission-requirements/)

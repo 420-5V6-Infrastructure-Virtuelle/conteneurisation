@@ -14,7 +14,7 @@ weight: 2030
 - Une image est le **résultat** d'un build :
   - on peut la voir un peu comme un "modèle" de conteneur, nous allons voir plus loin comment "builder une image"
 
-Pour lister tous les images, on utilise :
+Pour lister toutes les images, on utilise :
 
 ```bash
 docker images # ancienne syntaxe

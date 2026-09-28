@@ -80,7 +80,7 @@ vim --version
 
 > Cette partie doit être faite dans votre VM Windows avec Docker Desktop configuré en mode *Windows Containers*. 
 
-#### 1. Créez un dossier de travail et ouvrir VSCode
+#### 1. Créer un dossier de travail et ouvrir VSCode
 
 ```powershell
 mkdir docker-windows-test
@@ -132,7 +132,7 @@ Toujours dans le conteneur :
 bash
 ```
 
-#### 7. **Sur le host Windows**, ouvrez le Gestionnaire des tâches :
+#### 7. **Sur l’host Windows**, ouvrez le Gestionnaire des tâches :
    - Ctrl + Shift + Esc
    - Onglet **Processes**
    - Cherchez **notepad.exe**
@@ -148,8 +148,8 @@ bash
 1. Quelle commande permet de construire une image Docker ?
 2. Pourquoi le conteneur Windows ne peut-il pas exécuter `bash` ?
 3. Est-ce que Docker émule un OS ?
-4. Dans vos mots, quel est le rôle du noyau du host dans l’exécution d’un conteneur ?
+4. Dans vos mots, quel est le rôle du noyau de l’host dans l’exécution d’un conteneur ?
 5. Quelle est la différence fondamentale entre une vm et un conteneur ?
-6. N'oublier pas de mettre les captures d'écran demandées plus haut.
+6. N'oubliez pas de mettre les captures d'écran demandées plus haut.
 
 ---

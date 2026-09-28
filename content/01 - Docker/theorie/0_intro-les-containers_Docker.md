@@ -33,9 +33,9 @@ Docker Desktop utilise une machine virtuelle Linux pour exécuter les conteneurs
   - Isolation matérielle
   - Un processeur, mémoire, appels système, carte réseau, carte graphique, etc.
   - Tourne un système d’exploitation indépendant sur une même machine physique.
-  - Agit comme un ordinateur autonome, avec son propre noyau, ses pilotes, ses services, etc.
+  - Agis comme un ordinateur autonome, avec son propre noyau, ses pilotes, ses services, etc.
 
-- **Conteneur** : une isolation à l’échelle de l’application et il ne cherche pas à émuler un système entier.
+- **Conteneur** : une isolation à l’échelle de l’application, qui ne cherche pas à émuler un système entier.
   - Isolation logicielle
   - Vise à isoler uniquement l’application et ce dont elle a besoin pour fonctionner (code, dépendances, configs...)
   - Partagent le noyau du système hôte, ce qui les rend plus légers et plus rapides à exécuter.
@@ -46,7 +46,7 @@ Docker Desktop utilise une machine virtuelle Linux pour exécuter les conteneurs
 
 # L'origine du Docker : concept du **conteneur**
 
-Les conteneurs mettent en œuvre des concepts d'isolation des processus de Unix où "tout est fichier".
+Les conteneurs mettent en œuvre des concepts d'isolation des processus d’Unix où "tout est fichier".
 
 Dans Unix, le principe du “tout est fichier” fait que toutes les ressources du système, les processus, les périphériques, les sockets, la mémoire sont présentés comme des fichiers. 
 
@@ -56,11 +56,11 @@ En contrôlant cette visibilité, Unix peut créer des environnements isolés o�
 
 Les conteneurs modernes s’appuient sur les mécanismes d’isolation qui fournir à chaque processus une vision réduite, indépendante et reproductible du système.
 
-**Voici quelques-uns de ces concepts d’isolation repris de Unix:**
+**Voici quelques-uns de ces concepts d’isolation repris d’Unix:**
 
 **1. chroot**
 
-- Implémenté principalement par le programme **_chroot_** [*change root* : changer de racine], permet l'isolation du système de fichiers
+- Implémentée principalement par le programme **_chroot_** [*change root* : changer de racine], permet l'isolation du système de fichiers
 
   - Redéfinit la racine du système de fichiers : chroot change le répertoire “/” visible par un processus. Le processus croit que le dossier assigné est la racine / du système.
     - le processus ne voit plus le vrai système de fichiers,
@@ -234,7 +234,7 @@ Kubernetes peut fonctionner sur des serveurs bare‑metal, mais dans la majorit�
 - Puis il propose aussi son cloud, le **Docker Hub** pour faciliter la gestion d'images toutes faites de conteneurs.
 - Au fur et à mesure, Docker abandonne le code de **LXC** (mais continue d'utiliser le **chroot**, les **cgroups** et **namespaces**).
 
-- Le code de base de Docker (notamment **runC**) est open source : l'**Open Container Initiative** vise à standardiser et rendre robuste l'utilisation de containers.
+- Le code de base de Docker (notamment **runC**) est open source : l'**Open Container Initiative** vise à standardiser et rendre robuste l'utilisation de conteneurs.
 
 ---
 

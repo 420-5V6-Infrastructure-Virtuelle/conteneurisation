@@ -73,7 +73,7 @@ Docker Compose est un autre client : il permet de gérer des applications compos
 
 # Docker Engine (L'écosystème global)
 
-C'est le moteur qui exécute les conteneurs. C'est le cœur du système qui gère la création, l'exécution et la surveillance des containers.
+C'est le moteur qui exécute les conteneurs. C'est le cœur du système qui gère la création, l'exécution et la surveillance des conteneurs.
 
 Docker Engine est la suite logicielle complète installée sur votre machine. 
 Elle comprend trois éléments principaux :
