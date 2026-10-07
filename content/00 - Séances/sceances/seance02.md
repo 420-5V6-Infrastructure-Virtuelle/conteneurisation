@@ -6,9 +6,9 @@ weight: 1020
 ## Théorie
 
 - [Les Réseaux sur Docker](/../../01---docker/theorie/4_reseaux)
-- [Les volumes et stockage](/../../01---docker/theorie/5_volumes/)
-- [Dépannage sur docker](/../../01---docker/theorie/depannage/)
-- [Le DockerFiles](/../../01---docker/theorie/6_dockerfiles/)
+- [Les volumes et stockages](/../../01---docker/theorie/5_volumes/)
+- [Dépannage sur Docker](/../../01---docker/theorie/depannage/)
+- [Le Dockerfile](/../../01---docker/theorie/6_dockerfiles/)
 
 ## Laboratoire
 
