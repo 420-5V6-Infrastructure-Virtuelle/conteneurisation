@@ -1,6 +1,6 @@
 ---
 title: Docker Compose
-weight: 2080
+weight: 2090
 ---
 
 Docker Compose est un outil qui permet de définir et lancer plusieurs conteneurs Docker comme une seule application. Il utilise un fichier YAML pour décrire les services, réseaux et volumes, simplifiant l’orchestration. C’est une approche déclarative typique de la philosophie IaC (infrastructure as code).

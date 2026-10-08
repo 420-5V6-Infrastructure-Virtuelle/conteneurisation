@@ -38,15 +38,12 @@ LXC offre une virtualisation légère proche d’un petit système Linux complet
 
 ### Retour sur les technologies de virtualisation
 
-On compare souvent les conteneurs aux machines virtuelles. Mais ce sont de grosses simplifications parce qu'on en a un usage similaire : isoler des programmes dans des "contextes".
-Une chose essentielle à retenir sur la différence technique : **Les conteneurs utilisent directement le noyau du système hôte pour isoler et exécuter des applications, tandis qu’une machine virtuelle fait tourner son propre système d’exploitation complet sur du matériel virtualisé fourni par l’hyperviseur.**
+On compare souvent les conteneurs aux machines virtuelles. Mais c'est une grosse simplification, la différence est dans le niveau d'isolation.
+**Les conteneurs utilisent directement le noyau du système hôte pour isoler et exécuter des applications, tandis qu’une machine virtuelle fait tourner son propre système d’exploitation complet sur du matériel virtualisé fourni par l’hyperviseur.**
 
 > ⚠️
-> **Docker Desktop sur Windows utilise une machine virtuelle Linux "WSL" pour exécuter les conteneurs sur Linux**
+> **Docker Desktop sur Windows utilise une machine virtuelle Linux (le feature WSL - Windows Subsystem for Linux) pour exécuter des conteneurs Docker de base Linux**
 
-
-
-<!-- ![](../../../images/hyperv-vs-containers.png) -->
 
 ![](../../../images/vm_vs_containers.png)
 
