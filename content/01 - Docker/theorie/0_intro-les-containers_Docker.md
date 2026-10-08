@@ -18,12 +18,33 @@ weight: 2010
 - Une abstraction qui ouvre de nouvelles possibilités pour la manipulation logicielle.
 - Permets de standardiser, industrialiser et de contrôler la livraison et le déploiement.
 
-# Retour sur les technologies de virtualisation
+---
+
+## À quoi sert docker
+
+Docker est la l'outil de référence en matière de conteneurisation. Il permet d’emballer une application ainsi que toutes ses dépendances dans une image immuable, puis de lancer cette image sous forme de conteneur : un processus isolé, léger et capable de démarrer en quelques instants.
+
+Ce fonctionnement élimine le classique « ça marche sur ma machine », puisque chaque conteneur fournit un environnement d’exécution complet et reproductible, incluant le code et les bibliothèques nécessaires.
+
+---
+
+## Histoire et différence entre Docker et LXC
+
+Docker est né de LXC en ajoutant un système d’images, des outils de déploiement et une approche centrée application, transformant des conteneurs Linux bas niveau en plateforme portable et standardisée.
+
+LXC offre une virtualisation légère proche d’un petit système Linux complet, tandis que Docker exécute des applications dans des conteneurs partageant le noyau du host. Les images Docker n’incluent qu’un ensemble minimal d’outils et de bibliothèques, plutôt qu’un véritable système d’exploitation complet.
+
+---
+
+### Retour sur les technologies de virtualisation
 
 On compare souvent les conteneurs aux machines virtuelles. Mais ce sont de grosses simplifications parce qu'on en a un usage similaire : isoler des programmes dans des "contextes".
-Une chose essentielle à retenir sur la différence technique : **les conteneurs utilisent les mécanismes internes du \_kernel de l'OS **Linux**\_ tandis que les VM tentent de communiquer avec l'OS (quel qu'il soit) pour directement avoir accès au matériel de l'ordinateur.**
+Une chose essentielle à retenir sur la différence technique : **Les conteneurs utilisent directement le noyau du système hôte pour isoler et exécuter des applications, tandis qu’une machine virtuelle fait tourner son propre système d’exploitation complet sur du matériel virtualisé fourni par l’hyperviseur.**
 
-Docker Desktop utilise une machine virtuelle Linux pour exécuter les conteneurs sur Windows/macOS, car les conteneurs reposent sur des mécanismes du noyau Linux.
+> ⚠️
+> **Docker Desktop sur windows utilise une machine virtuelle Linux "WSL" pour exécuter les conteneurs sur linux**
+
+
 
 <!-- ![](../../../images/hyperv-vs-containers.png) -->
 
@@ -44,7 +65,7 @@ Docker Desktop utilise une machine virtuelle Linux pour exécuter les conteneurs
 
 ---
 
-# L'origine du Docker : concept du **conteneur**
+## L'origine du Docker : concept du **conteneur**
 
 Les conteneurs mettent en œuvre des concepts d'isolation des processus d’Unix où "tout est fichier".
 
@@ -59,7 +80,7 @@ Les conteneurs modernes s’appuient sur les mécanismes d’isolation qui fourn
 ---
 
 
-# Concept de la conteneurisation
+## Concept de la conteneurisation
 
 **1. Isolation sans virtualisation lourde**
 
@@ -96,7 +117,7 @@ En résumé, le succès des conteneurs découle directement du design d'Unix, o�
 
 ---
 
-# Avantages de la conteneurisation vs Virtualisation
+## Avantages de la conteneurisation vs Virtualisation
 
 Docker permet de faire des "quasi-machines" avec des performances proches du natif.
 
@@ -109,7 +130,7 @@ Docker permet de faire des "quasi-machines" avec des performances proches du nat
 
 ---
 
-# Avantages de la virtualisation vs Conteneurisation
+## Avantages de la virtualisation vs Conteneurisation
 
 - Isolation complète : Chaque machine virtuelle est totalement autonome. Si le système d'exploitation d'une VM est compromis, les autres restent en sécurité. L'isolation se fait au niveau du matériel et non au niveau du noyau de l'OS.
 - Exécution de systèmes différents : La virtualisation permet de faire tourner simultanément des machines Linux, Windows ou macOS sur le même serveur physique.
@@ -136,7 +157,7 @@ Kubernetes peut fonctionner sur des serveurs bare‑metal, mais dans la majorit�
 
 ---
 
-# Pourquoi utiliser Docker ?
+## Pourquoi utiliser Docker ?
 
 #### Docker est pensé dès le départ pour faire des **conteneurs applicatifs** :
 
@@ -162,35 +183,14 @@ Kubernetes peut fonctionner sur des serveurs bare‑metal, mais dans la majorit�
 
 ---
 
-# Un peu d'histoire
-
-#### LXC (LinuX Containers)
-
-- En 2008, démarre le projet LXC qui cherche à rassembler les concepts d'isolation de processus de Linux :
-
-  - les **cgroups**
-  - le **chroot**
-  - les **namespaces**
-
-- Originellement, Docker était basé sur **LXC**. Il a depuis développé son propre assemblage de ces 3 mécanismes.
-
-
-#### Docker et LXC
-
-- En 2013, Docker commence à proposer une meilleure finition et une interface simple qui facilite l'utilisation des conteneurs **LXC**.
-- Puis il propose aussi son cloud, le **Docker Hub** pour faciliter la gestion d'images toutes faites de conteneurs.
-- Au fur et à mesure, Docker abandonne le code de **LXC** (mais continue d'utiliser le **chroot**, les **cgroups** et **namespaces**).
-
-- Le code de base de Docker (notamment **runC**) est open source : l'**Open Container Initiative** vise à standardiser et rendre robuste l'utilisation de conteneurs.
-
----
-
 # Docker : positionnement sur le marché
 
 **Docker** est la technologie ultra-dominante sur le marché de la conteneurisation
 
   - La simplicité d'usage et le travail de standardisation (un conteneur Docker est un conteneur OCI : format ouvert standardisé par l'Open Container Initiative) lui garantissent légitimité et fiabilité
   - La logique du conteneur fonctionne, et la bonne documentation et l'écosystème aident !
+
+**Podman** : une alternative à Docker qui utilise la même syntaxe que Docker pour faire tourner des conteneurs OCI (Docker) qui proposent un mode _rootless_ et _daemonless_ intéressants.(plus sécuritaire)
 
 **LXC** existe toujours et est très agréable à utiliser, notamment avec **LXD** (développé par Canonical, l'entreprise derrière Ubuntu) et **Proxmox**.
 
@@ -199,8 +199,6 @@ Kubernetes peut fonctionner sur des serveurs bare‑metal, mais dans la majorit�
 
 **Apache Mesos** : un logiciel de gestion de cluster qui permet de se passer de Docker, mais propose quand même un support pour les conteneurs OCI (Docker) depuis 2016.
 
-**Podman** : une alternative à Docker qui utilise la même syntaxe que Docker pour faire tourner des conteneurs OCI (Docker) qui proposent un mode _rootless_ et _daemonless_ intéressants.(plus sécuritaire)
-
 **systemd-nspawn** : technologie de conteneurs isolés proposée par systemd
 
 ---
@@ -208,7 +206,6 @@ Kubernetes peut fonctionner sur des serveurs bare‑metal, mais dans la majorit�
 # À retenir
 
   - **Conteneurs vs VMs** : les conteneurs partagent le noyau de l’hôte et sont très légers; les VMs embarquent un OS complet et offrent une isolation matérielle plus forte.
-  - **Isolation Linux** : chroot isole le système de fichiers, les namespaces isolent ce qu’un processus peut voir, les cgroups limitent ce qu’il peut consommer.
   - **Philosophie Unix** : “tout est fichier” : Comme toutes les ressources sont représentées comme des fichiers, le noyau peut contrôler la visibilité et créer des environnements isolés.
   - **Conteneur = environnement minimal** : Un conteneur est un ensemble de processus isolés qui croient fonctionner dans leur propre système.
   - **Légèreté et rapidité** : Les conteneurs démarrent en quelques millisecondes à secondes, consomment peu de ressources et sont hautement portables.
