@@ -68,7 +68,7 @@ Les conteneurs s’appuient sur une idée fondamentale d’Unix : dans Unix, pre
 
 Comme toutes les ressources prennent cette forme, le noyau peut choisir exactement quels “fichiers” un processus est autorisé à voir et accéder. 
 
-En contrôlant cette visibilité et cette accès, Unix crée des environnements où chaque processus perçoit une version limitée et isolée du système. 
+En contrôlant cette visibilité et cet accès, Unix crée des environnements où chaque processus perçoit une version limitée et isolée du système. 
 
 Les conteneurs modernes réutilisent ce principe pour offrir à chaque application un espace d’exécution indépendant, isolé, cohérent et reproductible.
 
@@ -80,7 +80,7 @@ Pour t'aider à comprendre, j'ai une analogie qui pourrait t'aider sur le concep
 
 Imagine une bibliothèque.
 
-Tu ne donnes à un étudiant accès qu'à des livres auquels il a le droit de consulter et pour lui, sa vision de la bibliothèque se limite qu'à ces livres.
+Tu ne donnes à un étudiant l’accès qu'à des livres auxquels il a le droit de consulter et pour lui, sa vision de la bibliothèque se limite qu'à ces livres.
 Il ne sait pas que d'autres livres sur d'autres sujets existent.
 
 Les conteneurs fonctionnent pareil, le noyau montre au processus seulement une partie du système, et ce processus croit que c’est tout le système, donc le processus dans le conteneur croit qu'il est le système.
