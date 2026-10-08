@@ -38,7 +38,7 @@ LXC offre une virtualisation légère proche d’un petit système Linux complet
 
 ### Retour sur les technologies de virtualisation
 
-On compare souvent les conteneurs aux machines virtuelles. Mais c'est une grosse simplification, la différence est dans le niveau d'isolation.
+On compare souvent les conteneurs aux machines virtuelles, mais c'est une simplification grossière, la différence est réelle et elle est au niveau du concept d'isolation.
 **Les conteneurs utilisent directement le noyau du système hôte pour isoler et exécuter des applications, tandis qu’une machine virtuelle fait tourner son propre système d’exploitation complet sur du matériel virtualisé fourni par l’hyperviseur.**
 
 > ⚠️
