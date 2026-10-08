@@ -101,7 +101,7 @@ docker start --attach <nom_ou_id_conteneur> # lance le conteneur et s'attache à
 
 
 
-# Introspection de conteneur
+## Introspection de conteneur
 
 - La commande `docker exec` permet d'exécuter une commande à l'intérieur du conteneur **s'il est lancé**.
 
@@ -114,7 +114,7 @@ docker exec -it <conteneur> /bin/bash  # fonctionne si bash est présent dans le
 
 ---
 
-# Docker Hub : télécharger des images
+## Docker Hub : télécharger des images
 
 Une des forces de Docker vient de la distribution d'images :
 
@@ -128,7 +128,7 @@ Il s'agit d'un répertoire public et souvent gratuit d'images (officielles ou no
 
 ---
 
-# Docker Hub:
+## Docker Hub:
 
 - On peut y chercher et trouver presque n'importe quel logiciel au format d'image Docker.
 

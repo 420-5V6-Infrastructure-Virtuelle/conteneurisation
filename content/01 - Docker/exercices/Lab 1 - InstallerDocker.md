@@ -63,7 +63,9 @@ docker ps -a # affiche également les conteneurs arrêtés
    -  Suivez la [documentation officielle pour installer Docker sur Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
    -  Faites du début et arrêtez-vous à la section **(*Advanced system configuration and installation options*)**
    -  Vérifiez l'installation et que toutes les [permissions Windows requis soient configurés](https://docs.docker.com/desktop/setup/install/windows-permission-requirements/)
- 
-[Faire le lab du site Microsoft à la page 3](https://learn.microsoft.com/fr-fr/training/modules/intro-to-containers/1-introduction)
 
-Lire la page 1 et 2 puis faire l'exercice de la page 3.
+#### Lab partie Microsoft
+
+[Lire la page 1 et 2 puis faire l'exercice de la page 3.](https://learn.microsoft.com/fr-fr/training/modules/intro-to-containers/1-introduction)
+
+

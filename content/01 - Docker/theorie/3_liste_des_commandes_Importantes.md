@@ -1,5 +1,5 @@
 ---
-title: Liste des commandes imp.
+title: Liste des commandes importantes
 weight: 2040
 ---
 
