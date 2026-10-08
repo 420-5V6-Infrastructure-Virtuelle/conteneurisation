@@ -5,7 +5,7 @@ weight: 2020
 
 # Terminologie et concepts fondamentaux
 
-Deux concepts centraux :
+## concepts centraux :
 
 Une **image** :  
   - C’est comme une photo instantanée d'une'application : un ensemble figé, immuable et prêt à être exécuté dans un environnement isolé. 
@@ -17,9 +17,6 @@ Un **conteneur** :
   - Un conteneur, c’est l’image en cours d’exécution
   - C'est une instance vivante, un processus isolé basé sur l’image qui tourne sur la machine.
   - Il est de nature **éphémère,** car il vit le temps où il tourne : dès qu’il est supprimé, tout son système de fichiers et ses données disparaissent avec lui.
-
-
-Autres concepts primordiaux :
 
 Un **volume** : 
   - Espace virtuel pour gérer le stockage d'un conteneur et le partage entre conteneurs.
@@ -44,14 +41,6 @@ Un **registre d'image de conteneur** :
 
 ---
 
-# L'écosystème  Docker
-
-Pour cette partie du cours, nous allons utiliser Docker comme plateforme de conteneurisation. Il existe plusieurs autres solutions, mais Docker demeure la référence du secteur.
-
-Il permet d’emballer une application et toutes ses dépendances dans une image, puis de l’exécuter de manière uniforme sur n’importe quel **système**. 
-
-Docker desktop s'installe sur tous les OS actuels, ce qui permet d'élimine le fameux « ça marche sur ma machine », puisque l’environnement d’exécution est entièrement standardisé et autonome.
-
 # Architecture de Docker 
 
 Docker repose sur une architecture client‑serveur. Le client Docker envoie des commandes au démon Docker, qui se charge de tout le travail :
@@ -60,18 +49,21 @@ Docker repose sur une architecture client‑serveur. Le client Docker envoie des
   - gérer les volumes 
   - Les réseaux et distribuer les artefacts.
 
-Le client et le démon peuvent fonctionner sur la même machine, ou le client peut se connecter à un démon Docker distant.
+... ce qui est un bon début d'architecture de système.
+
+Le client et le démon(daemon) peuvent fonctionner sur la même machine, ou le client peut se connecter à un démon Docker distant.
 
 La communication entre les deux se fait via une API REST, accessible par un socket UNIX ou une interface réseau.
 
-Docker Compose est un autre client : il permet de gérer des applications composées de plusieurs conteneurs.
+Docker Compose est un autre client : il permet de gérer des applications composées de plusieurs conteneurs (Exemple une architecture 3 tiers, de 3 conteneurs)
 
-# Schéma d’architecture Docker
+
+## Schéma d’architecture Docker
 
 ![](../../../images/docker/architecture_docker.jpg)
 
 
-# Docker Engine (L'écosystème global)
+## Docker Engine (L'écosystème global)
 
 C'est le moteur qui exécute les conteneurs. C'est le cœur du système qui gère la création, l'exécution et la surveillance des conteneurs.
 
@@ -83,7 +75,7 @@ Elle comprend trois éléments principaux :
 - Le CLI (docker) : L'interface en ligne de commande avec laquelle vous interagissez dans votre terminal.
 
 
-# Le Docker daemon (dockerd)
+## Le Docker daemon (dockerd)
 
 Le démon Docker (dockerd) écoute les requêtes envoyées via l’API Docker et gère tous les objets Docker :
 - images
@@ -92,13 +84,13 @@ Le démon Docker (dockerd) écoute les requêtes envoyées via l’API Docker et
 - volumes
 
 
-# Le Docker client (Docker)
+## Le Docker client (Docker)
 
 Le client Docker (Docker) est l’outil principal utilisé par les développeurs et administrateurs.
 Quand tu exécutes une commande comme Docker run, le client envoie l’instruction au démon, qui l’exécute.
 Le client utilise l’API Docker et peut communiquer avec plusieurs démons simultanément.
 
-# Docker Desktop
+## Docker Desktop
 
 Docker Desktop est une application simple à installer pour macOS et Windows.
 Elle regroupe tout ce qu’il faut pour développer et exécuter des applications conteneurisées :
@@ -111,7 +103,7 @@ Elle regroupe tout ce qu’il faut pour développer et exécuter des application
 
 C’est l’environnement le plus pratique pour les étudiants et les développeurs qui travaillent sur poste de travail Windows.
 
-# Les registres d’images Docker
+## Les registres d’images Docker
 
 Un registre est un service qui stocke et distribue des images de conteneurs.
 
@@ -122,7 +114,7 @@ Il est aussi possible d’héberger un registre privé pour une organisation.
 Lorsqu’on exécute Docker pull ou Docker run, Docker télécharge automatiquement l’image depuis le registre configuré.
 Lorsqu’on exécute Docker push, Docker envoie l’image vers ce registre.
 
-# Conteneur sur Docker
+## Conteneur sur Docker
 un conteneur Docker en cours de fonctionnement est un processus (et ses processus enfants) qui tourne dans une machine Linux hôte (mais ce processus est isolé des processus de l'hôte)
     - La **grande majorité** des conteneurs tournent sur un **noyau Linux**.
     - Sur des host Windows/macOS, Docker lance une VM Linux pour faire tourner les conteneurs. (Souvent WSL2 pour windows)
