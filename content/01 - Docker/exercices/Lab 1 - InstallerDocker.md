@@ -12,7 +12,7 @@ weight: 2110
    - Faites les points 1 et 2 de la section **(*Install using the apt repository*)**
 
 - Lancez `sudo docker run hello-world`. Que s'est-il passé ?
-   - Copiez l’image du résultat dans votre fichier Word.
+   - Copiez l’image du résultat dans votre journal.
 
 </br>
 
