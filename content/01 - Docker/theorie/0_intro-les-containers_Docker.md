@@ -20,7 +20,7 @@ weight: 2010
 
 ---
 
-## À quoi sert docker
+## À quoi sert Docker
 
 Docker est la l'outil de référence en matière de conteneurisation. Il permet d’emballer une application ainsi que toutes ses dépendances dans une image immuable, puis de lancer cette image sous forme de conteneur : un processus isolé, léger et capable de démarrer en quelques instants.
 
@@ -30,7 +30,7 @@ Ce fonctionnement élimine le classique « ça marche sur ma machine », pui
 
 ## Histoire et différence entre Docker et LXC
 
-Docker est né de LXC en ajoutant un système d’images, des outils de déploiement et une approche centrée application, transformant des conteneurs Linux bas niveau en plateforme portable et standardisée.
+Docker est né de LXC en ajoutant un système d’images, des outils de déploiement et une approche centrée sur l'application, transformant des conteneurs Linux bas niveau en plateforme portable et standardisée.
 
 LXC offre une virtualisation légère proche d’un petit système Linux complet, tandis que Docker exécute des applications dans des conteneurs partageant le noyau du host. Les images Docker n’incluent qu’un ensemble minimal d’outils et de bibliothèques, plutôt qu’un véritable système d’exploitation complet.
 
@@ -42,7 +42,7 @@ On compare souvent les conteneurs aux machines virtuelles. Mais ce sont de gross
 Une chose essentielle à retenir sur la différence technique : **Les conteneurs utilisent directement le noyau du système hôte pour isoler et exécuter des applications, tandis qu’une machine virtuelle fait tourner son propre système d’exploitation complet sur du matériel virtualisé fourni par l’hyperviseur.**
 
 > ⚠️
-> **Docker Desktop sur windows utilise une machine virtuelle Linux "WSL" pour exécuter les conteneurs sur linux**
+> **Docker Desktop sur Windows utilise une machine virtuelle Linux "WSL" pour exécuter les conteneurs sur Linux**
 
 
 
@@ -75,7 +75,7 @@ Comme toutes les ressources du système sont représentées sous forme de fichie
 
 En contrôlant cette visibilité, Unix peut créer des environnements isolés où chaque processus perçoit une version limitée du système.
 
-Les conteneurs modernes s’appuient sur les mécanismes d’isolation qui fournir à chaque processus une vision réduite, indépendante et reproductible du système.
+Les conteneurs modernes s’appuient sur les mécanismes d’isolation qui fournit à chaque processus une vision réduite, indépendante et reproductible du système.
 
 ---
 
