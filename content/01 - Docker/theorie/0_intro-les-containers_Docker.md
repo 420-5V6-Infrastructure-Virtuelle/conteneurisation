@@ -56,59 +56,6 @@ En contrôlant cette visibilité, Unix peut créer des environnements isolés o�
 
 Les conteneurs modernes s’appuient sur les mécanismes d’isolation qui fournir à chaque processus une vision réduite, indépendante et reproductible du système.
 
-**Voici quelques-uns de ces concepts d’isolation repris d’Unix:**
-
-**1. chroot**
-
-- Implémentée principalement par le programme **_chroot_** [*change root* : changer de racine], permet l'isolation du système de fichiers
-
-  - Redéfinit la racine du système de fichiers : chroot change le répertoire “/” visible par un processus. Le processus croit que le dossier assigné est la racine / du système.
-    - le processus ne voit plus le vrai système de fichiers,
-    - il ne peut pas toucher aux fichiers critiques du système,
-    - il ne peut pas casser l’OS, même s’il se comporte mal.
-  - Environnement isolé : le processus voit uniquement les fichiers présents dans ce nouveau “/”, comme s’il s’agissait d’un mini‑système.
-  - Limitation de l’accès : le processus ne peut plus accéder aux fichiers en dehors de ce répertoire (sauf mauvaise configuration).
-  - Utilisé pour tester ou réparer : permets de lancer des programmes dans un environnement contrôlé, utile pour du dépannage ou des installations.
-  - Isolation partielle : contrairement aux namespaces, chroot n’isole que le système de fichiers, pas le réseau, les processus ou les utilisateurs.
-
-
-**2. Les _namespaces_ (espaces de noms)**
-
-- Les **_namespaces_** sont des mécanismes du noyau Linux qui créent des environnements isolés pour les processus
-
-  - Isolation logique : un namespace crée une “bulle” où un processus voit une version limitée du système.
-  - Ressources séparées : chaque namespace isole un type de ressource (PID, réseau, montage, utilisateur, etc.).
-  - Vue indépendante : les processus dans un namespace ont leur propre vision des identifiants, des interfaces réseau, des points de montage, etc.
-  - Non‑interférence : un processus dans un namespace ne peut pas voir ni affecter les ressources d’un autre namespace.
-  - Contrôle du système: le noyau gère ces espaces isolés pour permettre une organisation fine et sécurisée des processus.
-  - Les _namespaces_ sont inventés en 2002 et il existe 6 types de _namespaces_ dans le **noyau Linux** (3.8) en **2013**
-
-- Ceux-ci correspondent à des **compartiments** nécessaires dans l'architecture Linux pour isoler des processus, il y 6 types de _namespaces_ :
-  - **PID** : Isole les identifiants de processus (le conteneur possède son propre processus numéro 1).
-  - **NET** : Fournis des interfaces réseau, des tables de routage et des ports indépendants.
-  - **MNT** (Mount) : Permets de créer son propre volume avec son propre système de fichiers.
-  - **IPC** : isole la communication interprocessus entre les espaces de nommage.
-  - **UTS** : Permets d'avoir un nom d'hôte (hostname).
-  - **USER** : Isole l'utilisateur ID entre les namespaces. Permets d'être root (UID 0) à l'intérieur du conteneur tout en étant un utilisateur standard sans privilèges sur l'hôte.
-
----
-
-**3. Les _cgroups_ : derniers mécanismes pour un contrôle complet des ressources (CPU, mémoire, I/O)**
-
-- Après, il reste à s'occuper de limiter la capacité à agir sur les ressources matérielles disponibles :
-
-  - usage de la mémoire
-  - du disque
-  - du réseau
-  - des appels système
-  - du processeur (CPU)
-
-
-Alors que les namespaces masquent ce que le processus peut voir, les cgroups restreignent ce que le processus peut consommer.
-- Rôle : Répartition et contrôle du matériel.
-- Fonctionnement : Le noyau applique des barrières physiques strictes sur un groupe de processus.
-- Ressources bridées : Allocation du temps processeur (CPU), quantité maximale de mémoire vive (RAM), bande passante réseau et accès aux disques (I/O). Cela empêche un conteneur de saturer l'hôte (attaque par déni de service).
-
 ---
 
 
