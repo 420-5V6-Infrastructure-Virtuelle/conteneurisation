@@ -64,15 +64,26 @@ On compare souvent les conteneurs aux machines virtuelles. Mais c'est une grosse
 
 ## L'origine du Docker : concept du **conteneur**
 
-Les conteneurs mettent en œuvre des concepts d'isolation des processus d’Unix où "tout est fichier".
+Les conteneurs s’appuient sur une idée fondamentale d’Unix : dans Unix, presque tout est présenté comme un fichier : processus, périphériques, sockets ou mémoire. 
 
-Dans Unix, le principe du “tout est fichier” fait que toutes les ressources du système, les processus, les périphériques, les sockets, la mémoire sont présentés comme des fichiers. 
+Comme toutes les ressources prennent cette forme, le noyau peut choisir exactement quels “fichiers” un processus est autorisé à voir et accéder. 
 
-Comme toutes les ressources du système sont représentées sous forme de fichiers, le noyau peut décider quels fichiers un processus voit. 
+En contrôlant cette visibilité et cette accès, Unix crée des environnements où chaque processus perçoit une version limitée et isolée du système. 
 
-En contrôlant cette visibilité, Unix peut créer des environnements isolés où chaque processus perçoit une version limitée du système.
+Les conteneurs modernes réutilisent ce principe pour offrir à chaque application un espace d’exécution indépendant, isolé, cohérent et reproductible.
 
-Les conteneurs modernes s’appuient sur les mécanismes d’isolation qui fournit à chaque processus une vision réduite, indépendante et reproductible du système.
+Et comme Linux est basé sur Unix, il utilise le même mécanisme.
+
+</br>
+
+Pour t'aider à comprendre, j'ai une analogie qui pourrait t'aider sur le concept de "tout est fichier".
+
+Imagine une bibliothèque.
+
+Tu ne donnes à un étudiant accès qu'à des livres auquels il a le droit de consulter et pour lui, sa vision de la bibliothèque se limite qu'à ces livres.
+Il ne sait pas que d'autres livres sur d'autres sujets existent.
+
+Les conteneurs fonctionnent pareil, le noyau montre au processus seulement une partie du système, et ce processus croit que c’est tout le système, donc le processus dans le conteneur croit qu'il est le système.
 
 ---
 
