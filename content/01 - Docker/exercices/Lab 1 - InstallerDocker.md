@@ -69,3 +69,8 @@ docker ps -a # affiche également les conteneurs arrêtés
 [Lire la page 1 et 2 puis faire l'exercice de la page 3.](https://learn.microsoft.com/fr-fr/training/modules/intro-to-containers/1-introduction)
 
 
+Pour terminer, essayé de rouler l'image utilisée dans Windows, mais cette fois sur linux.
+
+Que ce passe-t-il ? 
+
+Indiquez le résultat dans votre journal.
