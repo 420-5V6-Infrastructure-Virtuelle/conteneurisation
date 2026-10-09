@@ -72,4 +72,8 @@ Pour terminer, essayé de rouler l'image utilisée dans Windows, mais cette fois
 
 Que ce passe-t-il ? 
 
+Pour terminer, essayé de rouler l'image utilisée dans Windows, mais cette fois sur linux.
+
+Que ce passe-t-il ? 
+
 Indiquez le résultat dans votre journal.
