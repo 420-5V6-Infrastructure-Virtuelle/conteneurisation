@@ -191,7 +191,7 @@ Kubernetes peut fonctionner sur des serveurs bare‑metal, mais dans la majorit�
 
 ---
 
-# Docker : positionnement sur le marché
+## Docker : positionnement sur le marché
 
 **Docker** est la technologie ultra-dominante sur le marché de la conteneurisation
 
